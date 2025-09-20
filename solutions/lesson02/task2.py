@@ -1,4 +1,9 @@
 def get_doubled_factorial(num: int) -> int:
     factorial = 1
-    # ваш код
+    if num <= 1:
+        factorial *= 1
+    else:
+        factorial*=num*get_doubled_factorial(num-2)
     return factorial
+for i in range(20):
+    print(i, get_doubled_factorial(i))
