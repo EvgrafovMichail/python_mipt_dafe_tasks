@@ -1,7 +1,4 @@
 def is_palindrome(num: int) -> bool:
-    num_reversed = 0
-    num_origin = num
-    if str(num)==str(num)[::-1]:
-        return True
-    return False
+    num_reversed = str(num)[::-1]
+    num_origin = str(num)
     return num_origin == num_reversed
