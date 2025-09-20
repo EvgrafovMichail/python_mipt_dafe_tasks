@@ -1,3 +1,5 @@
-def get_gcd(num1: int, num2: int) -> int:
-    # ваш код
-    return num1
+def get_gcd(a: int, b: int) -> int:
+    if a == 0: 
+        return b
+    return get_gcd(b % a, a)
+    
