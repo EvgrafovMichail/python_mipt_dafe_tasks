@@ -1,6 +1,7 @@
 def get_factorial(num: int) -> int:
     factorial = 1
     
-    for i 
+    for i in range(3):
+        ...
     
     return factorial
