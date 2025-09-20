@@ -1,5 +1,6 @@
 def is_palindrome(num: int) -> bool:
-    num_reversed = 0
+    if num < 0:
+        return False
+    num_reversed = int(str(num)[::-1])
     num_origin = num
-    # ваш код
     return num_origin == num_reversed
