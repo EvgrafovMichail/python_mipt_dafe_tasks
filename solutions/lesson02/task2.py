@@ -4,4 +4,3 @@ def get_doubled_factorial(num: int) -> int:
         if i>1:
             factorial*=i
     return factorial
-print(get_doubled_factorial(20))
