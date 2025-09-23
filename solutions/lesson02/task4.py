@@ -7,5 +7,5 @@ def get_multiplications_amount(num: int, multiplications_amount = 0) -> int:
         else:
             return get_multiplications_amount(num - 1, multiplications_amount + 1)
         
-print(get_multiplications_amount(10))
+
 

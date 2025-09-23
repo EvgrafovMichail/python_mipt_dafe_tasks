@@ -8,4 +8,3 @@ def get_amount_of_ways_to_climb(stair_amount: int) -> int:
         step_curr = step_sum
     return step_sum
 
-print(get_amount_of_ways_to_climb(3))

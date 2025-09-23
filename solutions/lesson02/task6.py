@@ -11,5 +11,3 @@ def get_sum_of_prime_divisors(num):
             sum_of_divisors += num // n
 
     return sum_of_divisors
-
-print(get_sum_of_prime_divisors(1))
