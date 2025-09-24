@@ -1,5 +1,5 @@
 def get_gcd(num1: int, num2: int) -> int:
-# ваш код
+    # ваш код
 
     if num2 > num1:
 
@@ -15,6 +15,5 @@ def get_gcd(num1: int, num2: int) -> int:
             num1 = num2
             num2 = remainder
         num1 = num2    
-
 
     return num1
