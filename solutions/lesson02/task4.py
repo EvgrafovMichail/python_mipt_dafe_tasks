@@ -3,7 +3,7 @@ def get_multiplications_amount(num: int) -> int:
     
     while num > 1:
         if num % 2 == 0:
-            num /= 2
+            num //= 2
         else:
             num -= 1
         multiplications_amount += 1
