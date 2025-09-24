@@ -1,6 +1,5 @@
 def get_gcd(num1: int, num2: int) -> int:
     # ваш код
-
     if num2 > num1:
 
         while (num2 % num1 != 0):
