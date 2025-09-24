@@ -1,10 +1,8 @@
 def is_palindrome(num: int) -> bool:
     num_reversed = 0
-    
+    num=abs(num)
     num_origin = num
     
-    if num<0:
-        return False
     
     length=1
     
