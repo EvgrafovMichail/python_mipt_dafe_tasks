@@ -11,4 +11,3 @@ def is_palindrome(num: int) -> bool:
             num_reversed=num_reversed*10+num%10 
             num//=10 
     return num_origin==num_reversed
-print(is_palindrome(num))
