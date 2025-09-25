@@ -1,8 +1,8 @@
 def is_palindrome(num: int) -> bool:
     num_reversed = 0
     num_origin = num
-    while num >0: 
-        last = num % 10 
-        num_reversed = num_reversed *10 +  last
-        num //=10 
+    while num > 0:
+        last = num % 10
+        num_reversed = num_reversed * 10 + last
+        num //= 10
     return num_origin == num_reversed
