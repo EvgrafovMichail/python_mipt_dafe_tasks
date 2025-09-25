@@ -1,6 +1,3 @@
-stair_amount = int(input())
-
-
 def get_amount_of_ways_to_climb(stair_amount: int) -> int:
     if stair_amount <= 1:
         return 1
@@ -13,6 +10,3 @@ def get_amount_of_ways_to_climb(stair_amount: int) -> int:
         step_prev = new_step_prev
         step_curr = new_step_curr
     return step_curr
-
-
-print(get_amount_of_ways_to_climb(stair_amount))
