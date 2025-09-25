@@ -7,6 +7,7 @@ def is_prime(num: int) -> int:
                 return False
     return True
 
+
 def get_sum_of_prime_divisors(num: int) -> int:
     sum_of_divisors = 0
 
