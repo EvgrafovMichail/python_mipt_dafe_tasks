@@ -6,5 +6,5 @@ def get_amount_of_ways_to_climb(stair_amount: int) -> int:
         now_cnt = pre_pre_cnt + pre_cnt
         pre_pre_cnt = pre_cnt
         pre_cnt = now_cnt
-    
+
     return now_cnt
