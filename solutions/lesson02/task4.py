@@ -9,4 +9,4 @@ def get_multiplications_amount(num: int) -> int:
             num = num -1
             multiplications_amount +=1     
     return multiplications_amount
-print(get_multiplications_amount(num))
+
