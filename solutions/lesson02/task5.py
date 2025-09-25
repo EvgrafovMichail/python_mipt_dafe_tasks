@@ -13,4 +13,3 @@ def get_gcd(num1: int, num2: int) -> int:
         b=c
     num1 = b #в строке ниже лучше было-бы вместо num1 просто b написать, но я не совсем шарю критично ли это, надо спросить
     return num1 
-print(get_gcd(num1, num2))
