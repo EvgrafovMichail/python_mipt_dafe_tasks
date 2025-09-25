@@ -10,4 +10,3 @@ def get_doubled_factorial(num: int) -> int:
         factorial_of_num *= i
 
     return factorial_of_num
-

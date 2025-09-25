@@ -104,7 +104,7 @@ def test_get_sum_of_prime_divisors(num: int, result_expected: int) -> None:
 @pytest.mark.parametrize(
     "num, result_expected",
     (
-        pytest.param(-10**10, False, id="negative-ten-billion"),
+        pytest.param(-(10**10), False, id="negative-ten-billion"),
         pytest.param(-1, False, id="negative-one"),
         pytest.param(0, True, id="zero"),
         pytest.param(1, True, id="one"),
