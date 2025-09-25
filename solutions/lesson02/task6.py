@@ -1,5 +1,12 @@
 def prime(n):
-    return n > 1 and all(n % d != 0 for d in range(2, int(n ** 0.5) + 1))
+    if n > 1: 
+        for d in range(2, int(n ** 0.5) + 1): 
+            if n % d == 0: 
+                return False
+        return True
+    return False
+
+    
 
 
 def get_sum_of_prime_divisors(num):

@@ -1,11 +1,20 @@
-def get_multiplications_amount(num: int, multiplications_amount = 0) -> int:
+def get_multiplications_amount(num: int) -> int:
+    multiplications_amount = 0
     if num == 1: 
         return multiplications_amount
     else: 
-        if num % 2 == 0: 
-            return get_multiplications_amount(num // 2, multiplications_amount + 1)
-        else:
-            return get_multiplications_amount(num - 1, multiplications_amount + 1)
+        while num > 1: 
+            if num % 2 == 0: 
+                num //= 2
+                multiplications_amount += 1
+            else: 
+                num -= 1
+                multiplications_amount += 1
+        return multiplications_amount
+
+
+    
+
         
 
 
