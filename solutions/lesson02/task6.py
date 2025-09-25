@@ -1,6 +1,3 @@
-num = int(input())
-
-
 def get_sum_of_prime_divisors(num: int) -> int:
     sum_of_divisors = 0
     if num % 2 == 0:
@@ -13,6 +10,3 @@ def get_sum_of_prime_divisors(num: int) -> int:
                 num /= x
         x = x + 2
     return sum_of_divisors
-
-
-print(get_sum_of_prime_divisors(num))
