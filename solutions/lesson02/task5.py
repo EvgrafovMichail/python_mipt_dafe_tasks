@@ -1,7 +1,3 @@
-num1 = int(input())
-num2 = int(input())
-
-
 def get_gcd(num1: int, num2: int) -> int:
     if num1 > num2:
         a = num1
@@ -15,6 +11,3 @@ def get_gcd(num1: int, num2: int) -> int:
         b = c
     num1 = b
     return num1
-
-
-print(get_gcd(num1, num2))
