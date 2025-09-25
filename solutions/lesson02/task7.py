@@ -3,4 +3,3 @@ def is_palindrome(num: int) -> bool:
         return True
     else:
         return False
-print(is_palindrome(13))
