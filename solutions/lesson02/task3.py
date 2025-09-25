@@ -1,4 +1,6 @@
-from .task1 import get_factorial
+from task1 import get_factorial
+
+
 def get_amount_of_ways_to_climb(stair_amount: int) -> int:
     
     counter=0
