@@ -4,4 +4,3 @@ def get_factorial(num: int) -> int:
     for i in range(1, num+1):
         factorial *=i
     return factorial
-print(get_factorial(num))
