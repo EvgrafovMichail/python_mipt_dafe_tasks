@@ -3,7 +3,7 @@ def get_multiplications_amount(deg: int) -> int:
     while deg > 1:
         if deg % 2 == 0:
             multiplications_amount += 1
-            deg = deg//2
+            deg = deg // 2
         else:
             multiplications_amount += 1
             deg -= 1
