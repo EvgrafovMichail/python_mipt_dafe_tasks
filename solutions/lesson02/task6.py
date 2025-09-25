@@ -2,10 +2,13 @@ def get_sum_of_prime_divisors(num: int) -> int:
     sum_of_divisors = 0
     i=2
     a=num
+    if num==1:
+        return 0
     
     while i<=num//2 and a!=1:
         
-        if num%i==0:
+        if a%i==0:
+            print(i)
             sum_of_divisors+=i
             while a%i==0:
                 a//=i
@@ -13,6 +16,7 @@ def get_sum_of_prime_divisors(num: int) -> int:
         i+=1
     
     if a==num:
+        
         sum_of_divisors = num
 
     return sum_of_divisors
