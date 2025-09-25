@@ -1,4 +1,4 @@
-num = int(input())#по факту самое важное, что если число составное, то будет множитель до корня из нам
+num = int(input())
 def get_sum_of_prime_divisors(num: int) -> int:
 
     sum_of_divisors = 0
