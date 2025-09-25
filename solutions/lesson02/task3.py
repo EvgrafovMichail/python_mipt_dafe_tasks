@@ -1,4 +1,10 @@
-from task1 import get_factorial
+def get_factorial(num: int) -> int:
+    factorial_of_num = 1
+
+    for i in range(1, num + 1):
+        factorial_of_num *= i
+
+    return factorial_of_num
 
 
 def get_amount_of_ways_to_climb(stair_amount: int) -> int:
