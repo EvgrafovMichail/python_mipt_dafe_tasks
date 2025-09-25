@@ -9,4 +9,3 @@ def get_doubled_factorial(num: int) -> int:
             factorial *= num
             num = num - 2
     return factorial 
-print(get_doubled_factorial(num))
