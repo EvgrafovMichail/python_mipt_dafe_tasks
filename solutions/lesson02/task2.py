@@ -1,6 +1,5 @@
 def get_doubled_factorial(num: int) -> int:
     
-
     factorial_of_num = 1
 
     if(num%2==0):

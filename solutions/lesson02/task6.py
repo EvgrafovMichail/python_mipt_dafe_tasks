@@ -1,15 +1,26 @@
 
 def get_sum_of_prime_divisors(num: int) -> int:
+    if(num<=1):
+        return 0
+    
+    if(num==2):
+        return 2
+    n=num
+    i=1
     sum_of_divisors=0
-    for i in range(num,1,-1):
+
+    while(n//2+2>=i):       
+        i+=1
         tf=0
-        if(num%i==0):
-            for i2 in range(2,int(i**0.5)+1):
-                if(i%i2==0):
-                    tf=1
-                    break
+        
+        while(n%i==0):
+            tf=1
+            n//=i
 
-            if tf==0:
-                sum_of_divisors=sum_of_divisors+i
-
+        if(tf==1):
+            sum_of_divisors+=i
+    
+    if(n>1):
+        sum_of_divisors+=n
     return sum_of_divisors
+print(get_sum_of_prime_divisors(9999999999))
