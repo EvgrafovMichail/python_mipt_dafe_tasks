@@ -1,18 +1,13 @@
 def get_sum_of_prime_divisors(num: int) -> int:
 
-    nums={0}
+    su=0
+    if num>100: j = int(num**0.5)
+    else: j = num 
 
-    def divider(num):
-        for i in range(2,num+1):
-            if num % i == 0:
-                return i
-        return False
-    if num==1: return 0
-    else:
-        while num != 1:
-            x = divider(num)
-            if x: 
-                nums.add(x)
-                num //= x
-
-        return sum(nums)
+    if num>=2:
+        for i in range(2,j+1):
+            if num%i == 0:
+                su+=i
+                while num % i == 0:
+                    num //= i   
+    return su

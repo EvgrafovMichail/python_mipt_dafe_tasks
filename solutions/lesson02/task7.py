@@ -1,6 +1,13 @@
 def is_palindrome(num: int) -> bool:
-    num=str(num)
+    palindrome = 0
+    numm=num
+    if num<0: num*=(-1)
 
-    for i in range(len(num)//2+1):
-        if num[i] != num[-i-1]: return False
-    return True
+    while num != 0:
+        palindrome = palindrome * 10 + num%10
+        num//=10
+    if numm == palindrome:
+        return True
+    else:
+        return False
+
