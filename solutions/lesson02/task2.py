@@ -1,6 +1,3 @@
-num = int(input())
-
-
 def get_doubled_factorial(num: int) -> int:
     factorial = 1
     if num <= 1:
@@ -10,6 +7,3 @@ def get_doubled_factorial(num: int) -> int:
             factorial *= num
             num = num - 2
     return factorial
-
-
-print(get_doubled_factorial(num))
