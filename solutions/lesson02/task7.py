@@ -1,6 +1,9 @@
 def is_palindrome(num: int) -> bool:
-    s1 = str(num)
+    reversed_num = 0
+    start_num = num
 
-    s2 = "".join(reversed(s1))
+    while num > 0:
+        reversed_num = reversed_num * 10 + num % 10
+        num //= 10
 
-    return s1 == s2
+    return start_num == reversed_num
