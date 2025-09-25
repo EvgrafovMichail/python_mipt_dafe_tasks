@@ -2,7 +2,7 @@ def is_palindrome(num: int) -> bool:
     if num < 0:
         return False
     if num < 10:
-        return True
+        return True  
     
     num_reversed = 0
     num_origin = num
