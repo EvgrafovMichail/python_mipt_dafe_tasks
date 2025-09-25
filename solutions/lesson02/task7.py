@@ -5,6 +5,10 @@ def is_palindrome(num: int) -> bool:
     if num < 0:
         num_reversed = abs(num)
     else:
-        num_origin = list(map(int, str(abs(num))))
-        num_reversed = num_origin[::-1]
+        num_origin = num
+        num_reversed = 0
+        while num > 0:
+            digit = num % 10
+            num_reversed = num_reversed * 10 + digit
+            num //= 10
     return num_origin == num_reversed
