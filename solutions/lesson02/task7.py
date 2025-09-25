@@ -9,12 +9,14 @@ def count(n):
 
 
 def is_palindrome(num: int) -> bool:
-    t = count(num) // 2
+    if num < 0:
+        return False
+    summ = count(num)
+    t = summ // 2
     num2 = 0
-    num1 = num // (10 ** (t))
-
+    num1 = num // (10 ** (t + summ % 2))
     while t > 0:
-        num2 += (num % 10) * 10 ** (t - 1)
+        num2 = num2 * 10 + (num % 10)
         t -= 1
         num //= 10
     return num1 == num2
