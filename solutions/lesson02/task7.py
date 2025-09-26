@@ -13,5 +13,3 @@ def is_palindrome(num: int) -> bool:
     if (num == 0):
         num_reversed = 0
     return num_origin == num_reversed
-
-print(is_palindrome(-1))
