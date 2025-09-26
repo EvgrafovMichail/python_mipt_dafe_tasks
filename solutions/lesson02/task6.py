@@ -3,7 +3,7 @@ def is_prime(num):
         return True
     if num <= 1 or num % 2 == 0:
         return False
-    for i in range(3, int(num**0.5)+1, 2):
+    for i in range(3, int(num**0.5) + 1, 2):
         if num % i == 0:
             return False
     return True
