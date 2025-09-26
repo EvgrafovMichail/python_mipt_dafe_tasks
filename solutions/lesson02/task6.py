@@ -1,13 +1,15 @@
-def find_divs(numb):
-    set_divs = set()
-    for i in range(1, int(numb**0.5)+1):
-        if numb%i==0: 
-            set_divs.add(i)
-            set_divs.add(numb//i)
-    return sorted(set_divs)[1:]
+def is_prime(num):
+    if num == 2 or num == 3: return True
+    if num <= 1 or num % 2 == 0: return False
+    for i in range(3, int(num**0.5)+1, 2):
+        if num % i == 0: return False
+    return True
 
 def get_sum_of_prime_divisors(num: int) -> int:
     sum_of_divisors = 0
-    set_divs = find_divs(num)
-    sum_of_divisors = sum([x for x in set_divs if len(find_divs(x))==1])
+    if num >= 2:
+        for i in range(2, int(num**0.5) + 1):
+            if num % i == 0 and is_prime(i):
+                sum_of_divisors += i
+    if is_prime(num): sum_of_divisors += num
     return sum_of_divisors
