@@ -9,14 +9,15 @@ def count(n):
 
 
 def is_palindrome(num: int) -> bool:
+    num_reversed = 0
+    num_origin = num
     if num < 0:
         return False
     summ = count(num)
     t = summ // 2
-    num2 = 0
-    num1 = num // (10 ** (t + summ % 2))
+    num_origin = num // (10 ** (t + summ % 2))
     while t > 0:
-        num2 = num2 * 10 + (num % 10)
+        num_reversed = num_reversed* 10 + (num % 10)
         t -= 1
         num //= 10
-    return num1 == num2
+    return num_origin == num_reversed
