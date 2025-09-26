@@ -11,15 +11,9 @@ def get_amount_of_ways_to_climb(stair_amount: int) -> int:
         step_curr = 2
     
     else:
-        step_prev = [0]*(stair_amount + 1)
-        
-        step_prev[1] = 1
-
-        step_prev[2] = 2
-
-        for i in range (3, stair_amount + 1):
-            step_prev[i] = step_prev[i - 1] + step_prev[i - 2]
-
-        step_curr = step_prev[stair_amount]   
+         for i in range(2, stair_amount + 1):
+             incremenator = step_prev
+             step_prev = step_curr
+             step_curr = step_curr + incremenator
 
     return step_curr
