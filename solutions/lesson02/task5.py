@@ -13,4 +13,5 @@ def get_gcd(num1: int, num2: int) -> int:
     while balance != 0:
         balance_old = balance
         balance = mn % balance_old
-        if balance == 0: return balance_old
+        if balance == 0: 
+            return balance_old
