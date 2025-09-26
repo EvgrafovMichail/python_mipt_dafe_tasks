@@ -17,7 +17,7 @@ def is_palindrome(num: int) -> bool:
     t = summ // 2
     num_origin = num // (10 ** (t + summ % 2))
     while t > 0:
-        num_reversed = num_reversed* 10 + (num % 10)
+        num_reversed = num_reversed * 10 + (num % 10)
         t -= 1
         num //= 10
     return num_origin == num_reversed
