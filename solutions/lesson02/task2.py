@@ -3,5 +3,5 @@ def get_doubled_factorial(num: int) -> int:
     if num <= 1:
         return 1
     else:
-        return num*get_doubled_factorial(num-2)
+        return num * get_doubled_factorial(num - 2)
     return factorial
