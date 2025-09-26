@@ -1,7 +1,8 @@
-num = 5
-factorial_of_num = 1
-
-for i in range(1, num + 1):
-    factorial_of_num *= i
-
-print(f"{factorial_of_num = }")
+def get_factorial(num: int) -> int:
+    factorial = 1
+    if num == 1:
+        factorial = 1
+    else:
+        for i in range(1, num + 1):
+            factorial *= i
+    return factorial
