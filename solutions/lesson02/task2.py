@@ -1,4 +1,5 @@
-def get_doubled_factorial(num: int) -> int:
+def get_doubled_factorial(n: int) -> int:
     factorial = 1
-    # ваш код
+    for i in range(n, 0, -2):
+        factorial *= i
     return factorial
