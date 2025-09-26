@@ -1,5 +1,4 @@
 def is_palindrome(num: int) -> bool:
-    num = (num < 0) * -num + (num >= 0) * num 
     num_reversed = 0
     num_origin = num
     while (num > 0):
