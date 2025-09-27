@@ -4,7 +4,7 @@ def is_palindrome(num: int) -> bool:
     # ваш код
 
     while num > 0:
-        digit = num % 10 
+        digit = num % 10
         num_reversed = num_reversed * 10 + digit
         num //= 10
 
