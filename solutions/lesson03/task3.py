@@ -9,4 +9,4 @@ def get_nth_digit(num: int) -> int:
         else:
             number_in = 10**i + num // (i + 1) * 2
             num %= i + 1
-            return int(str(number_in)[num])
+            return number_in // (10 ** (i - num)) % 10
