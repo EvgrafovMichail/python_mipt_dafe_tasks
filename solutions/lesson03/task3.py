@@ -12,6 +12,6 @@ def get_nth_digit(num: int) -> int:
             right *= 10
         else:
             ost = (num - summa) % rank
-            chislo = (((left // 2) + (num - summa) // rank) - 1) * 2
+            chislo = (((left // 2) + (num - summa) // rank) - 1 + (1 if ost != 0 else 0)) * 2
             digit = (chislo // 10 ** ((rank - ost) if ost != 0 else 0)) % 10
             return int(digit)
