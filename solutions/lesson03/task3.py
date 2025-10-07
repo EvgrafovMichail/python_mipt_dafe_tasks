@@ -2,7 +2,7 @@ def get_nth_digit(num: int) -> int:
     # ваш код
     k = 1
     while True:
-        first = 10**(k-1) if k>1 else 0
+        first = 10 ** (k - 1) if k > 1 else 0
         count = (10**k - first) // 2
         total = count * k
         if num > total:
