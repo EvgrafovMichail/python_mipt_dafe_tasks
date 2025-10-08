@@ -23,7 +23,3 @@ def get_cube_root(n: float, eps: float) -> float:
         ave = (right + left) / 2
         ave_cube = ave * ave * ave
     return (right + left) / 2
-
-
-# n, eps = float(input()), float(input())
-# print(get_cube_root(n, eps))
