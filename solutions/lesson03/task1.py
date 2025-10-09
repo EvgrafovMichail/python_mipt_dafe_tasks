@@ -12,7 +12,7 @@ def do_dec(num: int) -> int:
     new_num = 0
     p = 0
     while num > 0:
-        new_num += num % 10  * 2 ** p
+        new_num += num % 10 * 2 ** p
         p += 1
         num //= 10
     return new_num
