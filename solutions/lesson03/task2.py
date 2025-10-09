@@ -1,3 +1,22 @@
 def get_cube_root(n: float, eps: float) -> float:
-    # ваш код
-    return n
+    left = 0
+    sec = 0 
+    ans = 0 
+    min = 0
+    if n < 0:
+        n = -n
+        min = 1
+    right = n
+    while 1:
+        sec = (right + left) / 2
+        if sec * sec * sec > n:
+            right = sec
+        else:
+            left = sec  
+            right = sec * 2
+        ans = right * right * right 
+        if abs(ans-n)<eps:
+            if min == 1 : right = -right 
+            return right
+
+print(get_cube_root(27, 1e-10))
