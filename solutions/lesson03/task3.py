@@ -1,3 +1,3 @@
 def get_nth_digit(num: int) -> int:
-    # ваш код
-    return 0
+    
+    return int(str((num-1)*2)[0])
