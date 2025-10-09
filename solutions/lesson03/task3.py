@@ -1,3 +1,5 @@
 def get_nth_digit(num: int) -> int:
-    # ваш код
-    return 0
+    n = 2*(num-1)
+    while n > 10:
+        n //= 10
+    return n
