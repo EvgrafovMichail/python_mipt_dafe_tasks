@@ -19,4 +19,3 @@ def get_nth_digit(num: int) -> int:
     ans = (number // (10 ** (length - left - 1))) % 10
 
     return ans
-    
