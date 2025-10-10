@@ -18,5 +18,5 @@ def get_sum_of_prime_divisors(num: int) -> int:
             # if is_prime(num // i):
             #     sum_of_divisors += num // i
     if cnt == 1:
-        sum_of_divisors += num // sum_of_divisors 
+        sum_of_divisors += num // sum_of_divisors
     return sum_of_divisors
