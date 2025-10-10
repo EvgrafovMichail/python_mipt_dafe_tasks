@@ -1,5 +1,6 @@
 def get_multiplications_amount(num: int) -> int:
-    #multiplications_amount = 0     - не нужен в данном варианте программы (используется в варианте с while)
+    #multiplications_amount = 0 - не нужен в данном варианте программы
+    #(используется в варианте с while)
     
     if num == 1:
         return 0
