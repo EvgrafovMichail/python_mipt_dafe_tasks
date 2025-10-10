@@ -7,8 +7,8 @@ def get_nth_digit(num: int) -> int:
         if num > box:
             num -= box
             length += 1
-            first = 10(length - 1)
-            count = (9 * 10(length - 1)) // 2
+            first = 10 ** (length - 1)
+            count = (9 * 10 ** (length - 1)) // 2
 
         else:
             break
@@ -19,3 +19,4 @@ def get_nth_digit(num: int) -> int:
     ans = (number // (10 ** (length - left - 1))) % 10
 
     return ans
+    
