@@ -11,9 +11,9 @@ def get_cube_root(n: float, eps: float) -> float:
         minus = -1
     n = int(abs(n))
 
-    a = int(2*(1/eps))
+    a = int(2 * (1 / eps))
 
-    sk = n * a 
+    sk = n * a
 
     for i in range(0, sk + 1):
         if i * i * i >= n * a * a * a:
