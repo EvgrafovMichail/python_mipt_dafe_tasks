@@ -3,28 +3,28 @@ def get_cube_root(n: float, eps: float) -> float:
         return 0
 
     if n > 0:
-        l = 0
+        low = 0.0
         if n >= 1:
-            h = n
+            high = n
         else:
-            h = 1
+            high = 1
     else:
-        h = 0
+        high = 0
         if n <= -1:
-            l = n
+            low = n
         else:
-            l = -1
+            low = -1
 
     for i in range(2000):
-        mid = (l + h) / 2
+        mid = (low + high) / 2
         mid_3 = mid * mid * mid
 
         if abs(mid_3 - n) <= eps:
             return mid
 
         if mid_3 < n:
-            l = mid
+            low = mid
         else:
-            h = mid
+            high = mid
 
-    return (l + h) / 2
+    return (low + high) / 2
