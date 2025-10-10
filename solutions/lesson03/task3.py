@@ -20,7 +20,3 @@ def get_nth_digit(num: int) -> int:
     pos = len - 1 - dig_ind
     digit = (numb // (10**pos)) % 10
     return digit
-
-
-# n = int(input())
-# print(get_nth_digit(n))
