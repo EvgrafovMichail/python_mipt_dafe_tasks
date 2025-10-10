@@ -1,5 +1,6 @@
 def get_nth_digit(num: int) -> int:
-    if num == 1: return 0
+    if num == 1:
+        return 0
     current_num = 2
     current_length = 1
     while True:

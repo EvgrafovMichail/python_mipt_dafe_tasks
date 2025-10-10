@@ -1,5 +1,6 @@
 def get_cube_root(n: float, eps: float) -> float:
-    if n == 0: return 0
+    if n == 0:
+        return 0
     sign = 1 if n >= 0 else -1
     result = 0
     a = 0
