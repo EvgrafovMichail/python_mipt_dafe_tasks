@@ -1,14 +1,14 @@
 def get_nth_digit(num: int) -> int:
     left = 1
     right = 5
-    if (left <= num and num <= right):
+    if left <= num and num <= right:
         return 2 * (num - 1)
-    
+
     left = right + 1
     right = 95
     digits = 2
     cnt = 45
-    while (num > right):
+    while num > right:
         left = right + 1
         cnt *= 10
         digits += 1
