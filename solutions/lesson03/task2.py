@@ -6,7 +6,7 @@ def get_cube_root(n: float, eps: float) -> float:
         if n == 0:
             return 0
         a, b = 0, n / abs(n)
-    while abs(x * x * x - n) > eps / 10:
+    while abs(x * x * x - n) >= eps:
         x = (b + a) / 2
         if abs(x * x * x) >= abs(n):
             b = x
