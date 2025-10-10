@@ -12,4 +12,4 @@ def get_cube_root(n: float, eps: float) -> float:
         elif root**3 < n:
             root = root * 1.5
 
-    return root * sign
+    return root * sign   #Макаров Матвей 514
