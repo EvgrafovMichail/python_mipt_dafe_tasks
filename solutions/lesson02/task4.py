@@ -11,3 +11,7 @@ def get_multiplications_amount(num: int) -> int:
     if num == 1:
         multiplications_amount = 0
     return multiplications_amount
+ 
+num = int(input())
+
+print(get_multiplications_amount(num))
