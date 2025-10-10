@@ -1,4 +1,3 @@
-
 def mod(a: float):
     if a < 0:
         return -a
