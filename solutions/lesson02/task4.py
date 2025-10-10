@@ -10,7 +10,7 @@ def get_multiplications_amount(num: int) -> int:
     if num % 2 == 1:
         return 1 + get_multiplications_amount(num - 1)
     
-    #return multiplications_amount   - не используем, т.к. не используется прерменная multiplications_amount
+    #return multiplications_amount - не используем, т.к. не используется прерменная multiplications_amount
 
 #print(get_multiplications_amount(int(input("num = "))))
 
