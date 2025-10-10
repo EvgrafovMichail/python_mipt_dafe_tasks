@@ -20,7 +20,3 @@ def get_sum_of_prime_divisors(num: int) -> int:
     if is_prime(num):
         sum_of_divisors += num
     return sum_of_divisors
-
-
-n = int(input())
-print(get_sum_of_prime_divisors(n))
