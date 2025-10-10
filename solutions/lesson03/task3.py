@@ -13,8 +13,6 @@ def get_nth_digit(num: int) -> int:
         first_number = 10 ** (length - 1)
     number = first_number + 2 * number_index
     b = 1
-    while number >= 10 ** b:
+    while number >= 10**b:
         b += 1
     return number % 10 ** (b - digit_index) // 10 ** (b - digit_index - 1)
-
-
