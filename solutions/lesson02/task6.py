@@ -20,4 +20,3 @@ def get_sum_of_prime_divisors(num: int) -> int:
             if simple_divis(i):
                 sum_of_divisors += i
     return sum_of_divisors
-
