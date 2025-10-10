@@ -1,8 +1,13 @@
 def get_cube_root(n: float, eps: float) -> float:
     x = n / 2
+    if n >= 0:
+        min_x, max_x = 0, n
+    else:
+        min_x, max_x = n, 0
     while abs(x * x * x - n) >= eps:
+        x = (min_x + max_x) / 2
         if abs(x * x * x) > abs(n):
-            x /= 2
+            max_x = x
         else:
-            x = x * 3 / 2
+            min_x = x
     return x
