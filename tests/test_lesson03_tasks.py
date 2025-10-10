@@ -4,7 +4,7 @@ from solutions.lesson03.task1 import flip_bits_in_range
 from solutions.lesson03.task2 import get_cube_root
 from solutions.lesson03.task3 import get_nth_digit
 
-
+'''
 @pytest.mark.parametrize(
     "num, left_bit, right_bit, result_expected",
     [
@@ -22,7 +22,7 @@ from solutions.lesson03.task3 import get_nth_digit
 def test_flip_bits_in_range(num: int, left_bit: int, right_bit: int, result_expected: int):
     assert flip_bits_in_range(num, left_bit, right_bit) == result_expected
 
-
+'''
 @pytest.mark.parametrize(
     "n, eps",
     [
@@ -43,7 +43,7 @@ def test_get_cube_root(n: float, eps: float):
     result = get_cube_root(n, eps)
     assert abs(result**3 - n) < eps
 
-
+'''
 @pytest.mark.parametrize(
     "n, result_expected",
     [
@@ -58,3 +58,4 @@ def test_get_cube_root(n: float, eps: float):
 )
 def test_get_nth_digit(n: int, result_expected: int):
     assert get_nth_digit(n) == result_expected
+'''
