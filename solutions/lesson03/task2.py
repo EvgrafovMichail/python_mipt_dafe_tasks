@@ -5,7 +5,7 @@ def get_cube_root(n: float, eps: float) -> float:
             right = n
         else:
             left = 0
-            right = 1s
+            right = 1
         middle = (right + left) / 2
         while abs(middle**3 - n) > eps:
             if middle**3 == n:
