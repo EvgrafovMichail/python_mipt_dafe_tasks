@@ -1,5 +1,5 @@
 def flip_bits_in_range(n: int, left: int, right: int) -> int:
-    if n == 0: 
+    if n == 0:
         return (2 ** (right - left + 1) - 1) << (left - 1)
     bn = 0
     pos = 1
