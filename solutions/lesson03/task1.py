@@ -14,4 +14,5 @@ def flip_bits_in_range(num: int, left_bit: int, right_bit: int) -> int:
 
     maskfin = mask1 | maskprom
     num ^= maskfin
+    
     return num

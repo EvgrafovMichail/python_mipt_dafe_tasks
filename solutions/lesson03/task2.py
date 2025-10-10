@@ -10,15 +10,13 @@ def get_cube_root(n: float, eps: float) -> float:
     else:
         low = min(-1, n)
         high = 0
-
-    while high - low > eps * eps * eps:
-        middle = (high + low) / 2
-        cube = middle * middle * middle
-        if cube > n:
+    middle = (low + high) / 2
+    while abs(n - middle**3) > eps:
+        if middle**3 >= n:
             high = middle
-        elif cube < n:
+        else:
             low = middle
-        elif cube == n:
-            return middle
+        middle = (low + high) / 2
 
     return middle
+
