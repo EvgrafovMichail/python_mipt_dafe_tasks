@@ -1,4 +1,5 @@
 def get_doubled_factorial(num: int) -> int:
-    if num <= 1:
-        return 1
-    return num * get_doubled_factorial(num - 2)
+    result = 1
+    for i in range(num, 0, -2):
+        result *= i
+    return result
