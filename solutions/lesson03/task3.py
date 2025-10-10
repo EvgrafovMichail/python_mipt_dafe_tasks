@@ -27,3 +27,4 @@ def get_nth_digit(num: int) -> int:
     resalt = (number // (10 ** (razryadnost - position - 1))) % 10
     
     return resalt
+#print(get_nth_digit(int(input("num = "))))
