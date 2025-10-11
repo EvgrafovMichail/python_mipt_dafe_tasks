@@ -19,4 +19,4 @@ def get_gcd(num1: int, num2: int) -> int:
     return nod
 
 
-print(get_gcd(int(input("num1 = ")), int(input("num2 = "))))
+#print(get_gcd(int(input("num1 = ")), int(input("num2 = "))))
