@@ -10,6 +10,7 @@ from solutions import (
     count_cycles,
 )
 
+
 @pytest.mark.parametrize(
     "lst, expected",
     [
