@@ -18,7 +18,7 @@ def get_cube_root(n: float, eps: float) -> float:
             right = 0.0
 
     # Бинарный поиск
-    while right - left > eps:
+    while abs(right - left) > eps:
         mid = (left + right) / 2
         mid_3 = mid * mid * mid
 
