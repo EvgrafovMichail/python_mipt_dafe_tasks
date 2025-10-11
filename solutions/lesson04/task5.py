@@ -14,6 +14,6 @@ def find_row_with_most_ones(matrix: list[list[int]]) -> int:
                     nj = j
                     flag = True
                     break
-            if flag == False:
+            if not flag:
                 return j
     return nj
