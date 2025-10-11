@@ -8,4 +8,6 @@ def get_multiplications_amount(num: int) -> int:
             multiplications_amount += 1
             num //= 2
     return multiplications_amount
+
+
 print(get_multiplications_amount(133))

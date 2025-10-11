@@ -8,7 +8,7 @@ def find_row_with_most_ones(matrix: list[list[int]]) -> int:
     for j in range(n):
         if matrix[j][i] == 1:
             flag = False
-            for ii in range(i, -m-1, -1):
+            for ii in range(i, -m - 1, -1):
                 if matrix[j][ii] == 0:
                     i = ii
                     nj = j
