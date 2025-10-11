@@ -15,4 +15,5 @@ def get_sum_of_prime_divisors(num: int) -> int:
 
     return sum_of_divisors
 
+
 print(get_sum_of_prime_divisors(int(input("num = "))))

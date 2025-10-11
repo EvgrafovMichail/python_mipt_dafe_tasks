@@ -6,4 +6,6 @@ def get_amount_of_ways_to_climb(stair_amount: int) -> int:
         step_curr = var
 
     return step_curr
-#print(get_amount_of_ways_to_climb(int(input("stair_amount = "))))
+
+
+# print(get_amount_of_ways_to_climb(int(input("stair_amount = "))))
