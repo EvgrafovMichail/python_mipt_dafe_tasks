@@ -2,7 +2,7 @@ def get_nth_digit(num: int) -> int:
     if num <= 5:
         return (num - 1) * 2
     num -= 5
-    rank = 2 
+    rank = 2
     left = 10
     right = 100
     total_digits_so_far = 0
@@ -21,9 +21,8 @@ def get_nth_digit(num: int) -> int:
             number_index = pos_in_rank // rank
             digit_pos = pos_in_rank % rank
             number = left + number_index * 2
-            
+
             for _ in range(rank - digit_pos - 1):
                 number //= 10
             return number % 10
     return 0
-

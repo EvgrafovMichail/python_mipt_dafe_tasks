@@ -1,5 +1,5 @@
 def move_zeros_to_end(nums: list[int]) -> list[int]:
-    if not nums:    
+    if not nums:
         return 0
     index = 0
     for i in range(len(nums)):
