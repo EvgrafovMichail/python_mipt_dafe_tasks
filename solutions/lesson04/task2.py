@@ -2,7 +2,7 @@ def merge_intervals(intervals: list[list[int, int]]) -> list[list[int, int]]:
     if not intervals:
         return []
 
-    intervals.sort()
+    intervals.sort() 
     
     res = []
     i_interval = intervals[0]
