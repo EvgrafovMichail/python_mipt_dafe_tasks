@@ -1,17 +1,15 @@
 def find_row_with_most_ones(matrix: list[list[int]]) -> int:
-    ind, mi = 0, float("inf")
-    i = 0
-    for elem in matrix:
-        j = 0
-        for num in elem:
-            if num:
-                if j < mi:
-                    mi = j
-                    ind = i
-                break
-            j += 1
-        i += 1
-    return ind
+    n, m = len(matrix), len(matrix[0])
+    row = 0
+    col = m - 1
+    ans = 0
+    while row < n and col > -1:
+        if matrix[row][col] == 1:
+            ans = row
+            col -= 1
+        else:
+            row += 1
+    return ans
 
 
 if __name__ == "__main__":
