@@ -23,6 +23,3 @@ def flip_bits_in_range(num: int, left_bit: int, right_bit: int) -> int:
         counter += 1
 
     return result
-
-
-print(flip_bits_in_range(11, 1, 1))
