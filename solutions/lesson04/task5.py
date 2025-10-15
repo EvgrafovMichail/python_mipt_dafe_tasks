@@ -1,5 +1,7 @@
 def find_row_with_most_ones(matrix: list[list[int]]) -> int:
-    n, m = len(matrix), len(matrix[0])
+    if (n := len(matrix)) == 0:
+        return 0
+    m = len(matrix[0])
     row = 0
     col = m - 1
     ans = 0
@@ -14,4 +16,4 @@ def find_row_with_most_ones(matrix: list[list[int]]) -> int:
 
 if __name__ == "__main__":
     print(find_row_with_most_ones([[0, 0, 1, 1], [0, 1, 1, 1], [1, 1, 1, 1], [0, 0, 0, 1]]))
-    print(find_row_with_most_ones([[0, 0, 0], [0, 0, 0], [0, 0, 0]]))
+    print(find_row_with_most_ones([]))
