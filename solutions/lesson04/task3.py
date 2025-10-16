@@ -1,3 +1,6 @@
 def find_single_number(nums: list[int]) -> int:
-    # ваш код
-    return 0
+    imposter = 0
+    for i in range(len(nums)):
+        if nums.count(nums[i]) != 2:
+            imposter = nums[i]
+    return imposter
