@@ -4,12 +4,11 @@ def merge_intervals(intervals: list[list[int, int]]) -> list[list[int, int]]:
         return []
     intervals.sort(key=lambda p: p[0])
     merged = []
-    cur_l, cur_r = intervals[0]
-    for l, r in intervals[1:]:
-        if l < cur_r + 1:
-            cur_r = max(cur_r, r)
+    cur_left, cur_right = intervals[0]
+    for left, right in intervals[1:]:
+        if left <= cur_right + 1:
+            cur_right = max(cur_right, right)
         else:
-            merged.append([cur_l, cur_r])
-            cur_l, cur_r = l, r
-    merged.append([cur_l, cur_r])
-    return merged
+            merged.append((cur_left, cur_right))
+            cur_left, cur_right = left, right
+    merged.append((cur_left, cur_right))
