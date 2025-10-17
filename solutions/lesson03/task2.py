@@ -15,3 +15,4 @@ def get_cube_root(y: float, eps: float) -> float:
 
 
 
+print(get_cube_root(int(input()), 0.0001))
