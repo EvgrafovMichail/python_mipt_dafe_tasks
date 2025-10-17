@@ -63,6 +63,7 @@ def test_find_single_number(nums, expected):
     pytest.param([], [], 0, id="empty"),
     pytest.param([0], [0], 0, id="single_zero"),
     pytest.param([42], [42], 1, id="single_nonzero"),
+    pytest.param([42], [42], 1, id="single_nonzero"),
 ])
 def test_move_zeros_to_end_parametrized(input_list, expected_list, expected_index):
     arr = input_list[:]
