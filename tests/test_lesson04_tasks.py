@@ -1,7 +1,6 @@
 import pytest
 import random
 
-# from solutions import is_arithmetic_progression, merge_intervals, find_single_number, move_zeros_to_end, find_row_with_most_ones, count_cycles
 from solutions.lesson04.task1 import is_arithmetic_progression
 from solutions.lesson04.task2 import merge_intervals
 from solutions.lesson04.task3 import find_single_number
