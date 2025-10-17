@@ -1,19 +1,26 @@
+
 def get_sum_of_prime_divisors(num: int) -> int:
-    sum_of_divisors = 0
-
-    if num == 1:
+    
+    if num <= 1:
         return 0
+    
+    original_num = num
+    total_sum = 0
+    
+    if num % 2 == 0:
+        total_sum += 2
+        while num % 2 == 0:
+            num //= 2
 
-    for delit in range(2, num + 1):
-        if num % delit == 0:
-            sum_of_divisors += delit
-            while num % delit == 0:
-                num //= delit
-
-    if sum_of_divisors == 0:
-        return num
-
-    return sum_of_divisors
-
-
-# print(get_sum_of_prime_divisors(int(input("num = "))))
+    divisor = 3
+    while divisor * divisor <= num:
+        if num % divisor == 0:
+            total_sum += divisor
+            while num % divisor == 0:
+                num //= divisor
+        divisor += 2
+    
+    if num > 1:
+        total_sum += num
+    
+    return total_sum
