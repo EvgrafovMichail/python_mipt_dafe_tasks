@@ -26,10 +26,10 @@ def merge_intervals(intervals: list[list[int, int]]) -> list[list[int, int]]:
     out_list = []
     is_started = False
     for i in range(len(list_of_cnt_restr_in_points)):
-        if (list_of_cnt_restr_in_points[i] == True) and not is_started:
+        if list_of_cnt_restr_in_points[i] and not is_started:
             start_ind = int((i + 1) / 2 + 0.5)
             is_started = True
-        elif (list_of_cnt_restr_in_points[i] == False) and is_started:
+        elif not list_of_cnt_restr_in_points[i] and is_started:
             end_ind = int(i / 2 + 0.5)
             if min_left != 0:
                 out_list.append([start_ind, end_ind])
