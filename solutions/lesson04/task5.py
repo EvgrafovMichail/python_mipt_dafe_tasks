@@ -14,6 +14,3 @@ def find_row_with_most_ones(matrix: list[list[int]]) -> int:
         else:
             i += 1
     return num
-
-
-print(find_row_with_most_ones([[0, 0, 1, 1], [0, 1, 1, 1], [0, 0, 0, 1], [1, 1, 1, 1], [0, 1, 1, 1]]))
