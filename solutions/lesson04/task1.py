@@ -6,6 +6,6 @@ def is_arithmetic_progression(lst: list[list[int]]) -> bool:
         return True
     step = lst[1] - lst[0]
     for i in range(len(lst) - 1):
-        if lst[i+1] - lst[i] != step:
+        if lst[i + 1] - lst[i] != step:
             return False
     return True

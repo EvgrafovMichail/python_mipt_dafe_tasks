@@ -3,7 +3,7 @@ def count_cycles(arr: list[int]) -> int:
     proc = 0
     n = 0
     pos = []
-    for i in range(len(arr)+1):
+    for i in range(len(arr) + 1):
         if pos.count(i) == 0:
             checkpoint = arr[i]
             proc = arr[checkpoint]
