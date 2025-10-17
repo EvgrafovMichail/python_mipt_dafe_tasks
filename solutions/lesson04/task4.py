@@ -7,4 +7,6 @@ def move_zeros_to_end(nums: list[int]) -> list[int]:
     for k in range(c):
         nums.append(0)
 
-    return len(nums) - c
+    for i in range(len(nums)):
+        if nums[i] == 0:
+            return i
