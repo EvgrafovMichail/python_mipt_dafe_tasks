@@ -1,5 +1,5 @@
 def move_zeros_to_end(nums: list[int]) -> int:
-    write = 0  
+    write = 0
     for read in range(len(nums)):
         if nums[read] != 0:
             nums[write] = nums[read]

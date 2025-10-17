@@ -1,5 +1,5 @@
-def count_cycles(arr: list[int]) -> int: 
-    if len(arr)==0:
+def count_cycles(arr: list[int]) -> int:
+    if len(arr) == 0:
         return 0
     visited = []
     for i in range(len(arr)):

@@ -1,6 +1,6 @@
 def is_arithmetic_progression(lst: list[int]) -> bool:
     if len(lst) <= 2:
-        return True 
+        return True
     lst.sort()
     diff = lst[1] - lst[0]
     for i in range(2, len(lst)):

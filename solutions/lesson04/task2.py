@@ -5,7 +5,7 @@ def merge_intervals(intervals: list[list[int]]) -> list[list[int]]:
     merged = [intervals[0]]
     for start, end in intervals[1:]:
         last_end = merged[-1][1]
-        if start <= last_end:  
+        if start <= last_end:
             merged[-1][1] = max(last_end, end)
         else:
             merged.append([start, end])
