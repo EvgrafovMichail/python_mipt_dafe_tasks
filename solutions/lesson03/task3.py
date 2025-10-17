@@ -1,27 +1,22 @@
 def get_nth_digit(num: int) -> int:
-    t = 0
-    s = 1
-    if num == 1:
-        return 0
+    length, first, count = 1, 0, 5
 
     while True:
-        t += 2
-        T = t
-        sT = 0
+        box = count * length
 
-        while T > 0:
-            T = T // 10
-            sT += 1
+        if num > box:
+            num -= box
+            length += 1
+            first = 10 ** (length - 1)
+            count = (9 * 10 ** (length - 1)) // 2
 
-        s += sT
-
-        if s >= num:
-            r = sT
+        else:
             break
 
-    a = t // (10 ** (s - num))
-    print(t, r, num, s)
-    return a % 10
+    i = (num - 1) // length
+    number = first + (i * 2)
+    left = (num - 1) % length
+    ans = (number // (10 ** (length - left - 1))) % 10
 
+    return ans
 
-print(get_nth_digit(5))
