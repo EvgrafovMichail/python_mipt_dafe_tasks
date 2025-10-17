@@ -1,5 +1,5 @@
 def find_single_number(nums: list[int]) -> int:
     ans = nums[0]
     for i in range(1, len(nums)):
-        ans = (ans ^ nums[i])
+        ans = ans ^ nums[i]
     return ans

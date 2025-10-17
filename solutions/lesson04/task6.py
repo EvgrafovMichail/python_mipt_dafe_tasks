@@ -1,4 +1,4 @@
-def count_cycles(arr: list[int]) -> int: 
+def count_cycles(arr: list[int]) -> int:
     n = len(arr)
     cicle_nums = 0
     ans = 0
@@ -8,7 +8,7 @@ def count_cycles(arr: list[int]) -> int:
             begin = i
             cicle_nums += 1 << i
             head = arr[i]
-            while (head != begin):
+            while head != begin:
                 cicle_nums += 1 << head
                 head = arr[head]
 
