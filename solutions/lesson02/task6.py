@@ -2,7 +2,6 @@ def get_sum_of_prime_divisors(num: int) -> int:
     if num <= 1:
         return 0
 
-    original_num = num
     total_sum = 0
 
     if num % 2 == 0:
