@@ -1,7 +1,7 @@
 def find_single_number(nums: list[int]) -> int:
     x = 0
     for i in nums:
-        x  ^= i
+        x ^= i
     return x
 
 

@@ -1,7 +1,7 @@
 def merge_intervals(intervals: list[list[int, int]]) -> list[list[int, int]]:
     if not intervals:
         return []
-    
+
     n = len(intervals)
     for a in range(n - 1):
         for b in range(a + 1, n):

@@ -1,5 +1,5 @@
-def count_cycles(arr: list[int]) -> int: 
-    n, masiv, cnt = len(arr), [0]*len(arr), 0
+def count_cycles(arr: list[int]) -> int:
+    n, masiv, cnt = len(arr), [0] * len(arr), 0
     i = 0
     while i < n:
         if not masiv[i]:
