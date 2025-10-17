@@ -12,4 +12,6 @@ def get_cube_root(n: float, eps: float) -> float:
         else:
             right = mid
     return mid
+
+
 print(get_cube_root(-0.999, 1e-5))

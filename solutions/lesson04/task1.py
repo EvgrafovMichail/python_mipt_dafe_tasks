@@ -1,15 +1,15 @@
 def is_arithmetic_progression(lis: list[list[int]]) -> bool:
-    if len(lis) < 3: 
+    if len(lis) < 3:
         return True
-    
+
     shag = (max(lis) - min(lis)) / (len(lis) - 1)
 
     if shag == 0:
         return True
-    
-    if int(shag) != shag: 
+
+    if int(shag) != shag:
         return False
-    
+
     else:
         shag = int(shag)
 
@@ -17,7 +17,7 @@ def is_arithmetic_progression(lis: list[list[int]]) -> bool:
     fl = True
 
     for x in lis:
-        if x not in newl: 
+        if x not in newl:
             fl = False
 
     return fl
