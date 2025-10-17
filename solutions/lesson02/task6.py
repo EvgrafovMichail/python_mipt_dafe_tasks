@@ -11,10 +11,14 @@ def get_sum_of_prime_divisors(num: int) -> int:
     sum_of_divisors = 0
     if prime_or_not(num):
         return num
-    for i in range(2, int(num**0.5) + 1):
+    a = 1
+    for i in range(2, int(num**0.5)):
         if num % i == 0:
+            a *= i
             if prime_or_not(i):
                 sum_of_divisors += i
-            if prime_or_not(num // i) and num % (num // i) == 0:
-                sum_of_divisors += num // i
+    for k in range(a, num + 1):
+        if num % k == 0:
+            if prime_or_not(num // k):
+                sum_of_divisors += k
     return sum_of_divisors
