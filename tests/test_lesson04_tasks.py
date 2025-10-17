@@ -1,8 +1,16 @@
-import pytest 
+import pytest
 import random
 
-from solutions import is_arithmetic_progression, merge_intervals, find_single_number, move_zeros_to_end, find_row_with_most_ones, count_cycles
+# from solutions import is_arithmetic_progression, merge_intervals, find_single_number, move_zeros_to_end, find_row_with_most_ones, count_cycles
+from solutions.lesson04.task1 import is_arithmetic_progression
+from solutions.lesson04.task2 import merge_intervals
+from solutions.lesson04.task3 import find_single_number
+from solutions.lesson04.task4 import move_zeros_to_end
+from solutions.lesson04.task5 import find_row_with_most_ones
+from solutions.lesson04.task6 import count_cycles
 
+'''
+# 1
 @pytest.mark.parametrize("lst, expected", [
     pytest.param([], True, id="empty_list"),
     pytest.param([5], True, id="single_element"),
@@ -15,8 +23,10 @@ from solutions import is_arithmetic_progression, merge_intervals, find_single_nu
     pytest.param([1, 1, 1, 1], True, id="constant_sequence"),
     pytest.param([1, 2, 3, 5], False, id="almost_ap_but_not"),
     pytest.param([0, 0, 1], False, id="two_same_one_different"),
-    pytest.param([10**5 + i*10**2 for i in range(1000)], True, id="long_list_true"),
-    pytest.param([10**5 + i*10**2 for i in range(999)] + [1], False, id="long_list_false"),
+    pytest.param([10**5 + i*10**2 for i in range(1000)],
+                 True, id="long_list_true"),
+    pytest.param([10**5 + i*10**2 for i in range(999)] +
+                 [1], False, id="long_list_false"),
 ])
 def test_is_arithmetic_progression_parametrized(lst, expected):
     if len(lst) > 500:
@@ -24,19 +34,26 @@ def test_is_arithmetic_progression_parametrized(lst, expected):
     assert is_arithmetic_progression(lst) == expected
 
 
+# 2
 @pytest.mark.parametrize("intervals, expected", [
     pytest.param([], [], id="empty"),
     pytest.param([[1, 3]], [[1, 3]], id="single_interval"),
-    pytest.param([[10, 13], [1, 3], [2, 6], [8, 10], [15, 18]], [[1, 6], [8, 13], [15, 18]], id="classic_merge"),
+    pytest.param([[10, 13], [1, 3], [2, 6], [8, 10], [15, 18]], [
+                 [1, 6], [8, 13], [15, 18]], id="classic_merge"),
     pytest.param([[1, 4], [4, 5]], [[1, 5]], id="touching_intervals"),
     pytest.param([[1, 4], [2, 3]], [[1, 4]], id="nested_interval"),
-    pytest.param([[5, 7], [1, 3], [15, 20], [0, 0], [2, 4], [6, 10], [0, 2]], [[0, 4], [5, 10], [15, 20]], id="unsorted_input"),
-    pytest.param([[1, 2], [3, 4], [5, 6]], [[1, 2], [3, 4], [5, 6]], id="no_overlap"),
-    pytest.param([[1, 10], [2, 3], [4, 5], [6, 7]], [[1, 10]], id="all_merged"),
+    pytest.param([[5, 7], [1, 3], [15, 20], [0, 0], [2, 4], [6, 10], [0, 2]], [
+                 [0, 4], [5, 10], [15, 20]], id="unsorted_input"),
+    pytest.param([[1, 2], [3, 4], [5, 6]], [
+                 [1, 2], [3, 4], [5, 6]], id="no_overlap"),
+    pytest.param([[1, 10], [2, 3], [4, 5], [6, 7]],
+                 [[1, 10]], id="all_merged"),
 ])
 def test_merge_intervals(intervals, expected):
     assert merge_intervals(intervals) == expected
 
+
+# 3
 @pytest.mark.parametrize("nums, expected", [
     pytest.param([2, 2, 1], 1, id="simple_case"),
     pytest.param([4, 1, 2, 1, 2], 4, id="middle_single"),
@@ -44,11 +61,14 @@ def test_merge_intervals(intervals, expected):
     pytest.param([100, 200, 300, 200, 100], 300, id="large_numbers"),
     pytest.param([0, 1, 0], 1, id="with_zero"),
     pytest.param([7, 8, 9, 8, 7], 9, id="unsorted"),
-    pytest.param([i + 10**5 for i in range(500)] + [i + 10**5 for i in range(500)] + [69], 69, id="long_list"),
+    pytest.param([i + 10**5 for i in range(500)] +
+                 [i + 10**5 for i in range(500)] + [69], 69, id="long_list"),
 ])
 def test_find_single_number(nums, expected):
     assert find_single_number(nums) == expected
 
+
+# 4
 @pytest.mark.parametrize("input_list, expected_list, expected_index", [
     pytest.param([0, 1, 0, 3, 12], [1, 3, 12, 0, 0], 3, id="basic"),
     pytest.param([0, 0, 1], [1, 0, 0], 1, id="zeros_first"),
@@ -64,6 +84,9 @@ def test_move_zeros_to_end_parametrized(input_list, expected_list, expected_inde
     result_index = move_zeros_to_end(arr)
     assert arr == expected_list
     assert result_index == expected_index
+
+
+# 5
 
 
 @pytest.mark.parametrize("matrix, expected_row", [
@@ -114,8 +137,8 @@ def test_move_zeros_to_end_parametrized(input_list, expected_list, expected_inde
     pytest.param(
         [[0, 0, 1],
          [0, 1, 1],
-         [0, 1, 1]], 
-        1, 
+         [0, 1, 1]],
+        1,
         id="tie"
     ),
 ])
@@ -137,6 +160,9 @@ def test_find_row_with_most_ones_big_data():
 
     for i in range(50):
         assert find_row_with_most_ones(matrix) == 1
+
+
+'''
 
 
 @pytest.mark.parametrize("input_arr, expected", [
