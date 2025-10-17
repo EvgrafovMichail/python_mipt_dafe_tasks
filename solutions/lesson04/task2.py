@@ -1,6 +1,7 @@
 def merge_intervals(intervals: list[list[int, int]]) -> list[list[int, int]]:
     rezs = []
-    if not intervals: return rezs
+    if not intervals: 
+        return rezs
     allhours = []
     ends = []
 
