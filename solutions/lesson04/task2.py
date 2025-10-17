@@ -1,5 +1,4 @@
 def merge_intervals(intervals: list[list[int, int]]) -> list[list[int, int]]:
-    
     intervals.sort()
 
     time = []
@@ -9,5 +8,5 @@ def merge_intervals(intervals: list[list[int, int]]) -> list[list[int, int]]:
             time.append([left, right])
         else:
             time[-1][1] = max(time[-1][1], right)
-    
+
     return time

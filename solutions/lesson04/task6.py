@@ -1,5 +1,4 @@
 def count_cycles(arr: list[int]) -> int:
-    
     l = len(arr)
     cycle = 0
 

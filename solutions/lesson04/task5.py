@@ -1,11 +1,10 @@
 def find_row_with_most_ones(matrix: list[list[int]]) -> int:
-    
     if len(matrix) == 0:
         return 0
-    
+
     if len(matrix[0]) == 0:
         return 0
-    
+
     max_left_side = 0
     start_list = 0
     countdown = len(matrix[0]) - 1
