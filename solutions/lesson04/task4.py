@@ -1,5 +1,7 @@
-def move_zeros_to_end(l: list[int]) -> list[int]:
-    char = len(l) - l.count(0)
+def move_zeros_to_end(lis: list[int]) -> list[int]:
+    char = len(lis) - lis.count(0)
+
     while l[:char].count(0):
-        l.append(l.pop(l.index(0)))
+        lis.append(lis.pop(lis.index(0)))
+
     return char

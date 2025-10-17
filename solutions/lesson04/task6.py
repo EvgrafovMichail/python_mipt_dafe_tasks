@@ -1,14 +1,14 @@
-def count_cycles(l: list[int]) -> int:
+def count_cycles(lis: list[int]) -> int:
     count = 0
-    pos = [1] * len(l)
+    pos = [1] * len(lis)
 
-    for i in range(len(l)):
+    for i in range(len(lis)):
         if pos[i] == 1:
             j = i
             pos[j] = 0
 
             while True:
-                j = l[j]
+                j = lis[j]
 
                 if pos[j] == 0:
                     count += 1
