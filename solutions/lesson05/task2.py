@@ -14,4 +14,6 @@ def are_anagrams(word1: str, word2: str) -> bool:
         if summa1 == summa2 and multiplication1 == multiplication2:
             return True
     return False
-print(are_anagrams('Listen',  'Silent'))
+
+
+print(are_anagrams("Listen", "Silent"))

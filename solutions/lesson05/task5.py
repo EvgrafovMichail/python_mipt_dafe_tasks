@@ -15,13 +15,13 @@ def reg_validator(reg_expr: str, text: str) -> bool:
                     return False
                 while i < len(text) and text[i].isalpha():
                     i += 1
-                j+=1
+                j += 1
             case "s":
                 if not text[i].isalnum():
                     return False
                 while i < len(text) and text[i].isalnum():
                     i += 1
-                j+=1
+                j += 1
             case _:
                 if text[i] != char:
                     return False
