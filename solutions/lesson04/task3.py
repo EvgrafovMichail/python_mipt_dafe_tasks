@@ -1,3 +1,6 @@
 def find_single_number(nums: list[int]) -> int:
-    # ваш код
-    return 0
+    xor = 0
+    for i in range(len(nums)):
+        xor ^= nums[i]
+
+    return xor
