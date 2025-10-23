@@ -4,7 +4,7 @@ def get_cube_root(n: float, eps: float) -> float:
         right = n
     else:
         left = n
-        right = 1
+        right = n / abs(n)
     x = n
 
     while abs(x * x * x - n) > eps:
@@ -15,3 +15,6 @@ def get_cube_root(n: float, eps: float) -> float:
             left = x
 
     return x
+
+
+print(get_cube_root(-0.9, 1e-3))
