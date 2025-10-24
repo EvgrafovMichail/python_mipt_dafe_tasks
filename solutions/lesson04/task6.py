@@ -12,6 +12,3 @@ def count_cycles(arr: list[int]) -> int:
         nc = []
         c += 1
     return c
-
-
-print(count_cycles([0]))

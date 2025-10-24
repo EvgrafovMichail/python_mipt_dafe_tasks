@@ -1,6 +1,6 @@
-import pytest
-
 import random
+
+import pytest
 
 from solutions.lesson04.task1 import is_arithmetic_progression
 from solutions.lesson04.task2 import merge_intervals
