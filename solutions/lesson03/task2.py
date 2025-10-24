@@ -26,7 +26,7 @@ def get_cube_root(n: float, eps: float) -> float:
         if abs(right - left) <= 1e-15:
             return (left + right) / 2.0
 
-        it += 1
+        iteration += 1
 
     return (left + right) / 2.0
 
