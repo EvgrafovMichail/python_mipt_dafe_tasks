@@ -1,4 +1,8 @@
 def get_cube_root(n: float, eps: float) -> float:
+<<<<<<< HEAD
+    # ваш код
+    return n
+=======
     count = 1
     minus = 0
     v = 0
@@ -23,3 +27,4 @@ def get_cube_root(n: float, eps: float) -> float:
     while g * g * g != count:
         g *= 10
     return (minus * v) / a / g
+>>>>>>> e69d4f56c45c54e39deecc5dba6a3d657ca959f8
