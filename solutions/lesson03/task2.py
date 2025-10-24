@@ -9,6 +9,3 @@ def get_cube_root(n: float, eps: float) -> float:
             g1 = num
         else:
             g2 = num
-
-
-
