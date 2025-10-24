@@ -3,7 +3,7 @@ def unzip(compress_text: str) -> str:
     c = []
     n = 1
     for i in range(0, len(compress_text_lst)):
-        if compress_text_lst[i][-1].isdigit() == True:
+        if compress_text_lst[i][-1].isdigit():
             while compress_text_lst[i][-n] != "*":
                 n += 1
             a = compress_text_lst[i][:-n]
