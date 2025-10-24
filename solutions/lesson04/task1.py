@@ -1,7 +1,5 @@
 def is_arithmetic_progression(lst: list[list[int]]) -> bool:
-    def is_arithmetic_progression(lst: list[list[int]]) -> bool:
-        t = 0
-
+    t = 0
     for i in range(0, len(lst)):
         for j in range(i + 1, len(lst)):
             if lst[i] < lst[j]:
