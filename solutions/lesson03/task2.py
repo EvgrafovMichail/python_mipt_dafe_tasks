@@ -6,7 +6,7 @@ def get_cube_root(n: float, eps: float) -> float:
     else:
         L, R = n, 0
 
-    while R - L > eps:  
+    while R - L > eps:
         middle = (L + R) / 2
         middle3 = middle * middle * middle
 
