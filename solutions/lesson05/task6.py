@@ -5,9 +5,9 @@ def simplify_path(path: str) -> str:
             splitted_path.append(sub_str)
 
     cleaned_path = []
-    for dir in splitted_path:
-        if dir != "..":
-            cleaned_path.append(dir)
+    for name in splitted_path:
+        if name != "..":
+            cleaned_path.append(name)
         else:
             if cleaned_path == []:
                 return ""
