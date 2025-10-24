@@ -1,12 +1,18 @@
 def get_nth_digit(num: int) -> int:
-    for r in range(10, 0, -1):
-        t = num - ((9 * 10 ** (r - 1) / 2) * r + 5)
-        if t > 0:
-            s = 10**r / 2 + t // (r + 1)
-            n = t % (r + 1)
-            c = 2 * s - 1
-            d = (c + 1) % 10**n
-            return d
-
-
-print(get_nth_digit(1000))
+    length = 1
+    count = 5
+    while num > count * length:
+        num -= count * length
+        length += 1
+        count = 9 * (10 ** (length - 1)) // 2
+    number_index = (num - 1) // length
+    digit_index = (num - 1) % length
+    if length == 1:
+        first_number = 0
+    else:
+        first_number = 10 ** (length - 1)
+    number = first_number + 2 * number_index
+    b = 1
+    while number >= 10**b:
+        b += 1
+    return number % 10 ** (b - digit_index) // 10 ** (b - digit_index - 1)
