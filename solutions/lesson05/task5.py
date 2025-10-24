@@ -9,7 +9,7 @@ def reg_validator(reg_expr: str, text: str) -> bool:
     for i in range(len(text_lst)):
         a = reg_expr_lst[i]
         h = text_lst[i]
-        k = 0  # изначально я не вводил к и пытался срезать строки через костыли, но оно не решалось
+        k = 0
         for j in range(len(a)):
             b = a[j]
             if k >= len(h):
@@ -38,5 +38,5 @@ def reg_validator(reg_expr: str, text: str) -> bool:
                 else:
                     k += 1
         if k != len(h):
-            return False  # я с каждой секундой все больше и больше осознаю какой я тупой, пока пишу это :(
+            return False
     return True
