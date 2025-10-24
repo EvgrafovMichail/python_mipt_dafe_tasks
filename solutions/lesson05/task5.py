@@ -1,23 +1,22 @@
-def reg_validator(reg_expr: str, text: str) -> bool:  
-    
+def reg_validator(reg_expr: str, text: str) -> bool:
     position = 0
-    
+
     for simbol in reg_expr:
-        if simbol == 'd':
+        if simbol == "d":
             start = position
             while position < len(text) and text[position].isdigit():
                 position += 1
             if position == start:
                 return False
-            
-        elif simbol == 'w':
+
+        elif simbol == "w":
             start = position
             while position < len(text) and text[position].isalpha():
                 position += 1
             if position == start:
                 return False
 
-        elif simbol == 's':
+        elif simbol == "s":
             start = position
             while position < len(text) and text[position].isalnum():
                 position += 1

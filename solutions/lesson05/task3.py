@@ -1,6 +1,7 @@
 import string
-def is_punctuation(text: str) -> bool:
 
+
+def is_punctuation(text: str) -> bool:
     punctuation = list(string.punctuation)
     lst_clear = text
 
@@ -8,6 +9,6 @@ def is_punctuation(text: str) -> bool:
         return False
 
     for element in punctuation:
-        lst_clear = lst_clear.replace(element, '')
-    
-    return lst_clear == ''
+        lst_clear = lst_clear.replace(element, "")
+
+    return lst_clear == ""
