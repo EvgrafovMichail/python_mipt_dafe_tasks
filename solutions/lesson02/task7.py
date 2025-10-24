@@ -1,5 +1,12 @@
 def is_palindrome(num: int) -> bool:
-    num_reversed = 0
-    num_origin = num
-    # ваш код
-    return num_origin == num_reversed
+    palindrome = 0
+    numm = num
+
+    if num < 0:
+        return False
+
+    while num > 0:
+        palindrome = palindrome * 10 + num % 10
+        num //= 10
+
+    return numm == palindrome
