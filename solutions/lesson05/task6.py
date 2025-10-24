@@ -7,7 +7,7 @@ def simplify_path(path: str) -> str:
     if path == "/":
         return path
     newpath = []
-    level = 0  #  для подсчета на каком мы щас "уровне", чтоб .. не вылетала
+    level = 0  # для подсчета на каком мы щас "уровне", чтоб .. не вылетала
     for i in p:
         if i == "..":
             if level == 0:
