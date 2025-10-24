@@ -16,7 +16,3 @@ def merge_intervals(intervals: list[list[int, int]]) -> list[list[int, int]]:
 
     new_list.append(sublist)
     return new_list
-
-
-list = [[10, 13], [1, 3], [2, 6], [8, 10], [15, 18]]
-print(merge_intervals(list))
