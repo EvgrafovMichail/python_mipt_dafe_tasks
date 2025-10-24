@@ -7,37 +7,34 @@ def reg_validator(reg_expr: str, text: str) -> bool:
         temp = text
         if i == "d":
             for j in range(len(text)):
-                if text[j] in "0123456789":
+                if text[j].isdigit():
                     continue
-                else:
-                    text = text[j:]
-                    if temp == text:
-                        return False
-                    break
+                text = text[j:]
+                if temp == text:
+                    return False
+                break
             else:
                 text = ""
             continue
         if i == "w":
             for j in range(len(text)):
-                if text[j] in "qwertyuiopasdfghjklzxcvbnmQWERTYUIOPLKJHGFDSAZXCVBNM":
+                if text[j].isalpha():
                     continue
-                else:
-                    text = text[j:]
-                    if temp == text:
-                        return False
-                    break
+                text = text[j:]
+                if temp == text:
+                    return False
+                break
             else:
                 text = ""
             continue
         if i == "s":
             for j in range(len(text)):
-                if text[j] in "0123456789qwertyuiopasdfghjklzxcvbnmQWERTYUIOPLKJHGFDSAZXCVBNM":
+                if text[j].isalnum():
                     continue
-                else:
-                    text = text[j:]
-                    if temp == text:
-                        return False
-                    break
+                text = text[j:]
+                if temp == text:
+                    return False
+                break
             else:
                 text = ""
             continue
