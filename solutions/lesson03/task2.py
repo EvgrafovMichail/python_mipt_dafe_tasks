@@ -9,3 +9,6 @@ def get_cube_root(n: float, eps: float) -> float:
             g1 = num
         else:
             g2 = num
+
+
+print(get_cube_root(-0.9, 1e-6))
