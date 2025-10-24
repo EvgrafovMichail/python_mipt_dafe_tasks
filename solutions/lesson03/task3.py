@@ -1,5 +1,6 @@
 def get_nth_digit(n: int) -> int:
     length = 1
+    count = 0
     while True:
         digits_in_block = count * length
         if n > digits_in_block:
