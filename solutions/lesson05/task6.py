@@ -1,18 +1,16 @@
 def simplify_path(path: str) -> str:
-    
-    elem = path.split('/')
+    elem = path.split("/")
     st = []
-    
+
     for el in elem:
-        if el == '' or el == '.':
+        if el == "" or el == ".":
             continue
-        elif el == '..':
-            if st:  
+        elif el == "..":
+            if st:
                 st.pop()
             else:
                 return ""
         else:
             st.append(el)
-    
-    return '/' + '/'.join(st)
-    
+
+    return "/" + "/".join(st)

@@ -8,19 +8,17 @@ def prime(n):
 
 
 def get_sum_of_prime_divisors(num):
-    
     sum_of_divisors = 0
     for n in range(2, int(num**0.5) + 1):
         if num % n == 0:
-
             if prime(n):
                 sum_of_divisors += n
 
                 if prime(num // n) and n != num // n:
                     sum_of_divisors += num // n
 
-
     return sum_of_divisors
+
 
 n = int(input())
 print(get_sum_of_prime_divisors(n))

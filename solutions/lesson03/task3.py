@@ -5,16 +5,16 @@ def len_num(n):
         k += 1
     return k
 
-def get_nth_digit(n: int) -> int:
 
+def get_nth_digit(n: int) -> int:
     i = 1
     flag = False
-    
-    if n == 1: 
+
+    if n == 1:
         return 0
-    
-    for x in range(0, 10**10 , 2):
-        if flag == False:
+
+    for x in range(0, 10**10, 2):
+        if not flag:
             k = len_num(x)
             r = None
             while k > 0:
@@ -26,20 +26,3 @@ def get_nth_digit(n: int) -> int:
                     return r
         else:
             break
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
