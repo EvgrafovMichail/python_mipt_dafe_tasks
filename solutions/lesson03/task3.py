@@ -1,28 +1,18 @@
-def len_num(n):
-    k = 0
-    while n > 0:
-        n //= 10
-        k += 1
-    return k
-
-
-def get_nth_digit(n: int) -> int:
-    i = 1
-    flag = False
-
-    if n == 1:
-        return 0
-
-    for x in range(0, 10**10, 2):
-        if not flag:
-            k = len_num(x)
-            r = None
-            while k > 0:
-                i += 1
-                r = x // 10 ** (k - 1) % 10
-                k -= 1
-                if i == n:
-                    flag = True
-                    return r
-        else:
-            break
+def get_nth_digit(num: int) -> int:
+    length = 1
+    count = 5
+    while num > count * length:
+        num -= count * length
+        length += 1
+        count = 9 * (10 ** (length - 1)) // 2
+    number_index = (num - 1) // length
+    digit_index = (num - 1) % length
+    if length == 1:
+        first_number = 0
+    else:
+        first_number = 10 ** (length - 1)
+    number = first_number + 2 * number_index
+    b = 1
+    while number >= 10**b:
+        b += 1
+    return number % 10 ** (b - digit_index) // 10 ** (b - digit_index - 1)
