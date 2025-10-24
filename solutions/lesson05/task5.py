@@ -17,9 +17,7 @@ def reg_validator(reg_expr: str, text: str) -> bool:
 
     else:  # если текст не из одного символа
         for i in range(len(text)):
-            if (
-                i == len(text) - 1
-            ):  # если перебираемый элемент последний в строке, то записываем его значение (иначе потеряется)
+            if (i == len(text) - 1):  # если эл посл в строке, то записываем его значение
                 if text[i].isalpha():
                     reg += "w"
                 elif text[i].isdigit():
@@ -40,7 +38,7 @@ def reg_validator(reg_expr: str, text: str) -> bool:
 
     regs = [reg]
 
-    for reg in regs:  # замена двух рядом стоящих dw, wd, ws, sw и тд на s (поиск потенциальных регулярных выражений)
+    for reg in regs:  # замена двух рядом стоящих dw, wd, ws, sw и тд на s (поиск потенц рег выр)
         for i in range(len(reg) - 1):
             duo = reg[i] + reg[i + 1]
             if ("d" in duo and "w" in duo) or ("s" in duo and ("d" in duo or "w" in duo)):
@@ -54,9 +52,7 @@ def reg_validator(reg_expr: str, text: str) -> bool:
 
     resultregs = regs[::]
 
-    for i in range(
-        len(reg_expr)
-    ):  # посимвольное сравнение данного регулярного выражения с каждым из списка потенциальных рег. выр.
+    for i in range(len(reg_expr)):  # посимвольное сравн рег выр с каждым из списка потенц рег выр
         for reg in regs:
             if len(reg) == len(reg_expr):
                 if (reg[i] == reg_expr[i]) or (
@@ -71,6 +67,4 @@ def reg_validator(reg_expr: str, text: str) -> bool:
                 if reg in resultregs:
                     resultregs.remove(reg)
 
-    return bool(
-        resultregs
-    )  # если в списке осталось потенциальное рег. выр., удовлетворяющее всем условиям, то возвращаем True
+    return bool(resultregs)
