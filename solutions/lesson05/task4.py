@@ -1,11 +1,9 @@
 def unzip(compress_text: str) -> str:
-    text = []
-    str = compress_text.split()
-    if "*" in str:
-        podstr, n = str.split("*")
-        n = int(n)
-        text.append(podstr * n)
-    else:
-        text.append(str)
-
-    return "".join(text)
+    res = []
+    for t in compress_text.split():
+        if "*" in t:
+            s, n = t.split("*")
+            res.append(s * int(n))
+        else:
+            res.append(t)
+    return "".join(res)
