@@ -1,2 +1,3 @@
 def get_nth_digit(num: int) -> int:
-    return 1
+    # ваш код
+    return 0
