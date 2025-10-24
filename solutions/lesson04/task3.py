@@ -3,5 +3,5 @@ def find_single_number(nums: list[int]) -> int:
 
     for num in nums:
         value ^= num
-        
+
     return value

@@ -17,7 +17,7 @@ def reg_validator(reg_expr: str, text: str) -> bool:
 
     else:  # если текст не из одного символа
         for i in range(len(text)):
-            if (i == len(text) - 1):  # если эл посл в строке, то записываем его значение
+            if i == len(text) - 1:  # если эл посл в строке, то записываем его значение
                 if text[i].isalpha():
                     reg += "w"
                 elif text[i].isdigit():
