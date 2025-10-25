@@ -1,3 +1,4 @@
 def is_palindrome(text: str) -> bool:
-    # ваш код
-    return False
+    text = text.lower()
+    reversed_text = text[::-1]
+    return text == reversed_text
