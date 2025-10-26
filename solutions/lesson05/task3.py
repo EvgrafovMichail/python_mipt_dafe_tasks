@@ -3,7 +3,7 @@ def is_punctuation(text: str) -> bool:
         return False
 
     for i in text:
-        if not i in "!\"#$%&'()*+,-./:;<=>?@[\]^_{|}~`":
+        if i not in "!\"#$%&'()*+,-./:;<=>?@[\]^_{|}~`":
             return False
 
     return True
