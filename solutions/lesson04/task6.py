@@ -1,7 +1,7 @@
 def count_cycles(arr: list[int]) -> int:
     visited = [False] * len(arr)
-    count = 0
 
+    count = 0
     pointer = 0
 
     while pointer < len(arr):

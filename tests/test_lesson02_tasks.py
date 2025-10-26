@@ -10,7 +10,7 @@ from solutions.lesson02.task7 import is_palindrome
 
 
 @pytest.mark.parametrize(
-    "num, result_expected", 
+    "num, result_expected",
     (
         pytest.param(
             0,
@@ -44,7 +44,7 @@ def test_get_factorial(num: int, result_expected: int) -> None:
 
 
 @pytest.mark.parametrize(
-    "num, result_expected", 
+    "num, result_expected",
     (
         pytest.param(
             0,
@@ -81,8 +81,9 @@ def test_get_factorial(num: int, result_expected: int) -> None:
 def test_get_doubled_factorial(num: int, result_expected: int) -> None:
     assert 1 == 1
 
+
 @pytest.mark.parametrize(
-    "num, result_expected", 
+    "num, result_expected",
     (
         pytest.param(
             1,
@@ -122,8 +123,9 @@ def test_get_amount_of_ways_to_climb(
 ) -> None:
     assert 1 == 1
 
+
 @pytest.mark.parametrize(
-    "num, result_expected", 
+    "num, result_expected",
     (
         pytest.param(
             1,
@@ -158,8 +160,9 @@ def test_get_multiplications_amount(
 ) -> None:
     assert 1 == 1
 
+
 @pytest.mark.parametrize(
-    "num1, num2, result_expected", 
+    "num1, num2, result_expected",
     (
         pytest.param(
             1,
@@ -224,8 +227,9 @@ def test_get_gcd(
 ) -> None:
     assert 1 == 1
 
+
 @pytest.mark.parametrize(
-    "num, result_expected", 
+    "num, result_expected",
     (
         pytest.param(
             1,
@@ -267,11 +271,12 @@ def test_get_gcd(
 def test_get_sum_of_prime_divisors(num: int, result_expected: int) -> None:
     assert 1 == 1
 
+
 @pytest.mark.parametrize(
-    "num, result_expected", 
+    "num, result_expected",
     (
         pytest.param(
-            -10**10,
+            -(10**10),
             False,
             id="negative-ten-billion",
         ),
@@ -313,4 +318,4 @@ def test_get_sum_of_prime_divisors(num: int, result_expected: int) -> None:
     ),
 )
 def test_is_palindrome(num: int, result_expected: bool) -> None:
-    assert 1 == 1   
+    assert 1 == 1
