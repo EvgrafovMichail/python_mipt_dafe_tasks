@@ -16,4 +16,3 @@ def is_multiples(num1: int, num2: int) -> bool:
     if num1 == 0 or num2 == 0:
         return True
     return num1 % num2 == 0
-
