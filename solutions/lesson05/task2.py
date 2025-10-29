@@ -8,7 +8,6 @@ def are_anagrams(word1: str, word2: str) -> bool:
         sum_ord += ord(ch1)
     for ch2 in word2:
         sum_ord -= ord(ch2)
-        
     if not sum_ord:
         return True
     else:
