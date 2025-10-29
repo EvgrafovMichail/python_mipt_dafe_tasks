@@ -8,7 +8,7 @@ def get_doubled_factorial(num: int) -> int:
      while num >=1:
         factorial *= num
         num -= 2
-    return factorial
+        return factorial
 
 
     
