@@ -7,7 +7,7 @@ def count_unique_words(s: str) -> int:
 
     for word in s:
         word = word.lower().strip(string.punctuation)
-        if word != '':
+        if word != "":
             unique_words.add(word)
 
     return len(unique_words)
