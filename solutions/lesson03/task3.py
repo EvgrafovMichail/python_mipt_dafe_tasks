@@ -1,19 +1,21 @@
-def get_nth_digit(n: int) -> int:
-    length = 1
-    count = 0
+def get_nth_digit(num: int) -> int:
+    length, first, count = 1, 0, 5
+
     while True:
-        digits_in_block = count * length
-        if n > digits_in_block:
-            n -= digits_in_block
+        box = count * length
+
+        if num > box:
+            num -= box
             length += 1
-            start = 10 ** (length - 1)
+            first = 10 ** (length - 1)
             count = (9 * 10 ** (length - 1)) // 2
+
         else:
             break
-    index = (n - 1) // length
-    num = start + (index * 2)
-    pos_from_left = (n - 1) % length
-    divisor = 10 ** (length - pos_from_left - 1)
-    digit = (num // divisor) % 10
 
-    return digit
+    i = (num - 1) // length
+    number = first + (i * 2)
+    left = (num - 1) % length
+    ans = (number // (10 ** (length - left - 1))) % 10
+
+    return ans
