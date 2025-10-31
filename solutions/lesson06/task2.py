@@ -1,4 +1,4 @@
-def length_of_longest_substring(text):
+def get_len_of_longest_substring(text):
     symbols = set()
     left = 0
     ans = 0
