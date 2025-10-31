@@ -1,6 +1,6 @@
 def is_palindrome(text: str) -> bool:
     del_text = list(text.lower())
-    out =[]
+    out = []
     for i in del_text:
         out.insert(0, i)
     if list(text.lower()) == out:
