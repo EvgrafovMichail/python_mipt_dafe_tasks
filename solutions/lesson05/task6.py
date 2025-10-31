@@ -13,7 +13,7 @@ def simplify_path(path: str) -> str:
             path = path[:l_index]+path[r_index+3:] 
 
 
-    if path[-3:] =="/..":
+    if path[-3:] =="/..":  
         if len(path)==3:
             return ""
         r_index=path.index("/..")
@@ -24,3 +24,6 @@ def simplify_path(path: str) -> str:
     if path[-1] =="/" and len(path)>1:
          path= path[:-1]          
     return path 
+
+
+#test
