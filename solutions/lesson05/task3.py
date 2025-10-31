@@ -1,3 +1,9 @@
 def is_punctuation(text: str) -> bool:
-    # ваш код
-    return False
+    if text == "":
+        return False
+
+    allowed_chars = "!\"#$%&'()*+,-./:;<=>?@[\\]^_{|}~`"
+    for char in text:
+        if char not in allowed_chars:
+            return False
+    return True
