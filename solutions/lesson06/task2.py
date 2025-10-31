@@ -8,7 +8,7 @@ def get_len_of_longest_substring(text: str) -> int:
 
     for i in range(0, len(text)):
         counter = i
-        while counter < len(text) and not text[counter] in same:
+        while counter < len(text) and text[counter] not in same:
             same.update({text[counter]: "T"})
             counter += 1
             max_len += 1
