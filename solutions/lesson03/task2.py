@@ -23,7 +23,3 @@ def get_cube_root(n: float, eps: float) -> float:
     while g * g * g != count:
         g *= 10
     return (minus * v) / a / g
-=========
-    # ваш код
-    return n
->>>>>>>>> Temporary merge branch 2
