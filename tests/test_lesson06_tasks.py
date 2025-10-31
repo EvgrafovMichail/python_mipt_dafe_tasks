@@ -1,9 +1,13 @@
 import pytest 
 
 from solutions.lesson06.task1 import int_to_roman
+
 from solutions.lesson06.task2 import get_len_of_longest_substring
+
 from solutions.lesson06.task3 import is_there_any_good_subarray
+
 from solutions.lesson06.task4 import count_unique_words
+
 
 
 @pytest.mark.parametrize("num, expected", [
