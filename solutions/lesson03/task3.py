@@ -12,6 +12,6 @@ def get_nth_digit(num):
     k = num - (digit_sum - 45 * (10 ** (cnt_of_nums - 1)) * (cnt_of_nums + 1)) - 1
     k1 = k // (cnt_of_nums + 1)
 
-    out_humber = 10**cnt_of_nums + k1 * 2
+    out_number = 10**cnt_of_nums + k1 * 2
 
-    return (out_humber // (10 ** ((cnt_of_nums) - (k % (cnt_of_nums + 1))))) % 10
+    return (out_number // (10 ** (cnt_of_nums - (k % (cnt_of_nums + 1))))) % 10
