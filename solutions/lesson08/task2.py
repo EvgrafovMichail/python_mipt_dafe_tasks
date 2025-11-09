@@ -1,5 +1,6 @@
+import functools
+import time
 from typing import Callable, TypeVar
-import time, functools
 
 T = TypeVar("T")
 
