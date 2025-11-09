@@ -22,7 +22,7 @@ def collect_statistic(
                 statistics[func.__name__][0] = (old_sum_time + time.time() - start) / statistics[
                     func.__name__
                 ][1]
-        
+
             return res
 
         return initer
