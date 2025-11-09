@@ -1,6 +1,5 @@
-from typing import Callable, TypeVar
 import time
-from functools import wraps
+from typing import Callable, TypeVar
 
 T = TypeVar("T")
 
@@ -10,7 +9,6 @@ def collect_statistic(statistics: dict[str, list[float, int]]) -> Callable[[T], 
     total_time = 0
 
     def wrapper(func: Callable):
-        @wraps(func)
         def timer(*args, **kwargs):
             nonlocal i, total_time
             name = func.__name__
