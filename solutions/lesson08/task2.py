@@ -8,6 +8,7 @@ T = TypeVar("T")
 def collect_statistic(statistics: dict[str, list[float, int]]) -> Callable[[T], T]:
     i = 0
     total_time = 0
+
     def wrapper(func: Callable):
         @wraps(func)
         def timer(*args, **kwargs):
