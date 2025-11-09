@@ -1,12 +1,11 @@
+import collections
 from typing import Callable
-from collections import deque
-import math
 
 
 def make_averager(accumulation_period: int) -> Callable[[float], float]:
     summa = 0
     number = 0
-    deq = deque()
+    deq = collections.deque()
 
     def get_avg(value: float) -> float:
         nonlocal summa, number, deq
