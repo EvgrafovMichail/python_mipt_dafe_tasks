@@ -4,10 +4,10 @@ def get_nth_digit(num: int):
     else:
         num -= 1
         n = num
-        d = 1 
+        d = 1
 
         while True:
-            start = 10**(d - 1)
+            start = 10 ** (d - 1)
             if start % 2 != 0:
                 start += 1
             end = 10**d - 1
@@ -22,16 +22,16 @@ def get_nth_digit(num: int):
 
             if n <= total_digits:
                 index_in_group = (n - 1) // d
-                left = (n - 1) % d               
+                left = (n - 1) % d
                 target_number = start + index_in_group * 2
 
-                p = d - 1 - left                
+                p = d - 1 - left
                 power = 1
                 for _ in range(p):
-                    power *= 10                  
+                    power *= 10
                 digit = (target_number // power) % 10
 
-                right = d - left - 1
+                # right = d - left - 1
 
                 # print(target_number)
                 # print(left)
