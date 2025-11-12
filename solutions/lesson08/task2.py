@@ -1,5 +1,5 @@
-from typing import Callable, TypeVar
 import time
+from typing import Callable, TypeVar
 
 T = TypeVar("T")
 
