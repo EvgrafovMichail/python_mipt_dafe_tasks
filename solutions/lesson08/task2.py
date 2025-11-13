@@ -1,7 +1,6 @@
-from typing import Callable, TypeVar
 from functools import wraps
-import time
-
+from time import time
+from typing import Callable, TypeVar
 
 T = TypeVar("T")
 
@@ -14,9 +13,9 @@ def collect_statistic(
 
         @wraps(func)
         def wrapper(*args, **kwargs):
-            start_time = time.time()
+            start_time = time()
             res = func(*args, **kwargs)
-            end_time = time.time() - start_time
+            end_time = time() - start_time
             
             func_name = func.__name__
             
