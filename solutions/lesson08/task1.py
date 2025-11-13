@@ -8,5 +8,5 @@ def make_averager(n):
             ans.pop(0)
 
         return sum(ans) / len(ans)
-    
+
     return get_avg
