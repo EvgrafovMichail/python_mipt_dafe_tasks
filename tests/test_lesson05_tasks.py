@@ -1,4 +1,4 @@
-import pytest 
+import pytest
 
 from solutions.lesson05.task1 import is_palindrome
 from solutions.lesson05.task2 import are_anagrams
@@ -6,7 +6,8 @@ from solutions.lesson05.task3 import is_punctuation
 from solutions.lesson05.task4 import unzip
 from solutions.lesson05.task5 import reg_validator
 from solutions.lesson05.task6 import simplify_path
-'''
+
+"""
 @pytest.mark.parametrize("s, expected", [
     pytest.param("", True, id="empty_string"),
     pytest.param("a", True, id="single_char"),
@@ -74,56 +75,62 @@ def test_is_only_punctuation(s, expected):
 ])
 def test_decompress(compressed, expected):
     assert unzip(compressed) == expected
-'''
-@pytest.mark.parametrize("regexp, s, expected", [
-    pytest.param("d", "123", True, id="d_valid_number"),
-    pytest.param("d", "0", True, id="d_zero"),
-    pytest.param("d", "abc", False, id="d_letters_instead_of_digits"),
-    pytest.param("d", "", False, id="d_empty_string"),
-    pytest.param("w", "hello", True, id="w_lowercase_word"),
-    pytest.param("w", "HelloWorld", True, id="w_mixed_case_word"),
-    pytest.param("w", "hello123", False, id="w_word_with_digits"),
-    pytest.param("w", "", False, id="w_empty_string"),
-    pytest.param("s", "abc123", True, id="s_alphanum"),
-    pytest.param("s", "ABC99", True, id="s_uppercase_and_digits"),
-    pytest.param("s", "abc_123", False, id="s_contains_underscore"),
-    pytest.param("s", "", False, id="s_empty_string"),
-    pytest.param("d-d", "12-34", True, id="d_dash_d_valid"),
-    pytest.param("d-d", "12--34", False, id="d_dash_d_double_dash"),
-    pytest.param("d-d", "12-abc", False, id="d_dash_d_letters_after_dash"),
-    pytest.param("d-d", "1234", False, id="d_dash_d_missing_dash"),
-    pytest.param("w.w", "hi.there", True, id="w_dot_w_valid"),
-    pytest.param("w.w", "hi..there", False, id="w_dot_w_double_dot"),
-    pytest.param("w.w", "hi1.there", False, id="w_dot_w_digit_in_first_word"),
-    pytest.param("s.s", "h1i.th32ere", True, id="s_dot_s_valid"),
-    pytest.param("s.s", "hi4..t2here", False, id="s_dot_s_double_dot"),
-    pytest.param("d-dw", "12-45abc", True, id="example_valid"),
-    pytest.param("d-dw", "1-abs", False, id="example_second_part_not_digit"),
-    pytest.param("d-dw", "1-b123r", False, id="example_letter_after_dash"),
-    pytest.param("d-dw", "1--123vdg", False, id="example_double_dash"),
-    pytest.param("d-dw", "123-456XYZ", True, id="d-dw_all_caps"),
-    pytest.param("d-dw", "0-0a", True, id="d-dw_minimal_valid"),
-    pytest.param("d@d", "5@7", True, id="d_at_d_valid"),
-    pytest.param("d@d", "5@@7", False, id="d_at_d_double_at"),
-    pytest.param("w s", "hi 123", True, id="w_space_s_valid"),
-    pytest.param("w s", "hi123", False, id="w_space_s_missing_space"),
-    pytest.param("w s", "hi 123!", False, id="w_space_s_extra_char_in_s"),
-    pytest.param("", "", True, id="empty_regexp_empty_string"),
-    pytest.param("", "a", False, id="empty_regexp_non_empty_string"),
-    pytest.param("d", "", False, id="non_empty_regexp_empty_string"),
-    pytest.param("d!", "5!", True, id="d_exclam_valid"),
-    pytest.param("d!", "5", False, id="d_exclam_missing_exclam"),
-    pytest.param("d!", "5!!", False, id="d_exclam_extra_exclam"),
-    pytest.param("s", "a1", True, id="s_letter_digit"),
-    pytest.param("s", "1a", True, id="s_digit_letter"),
-    pytest.param("s", "a!1", False, id="s_contains_exclamation"),
-    pytest.param("d-w-s", "123-abc-XY1Z23", True, id="d_w_s_valid"),
-    pytest.param("d-w-s", "123-abc-XYZ_123", False, id="d_w_s_underscore_in_s"),
-])
+"""
+
+
+@pytest.mark.parametrize(
+    "regexp, s, expected",
+    [
+        pytest.param("d", "123", True, id="d_valid_number"),
+        pytest.param("d", "0", True, id="d_zero"),
+        pytest.param("d", "abc", False, id="d_letters_instead_of_digits"),
+        pytest.param("d", "", False, id="d_empty_string"),
+        pytest.param("w", "hello", True, id="w_lowercase_word"),
+        pytest.param("w", "HelloWorld", True, id="w_mixed_case_word"),
+        pytest.param("w", "hello123", False, id="w_word_with_digits"),
+        pytest.param("w", "", False, id="w_empty_string"),
+        pytest.param("s", "abc123", True, id="s_alphanum"),
+        pytest.param("s", "ABC99", True, id="s_uppercase_and_digits"),
+        pytest.param("s", "abc_123", False, id="s_contains_underscore"),
+        pytest.param("s", "", False, id="s_empty_string"),
+        pytest.param("d-d", "12-34", True, id="d_dash_d_valid"),
+        pytest.param("d-d", "12--34", False, id="d_dash_d_double_dash"),
+        pytest.param("d-d", "12-abc", False, id="d_dash_d_letters_after_dash"),
+        pytest.param("d-d", "1234", False, id="d_dash_d_missing_dash"),
+        pytest.param("w.w", "hi.there", True, id="w_dot_w_valid"),
+        pytest.param("w.w", "hi..there", False, id="w_dot_w_double_dot"),
+        pytest.param("w.w", "hi1.there", False, id="w_dot_w_digit_in_first_word"),
+        pytest.param("s.s", "h1i.th32ere", True, id="s_dot_s_valid"),
+        pytest.param("s.s", "hi4..t2here", False, id="s_dot_s_double_dot"),
+        pytest.param("d-dw", "12-45abc", True, id="example_valid"),
+        pytest.param("d-dw", "1-abs", False, id="example_second_part_not_digit"),
+        pytest.param("d-dw", "1-b123r", False, id="example_letter_after_dash"),
+        pytest.param("d-dw", "1--123vdg", False, id="example_double_dash"),
+        pytest.param("d-dw", "123-456XYZ", True, id="d-dw_all_caps"),
+        pytest.param("d-dw", "0-0a", True, id="d-dw_minimal_valid"),
+        pytest.param("d@d", "5@7", True, id="d_at_d_valid"),
+        pytest.param("d@d", "5@@7", False, id="d_at_d_double_at"),
+        pytest.param("w s", "hi 123", True, id="w_space_s_valid"),
+        pytest.param("w s", "hi123", False, id="w_space_s_missing_space"),
+        pytest.param("w s", "hi 123!", False, id="w_space_s_extra_char_in_s"),
+        pytest.param("", "", True, id="empty_regexp_empty_string"),
+        pytest.param("", "a", False, id="empty_regexp_non_empty_string"),
+        pytest.param("d", "", False, id="non_empty_regexp_empty_string"),
+        pytest.param("d!", "5!", True, id="d_exclam_valid"),
+        pytest.param("d!", "5", False, id="d_exclam_missing_exclam"),
+        pytest.param("d!", "5!!", False, id="d_exclam_extra_exclam"),
+        pytest.param("s", "a1", True, id="s_letter_digit"),
+        pytest.param("s", "1a", True, id="s_digit_letter"),
+        pytest.param("s", "a!1", False, id="s_contains_exclamation"),
+        pytest.param("d-w-s", "123-abc-XY1Z23", True, id="d_w_s_valid"),
+        pytest.param("d-w-s", "123-abc-XYZ_123", False, id="d_w_s_underscore_in_s"),
+    ],
+)
 def test_match_pattern(regexp, s, expected):
     assert reg_validator(regexp, s) == expected
 
-'''
+
+"""
 @pytest.mark.parametrize("path, expected", [
     pytest.param("/home/", "/home", id="trailing_slash"),
     pytest.param("/../", "", id="go_above_root"),
@@ -149,4 +156,4 @@ def test_match_pattern(regexp, s, expected):
 ])
 def test_simplify_path(path, expected):
     assert simplify_path(path) == expected
-'''
+"""
