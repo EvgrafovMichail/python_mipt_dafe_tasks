@@ -1,14 +1,17 @@
-from typing import Callable, TypeVar
-from functools import wraps
 import time
+from functools import wraps
+from typing import Callable, TypeVar
+
 
 T = TypeVar("T")
+
 
 def collect_statistic(
     statistics: dict[str, list[float, int]]
 ) -> Callable[[T], T]:
     
     def decorator(func):
+
         @wraps(func)
         def wrapper(*args, **kwargs):
             start_time = time.time()

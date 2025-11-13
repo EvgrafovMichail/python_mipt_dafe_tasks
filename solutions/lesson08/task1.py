@@ -1,11 +1,7 @@
-from typing import Callable
-
 def make_averager(n):
-
     ans = []
 
     def get_avg(value):
-
         ans.append(value)
 
         if len(ans) > n:
