@@ -1,3 +1,7 @@
 def find_single_number(nums: list[int]) -> int:
     # ваш код
-    return 0
+    answer = 0
+    for num in nums:
+        answer ^= num
+
+    return answer
