@@ -1,6 +1,6 @@
 from typing import Callable
 
-def make_averager(accumulation_period: int) -> Callable[[float], float]:
+def make_averager(accumulation_period: int):
     list_nums = []
     # замыкаем список и создаем обертку 
 
