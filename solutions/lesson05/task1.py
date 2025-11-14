@@ -10,3 +10,6 @@ def is_palindrome(text: str) -> bool:
             return True
         else:
             return False
+
+
+# print(is_palindrome(str(input())))
