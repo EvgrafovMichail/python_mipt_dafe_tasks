@@ -3,7 +3,9 @@ import math
 import time
 
 from solutions.lesson08.task1 import make_averager
+
 from solutions.lesson08.task2 import collect_statistic
+
 
 def test_make_averager():
     get_avg = make_averager(2)
@@ -28,7 +30,7 @@ def test_make_averager2():
     assert math.isclose(get_avg(-2), -1)
 
 def test_collect_statistic():
-    statistics: list[str, list[float, int]] = {}
+    statistics: dict[str, list[float, int]] = {}
 
     @collect_statistic(statistics)
     def func1() -> None:
@@ -53,7 +55,7 @@ def test_collect_statistic():
 
 
 def test_collect_statistic_inout():
-    statistics: list[str, list[float, int]] = {}
+    statistics: dict[str, list[float, int]] = {}
 
     @collect_statistic(statistics)
     def func(a, b, *, c, d):
@@ -63,7 +65,7 @@ def test_collect_statistic_inout():
     assert statistics[func.__name__][1] == 1
 
 def test_collect_statistic_count_call():
-    statistics: list[str, list[float, int]] = {}
+    statistics: dict[str, list[float, int]] = {}
 
     def func_fab():
         count_call = 0
