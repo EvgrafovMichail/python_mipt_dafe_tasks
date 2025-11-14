@@ -4,7 +4,6 @@ from functools import wraps
 
 T = TypeVar("T")
 
-
 def collect_statistic(statistics: dict[str, list[float, int]]) -> Callable[[T], T]:
     def decorator(func):
         name = func.__name__
