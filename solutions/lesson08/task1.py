@@ -11,5 +11,3 @@ def make_averager(accumulation_period: int) -> Callable[[float], float]:
         return sum(incomes) / len(incomes)
 
     return get_avg
-
-    return get_avg
