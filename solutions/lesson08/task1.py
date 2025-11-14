@@ -1,4 +1,3 @@
-from typing import Callable
 
 def make_averager(accumulation_period: int):
     list_nums = []
