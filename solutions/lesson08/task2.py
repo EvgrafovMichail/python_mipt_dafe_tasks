@@ -8,6 +8,7 @@ T = TypeVar("T")
 def collect_statistic(statistics: dict[str, list[float, int]]) -> Callable[[T], T]:
     calls = 0
     times = []
+
     def decorator(func):
         @wraps(func)
         def wrapper(*args, **kwargs):
