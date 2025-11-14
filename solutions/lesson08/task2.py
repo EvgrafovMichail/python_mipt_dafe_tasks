@@ -1,5 +1,5 @@
-from typing import Callable, TypeVar
 from time import time
+from typing import Callable, TypeVar
 from functools import wraps
 
 T = TypeVar("T")
