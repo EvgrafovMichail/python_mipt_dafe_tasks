@@ -7,20 +7,17 @@ P = ParamSpec("P")
 
 
 def collect_statistic(statistics: dict[str, list[float | int]]) -> Callable[P, R]:
+    summa = count = 0
+
     def wrapper(func: Callable[P, R]) -> Callable[P, R]:
         @wraps(func)
         def inner(*args: P.args, **kwargs: P.kwargs) -> R:
+            nonlocal summa, count
             start = time()
             result = func(*args, **kwargs)
-            during = time() - start
-            if func.__name__ in statistics:
-                prev_stat = statistics[func.__name__]
-                statistics[func.__name__] = [
-                    (prev_stat[0] * prev_stat[1] + during) / prev_stat[1] + 1,
-                    prev_stat[1] + 1,
-                ]
-            else:
-                statistics[func.__name__] = [during, 1]
+            summa += time() - start
+            count += 1
+            statistics[func.__name__] = [summa / count, count]
             return result
 
         return inner
