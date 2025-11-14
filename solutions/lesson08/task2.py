@@ -1,6 +1,6 @@
-from time import time
-from typing import Callable, TypeVar, ParamSpec
 from functools import wraps
+from time import time
+from typing import Callable, ParamSpec, TypeVar
 
 R = TypeVar("R")
 P = ParamSpec("P")
