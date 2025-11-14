@@ -15,7 +15,7 @@ def test_make_averager():
     assert math.isclose(get_avg(5), 1)
     assert math.isclose(get_avg(5), 5)
 
-'''def test_make_averager2():
+def test_make_averager2():
     get_avg = make_averager(5)
 
     assert math.isclose(get_avg(1), 1)
@@ -79,4 +79,4 @@ def test_collect_statistic_count_call():
     
     func = func_fab()
     func()
-    assert statistics[func.__name__][1] == 1'''
+    assert statistics[func.__name__][1] == 1
