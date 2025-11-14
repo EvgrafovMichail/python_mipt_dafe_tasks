@@ -1,6 +1,7 @@
-from typing import Callable, TypeVar, Any
-from functools import wraps
 import time
+from functools import wraps
+from typing import Any, Callable, TypeVar
+
 
 T = TypeVar("T")
 
