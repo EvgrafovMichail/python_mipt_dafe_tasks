@@ -1,6 +1,8 @@
 from functools import wraps
 from typing import Any, Callable, TypeVar
+
 import time
+
 # в комментариях буду указывать на каких стр в презентации что-то схожее
 # прост я сам до этого не додумался бы, а так легче аналогично делать
 T = TypeVar("T")
@@ -18,16 +20,16 @@ def collect_statistic(
             result = func(*args, **kwargs)  # 18-19
             execution_time = time.time() - time_start  # 18-19
 
-            if func_name not in statistics:  # 13-14
+            if func_name not in statistics:
                 statistics[func_name] = [execution_time, 1]
             else:
                 avg_time, call_count = statistics[func_name]  # 13-14
                 new_call_count = call_count + 1
                 new_avg_time = (avg_time * call_count + execution_time) / new_call_count
-                statistics[func_name] = [new_avg_time, new_call_count]  # 13-14
+                statistics[func_name] = [new_avg_time, new_call_count]
 
-            return result  # 18-19
+            return result
 
-        return wrapper  # 18-19
+        return wrapper
 
-    return decorator  # 25-26
+    return decorator
