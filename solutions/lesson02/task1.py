@@ -1,4 +1,4 @@
-def get_factorial(num: int) -> int:
-    factorial = 1
-    # ваш код
-    return factorial
+import sys
+
+# Print the full path of the Python interpreter
+print(sys.executable)
