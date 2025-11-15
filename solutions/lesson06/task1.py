@@ -10,6 +10,6 @@ def int_to_roman(num: int) -> str:
     res = []
     for value in values:
         while num >= value:
-            result.append(rom_dict[value])
+            res.append(rom_dict[value])
             num -= value
     return ''.join(res)
