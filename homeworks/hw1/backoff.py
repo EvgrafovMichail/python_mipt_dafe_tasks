@@ -5,6 +5,7 @@ from typing import (
     ParamSpec,
     TypeVar,
 )
+from functools import wraps
 
 P = ParamSpec("P")
 R = TypeVar("R")
@@ -34,5 +35,32 @@ def backoff(
         ValueError, если были переданы невозможные аргументы.
     """
 
-    # ваш код
-    pass
+    if retry_amount < 1 or retry_amount > 100:
+        raise ValueError
+    if timeout_start <= 0 or timeout_start > 10:
+        raise ValueError
+    if timeout_max <= 0 or timeout_max > 10:
+        raise ValueError
+    if backoff_scale <= 0 or backoff_scale > 10:
+        raise ValueError
+
+    def decorator(func):
+        @wraps(func)
+        def wrapper(*args, **kwargs):
+            nonlocal timeout_start
+
+            last_error = None
+            for i in range(retry_amount):
+                try:
+                    return func(*args, **kwargs)
+                except backoff_triggers as e:
+                    sleep(timeout_start + uniform(0, 0.5))
+                    if timeout_start < timeout_max:
+                        timeout_start *= backoff_scale
+                    last_error = e
+
+            raise last_error
+
+        return wrapper
+
+    return decorator
