@@ -1,3 +1,4 @@
+from functools import wraps
 from typing import (
     Callable,
     ParamSpec,
@@ -23,5 +24,34 @@ def lru_cache(capacity: int) -> Callable[[Callable[P, R]], Callable[P, R]]:
             для получения целого числа.
         ValueError, если после округления capacity - число, меньшее 1.
     """
-    # ваш код
-    pass
+
+    try:
+        capacity = round(capacity)
+    except TypeError:
+        raise TypeError(f"{type(capacity).__name__} неверный тип для размера кэша") from None
+    if capacity < 1:
+        raise ValueError
+
+    cache = {}
+
+    def decorator(func):
+        @wraps(func)
+        def wrapper(*args, **kwargs):
+            func_args = args + tuple(sorted(kwargs.items()))
+            if func_args in cache:
+                cache[func_args][1] = 0
+                return cache[func_args][0]
+            else:
+                for k in cache.keys():
+                    cache[k][1] += 1
+
+                if len(cache) == capacity:
+                    least_used_key = sorted(cache.items(), key=lambda x: x[1][1])[-1][0]
+                    cache.pop(least_used_key)
+                res = func(*args, **kwargs)
+                cache[func_args] = [res, 0]
+                return res
+
+        return wrapper
+
+    return decorator
