@@ -22,10 +22,17 @@ def is_valid_segment(segment):
     if not is_valid_uuid(segment["segment_id"]):
         return False
 
-    if segment["type"] is None and segment["segment_start"] is None and segment["segment_end"] is None:
+    if (
+        segment["type"] is None
+        and segment["segment_start"] is None
+        and segment["segment_end"] is None
+    ):
         pass
-    elif (not isinstance(segment["type"], str) or not isinstance(segment["segment_start"], float) or
-          not isinstance(segment["segment_end"], float)):
+    elif (
+        not isinstance(segment["type"], str)
+        or not isinstance(segment["segment_start"], float)
+        or not isinstance(segment["segment_end"], float)
+    ):
         return False
 
     if segment["type"] not in ALLOWED_TYPES and segment["type"] is not None:
@@ -65,29 +72,26 @@ def aggregate_segmentation(
 
         if is_valid_uuid(audio_id) and is_valid_segment(i):
             if audio_id not in audio:
-                audio[audio_id] = {
-                    segment_id: {
-                        "end": end,
-                        "start": start,
-                        "type": segment_type
-                    }
-                }
+                audio[audio_id] = {segment_id: {"end": end, "start": start, "type": segment_type}}
             else:
                 if segment_id not in audio[audio_id]:
-                    audio[audio_id][segment_id] = {
-                        "end": end,
-                        "start": start,
-                        "type": segment_type
-                    }
+                    audio[audio_id][segment_id] = {"end": end, "start": start, "type": segment_type}
                 else:
                     segment = audio[audio_id][segment_id]
-                    if segment["end"] != end or segment["start"] != start or segment["type"] != segment_type:
+                    if (
+                        segment["end"] != end
+                        or segment["start"] != start
+                        or segment["type"] != segment_type
+                    ):
                         not_valid_audio_id.add(audio_id)
 
         else:
             not_valid_audio_id.add(audio_id)
 
-    audio = {a_id: segments if not any(not any(s.values()) for s_id, s in segments.items()) else {} for a_id, segments
-             in audio.items()}
-
-    return audio, list(not_valid_audio_id)
+    return (
+        {
+            a_id: segments if not any(not any(s.values()) for s_id, s in segments.items()) else {}
+            for a_id, segments in audio.items()
+        },
+        list(not_valid_audio_id),
+    )

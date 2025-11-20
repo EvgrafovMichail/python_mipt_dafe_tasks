@@ -1,5 +1,5 @@
-from functools import wraps
 from collections import OrderedDict
+from functools import wraps
 from typing import (
     Callable,
     ParamSpec,
