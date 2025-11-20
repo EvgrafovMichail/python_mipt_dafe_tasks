@@ -1,4 +1,5 @@
 from functools import wraps
+from collections import OrderedDict
 from typing import (
     Callable,
     ParamSpec,
@@ -32,24 +33,21 @@ def lru_cache(capacity: int) -> Callable[[Callable[P, R]], Callable[P, R]]:
     if capacity < 1:
         raise ValueError
 
-    cache = {}
+    cache = OrderedDict()
 
     def decorator(func):
         @wraps(func)
         def wrapper(*args, **kwargs):
             func_args = args + tuple(sorted(kwargs.items()))
             if func_args in cache:
-                cache[func_args][1] = 0
-                return cache[func_args][0]
-            else:
-                for k in cache.keys():
-                    cache[k][1] += 1
+                cache.move_to_end(func_args)
+                return cache[func_args]
 
+            else:
                 if len(cache) == capacity:
-                    least_used_key = sorted(cache.items(), key=lambda x: x[1][1])[-1][0]
-                    cache.pop(least_used_key)
+                    cache.popitem(last=False)
                 res = func(*args, **kwargs)
-                cache[func_args] = [res, 0]
+                cache[func_args] = res
                 return res
 
         return wrapper
