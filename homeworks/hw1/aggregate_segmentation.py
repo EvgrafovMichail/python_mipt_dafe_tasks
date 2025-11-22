@@ -88,10 +88,12 @@ def aggregate_segmentation(
         else:
             not_valid_audio_id.add(audio_id)
 
-    return (
-        {
-            a_id: segments if not any(not any(s.values()) for s_id, s in segments.items()) else {}
-            for a_id, segments in audio.items()
-        },
-        list(not_valid_audio_id),
-    )
+    audio_without_empty_segments = {}
+    for a_id, segments in audio.items():
+        new_segments = {}
+        for s_id, s in segments.items():
+            if any(s.values()):
+                new_segments[s_id] = s
+        audio_without_empty_segments[a_id] = new_segments
+
+    return audio_without_empty_segments, list(not_valid_audio_id)
