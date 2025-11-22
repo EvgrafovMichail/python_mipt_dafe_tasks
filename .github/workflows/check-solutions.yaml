@@ -27,12 +27,16 @@ jobs:
 
     - name: Lint code
       run: |
-        ruff check ./solutions
+        ruff check ./solutions ./homeworks
 
     - name: Check code format
       run: |
-        ruff format --check ./solutions
+        ruff format --check ./solutions ./homeworks
 
-    - name: Test code
+    - name: Test code 
       run: |
         pytest -v --cov=./solutions ./tests/
+      
+    - name: Test code hw
+      run: |
+        pytest -v --cov=./homeworks ./tests_hw/
