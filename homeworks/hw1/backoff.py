@@ -17,22 +17,35 @@ def backoff(
     backoff_scale: float = 2.0,
     backoff_triggers: tuple[type[Exception]] = (Exception,),
 ) -> Callable[[Callable[P, R]], Callable[P, R]]:
-    """
-    Параметризованный декоратор для повторных запусков функций.
+    if retry_amount <= 0:
+        raise ValueError
+    if timeout_start <= 0:
+        raise ValueError
+    if timeout_max <= 0:
+        raise ValueError
+    if backoff_scale <= 0:
+        raise ValueError
+    if timeout_start > timeout_max:
+        raise ValueError
 
-    Args:
-        retry_amount: максимальное количество попыток выполнения функции;
-        timeout_start: начальное время ожидания перед первой повторной попыткой (в секундах);
-        timeout_max: максимальное время ожидания между попытками (в секундах);
-        backoff_scale: множитель, на который увеличивается задержка после каждой неудачной попытки;
-        backoff_triggers: кортеж типов исключений, при которых нужно выполнить повторный вызов.
+    def decorator(func: Callable[P, R]) -> Callable[P, R]:
+        def wrapper(*args: P.args, **kwargs: P.kwargs) -> R:
+            timeout = timeout_start
 
-    Returns:
-        Декоратор для непосредственного использования.
+            for num_try in range(retry_amount):
+                try:
+                    return func(*args, **kwargs)
+                except Exception as exc:
+                    if not isinstance(exc, backoff_triggers):
+                        raise exc from None
+                    if num_try == retry_amount - 1:
+                        raise exc from None
 
-    Raises:
-        ValueError, если были переданы невозможные аргументы.
-    """
+                jitter_time = uniform(0, 0.5)
+                sleep_time = min(timeout + jitter_time, timeout_max)
+                sleep(sleep_time)
+                timeout = min(timeout_max, timeout * backoff_scale)
 
-    # ваш код
-    pass
+        return wrapper
+
+    return decorator
