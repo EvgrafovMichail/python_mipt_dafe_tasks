@@ -32,13 +32,13 @@ def aggregate_segmentation(
         if 0 < cnt_is_none < 3:
             audio_ids_remarking.add(segment["audio_id"])
             continue
-        if segment_type is not None and type(segment_type) != str:
+        if segment_type is not None and not isinstance(segment_type, str):
             audio_ids_remarking.add(segment["audio_id"])
             continue
-        if segment_start is not None and type(segment_start) != float:
+        if segment_start is not None and not isinstance(segment_start, float):
             audio_ids_remarking.add(segment["audio_id"])
             continue
-        if segment_end is not None and type(segment_end) != float:
+        if segment_end is not None and not isinstance(segment_end, float):
             audio_ids_remarking.add(segment["audio_id"])
             continue
 
