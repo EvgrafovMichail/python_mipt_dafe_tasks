@@ -38,21 +38,46 @@ def lru_cache(capacity: int) -> Callable[[Callable[P, R]], Callable[P, R]]:
         
         def decorator(func: Callable[P, R]) -> Callable[P, R]:
             
-            lru_dict: dict[tuple[object], object] = {}
+            """Ключ в виде кортежа (args, кортеж kwargs)"""
+            """Значение при ключе - это возвращаемое значение"""
+            """kwargs преобразуется в кортеж (ключ, значение)"""
+
+            lru_dict: dict[
+                tuple[
+                    tuple[object], 
+                    tuple[object, object]
+                ], 
+                object
+            ] = {}
+
+            """Порядок ключей в словаре является очередью"""
+            """Первый ключ - последний в очереди"""
+            """Последний ключ - первый в очереди"""
             
             def wrapper(*args: P.args, **kwargs: P.kwargs) -> R:
+                
+                """
+                    Кортеж (args, кортеж kwargs)
+                    Асимптотическая сложность линейно зависит 
+                    от количества именованных аргументов
+                """
+                args_pair = (args, tuple(kwargs.items()))
 
-                if args not in lru_dict.keys():
-                    lru_dict[args] = func(*args, **kwargs)
+                """Проверка на наличие набора аргументов в lru_dict"""
+                if args_pair not in lru_dict.keys():
+                    
+                    """Добавляем отсутствующий набор агрументов"""
+                    lru_dict[args_pair] = func(*args, **kwargs)
+
+                    """Удаление последнего в очереди """
                     if len(lru_dict) > int_capacity:
                         lru_dict.pop(next(iter(lru_dict)), None)
                 
                 else:
-                    val = lru_dict[args]
-                    lru_dict.pop(args, None)
-                    lru_dict[args] = val
+                    """Меняем порядок набора аргумента"""
+                    lru_dict[args_pair] = lru_dict.pop(args_pair, None)
 
-                return lru_dict[args]
+                return lru_dict[args_pair]
             
             return wrapper
         

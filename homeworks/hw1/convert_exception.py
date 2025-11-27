@@ -35,7 +35,7 @@ def convert_exceptions_to_api_compitable_ones(
                 
                 if type(ex) in exception_to_api_exception.keys():
                     raise exception_to_api_exception[type(ex)]
-                raise
+                raise ex
 
         return wrapper
     
