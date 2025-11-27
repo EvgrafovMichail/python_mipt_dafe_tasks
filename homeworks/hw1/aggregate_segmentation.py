@@ -84,21 +84,21 @@ def aggregate_segmentation(segmentation_data: list[dict[str, str | float | None]
             continue
             
         if segment_id in had_seen_segments:
-            existing_audio_id, existing_start, existing_end, existing_type = had_seen_segments[segment_id]
-            if (existing_audio_id != audio_id or 
-                existing_start != segment_start or 
-                existing_end != segment_end or 
-                existing_type != segment_type):
+            exist_audio_id, exist_start,exist_end, exist_type = had_seen_segments[segment_id]
+            if (exist_audio_id != audio_id or 
+                exist_start != segment_start or 
+                exist_end != segment_end or 
+                exist_type != segment_type):
                 audio_ids_re_marking.add(audio_id)
                 
-                if existing_audio_id != audio_id:
-                    audio_ids_re_marking.add(existing_audio_id)
+                if exist_audio_id != audio_id:
+                    audio_ids_re_marking.add(exist_audio_id)
                 
                 if audio_id in valid_data:
                     del valid_data[audio_id]
                 
-                if existing_audio_id in valid_data:
-                    del valid_data[existing_audio_id]
+                if exist_audio_id in valid_data:
+                    del valid_data[exist_audio_id]
                 continue
         else:
             had_seen_segments[segment_id] = (audio_id, segment_start, segment_end, segment_type)

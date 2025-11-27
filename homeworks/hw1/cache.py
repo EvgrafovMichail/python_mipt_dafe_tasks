@@ -26,7 +26,7 @@ def lru_cache(capacity: int) -> Callable[[Callable[P, R]], Callable[P, R]]:
     try:
         capacity_int = round(capacity)
     except (TypeError, ValueError) as e:
-        raise TypeError(f"Capacity must be a roundable object, got {type(capacity).__name__}") from e
+        raise TypeError(f"Capacity must be a roundable object,got{type(capacity).__name__}") from e
     
     if capacity_int < 1:
         raise ValueError(f"Capacity must be at least 1, got {capacity_int}")
