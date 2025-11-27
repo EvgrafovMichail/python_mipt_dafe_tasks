@@ -29,11 +29,11 @@ def convert_exceptions_to_api_compitable_ones(
             try:
                 return func(*args, **kwargs)
             except Exception as e:
-               
-                if type (e) in exception_to_api_exception:
+                if type(e) in exception_to_api_exception:
                     api_exception = exception_to_api_exception[type(e)]
                     raise api_exception from e
-                raise 
+                raise
+
         return wrapper
+
     return decorator
-    
