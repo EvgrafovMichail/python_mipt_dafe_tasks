@@ -142,13 +142,16 @@ def test_exponential_backoff_and_jitter(mock_sleep: MagicMock) -> None:
     assert count_more_av_time   # есть добавление "дрожи"
 
 def test_success() -> None:
-    capacity = 2
+    capacity = 3
     call_args =  [
         (1, 2),
         (1, 2),
         (2, 2),
+        (3, 2),
+        (1, 2),
+        (3, 2)
     ]
-    call_count_expected = 2
+    call_count_expected = 3
     
     mock_func = Mock()
     func_cached = lru_cache(capacity=capacity)(mock_func)
