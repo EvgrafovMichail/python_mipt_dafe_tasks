@@ -34,10 +34,10 @@ class Deque:
         if self.begin.next is None:
             self.begin = None
             self.end = None
-        else:           
+        else:
             self.begin.next.prev = None
             self.begin = self.begin.next
-            
+
     def move_to_end(self, node: Node):
         if node.next is not None:
             node.next.prev = node.prev
