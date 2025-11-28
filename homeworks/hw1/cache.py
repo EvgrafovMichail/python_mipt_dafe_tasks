@@ -23,21 +23,22 @@ def lru_cache(capacity: int) -> Callable[[Callable[P, R]], Callable[P, R]]:
             для получения целого числа.
         ValueError, если после округления capacity - число, меньшее 1.
     """
+
     def decorator(func):
         try:
             nonlocal capacity
             capacity = round(int(capacity))
-            if (capacity < 1):
+            if capacity < 1:
                 raise ValueError
         except TypeError:
             raise TypeError
-            
+
         cache = {}
+
         def wrapper(*args, **kwargs):
             key = (args, tuple(sorted(kwargs.items()))) if kwargs else args
 
             if key in cache:
-
                 value = cache[key]
                 del cache[key]
                 cache[key] = value

@@ -6,7 +6,7 @@ ALLOWED_TYPES = {
 
 
 def aggregate_segmentation(
-        segmentation_data: list[dict[str, str | float | None]],
+    segmentation_data: list[dict[str, str | float | None]],
 ) -> tuple[dict[str, dict[str, dict[str, str | float]]], list[str]]:
     """
     Функция для валидации и агрегации данных разметки аудио сегментов.
@@ -42,7 +42,6 @@ def aggregate_segmentation(
         segment_ids_seen = {}
         audio_has_invalid = False
 
-
         speech_segments = {}
         speechless_segments = set()
 
@@ -68,15 +67,12 @@ def aggregate_segmentation(
                     audio_has_invalid = True
                     continue
 
-
                 none_count = [type_val, start_val, end_val].count(None)
                 if none_count > 0 and none_count < 3:
                     audio_has_invalid = True
                     continue
 
-
                 if none_count == 3:
-
                     speechless_segments.add(segment_id)
                     continue
 
@@ -86,23 +82,21 @@ def aggregate_segmentation(
 
                 if segment_id in segment_ids_seen:
                     existing = segment_ids_seen[segment_id]
-                    if (existing["start"] != start_val or
-                            existing["end"] != end_val or
-                            existing["type"] != type_val):
+                    if (
+                        existing["start"] != start_val
+                        or existing["end"] != end_val
+                        or existing["type"] != type_val
+                    ):
                         audio_has_invalid = True
                         continue
                 else:
                     segment_ids_seen[segment_id] = {
                         "start": start_val,
                         "end": end_val,
-                        "type": type_val
+                        "type": type_val,
                     }
 
-                speech_segments[segment_id] = {
-                    "start": start_val,
-                    "end": end_val,
-                    "type": type_val
-                }
+                speech_segments[segment_id] = {"start": start_val, "end": end_val, "type": type_val}
 
             except Exception:
                 audio_has_invalid = True
@@ -116,4 +110,3 @@ def aggregate_segmentation(
             valid_segments[audio_id] = segment_dict
 
     return valid_segments, list(need_remark)
-

@@ -46,15 +46,12 @@ def backoff(
         raise ValueError("backoff_scale должен быть от 0 до 10")
 
     def decorator(func: Callable[P, R]) -> Callable[P, R]:
-
         def wrapper(*args: P.args, **kwargs: P.kwargs) -> R:
-
             current_timeout = timeout_start
             attempts_left = retry_amount
 
             while attempts_left > 0:
                 try:
-
                     return func(*args, **kwargs)
 
                 except backoff_triggers as error:
