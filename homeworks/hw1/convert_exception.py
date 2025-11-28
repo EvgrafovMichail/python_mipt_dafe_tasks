@@ -7,11 +7,7 @@ from typing import (
 P = ParamSpec("P")
 R = TypeVar("R")
 
-
-def convert_exceptions_to_api_compitable_ones(
-    exception_to_api_exception: dict[type[Exception], type[Exception] | Exception],
-) -> Callable[[Callable[P, R]], Callable[P, R]]:
-    """
+"""
     Параметризованный декоратор для замены внутренних исключений на API-исключении.
 
     Args:
@@ -24,5 +20,21 @@ def convert_exceptions_to_api_compitable_ones(
         Декоратор для непосредственного использования.
     """
 
-    # ваш код
-    pass
+
+def convert_exceptions_to_api_compitable_ones(
+    exception_to_api_exception: dict[type[Exception], type[Exception] | Exception],
+) -> Callable[[Callable[P, R]], Callable[P, R]]:
+    def decorator(func):
+        def wrapper(*args, **kwargs):
+            try:
+                return func(*args, **kwargs)
+            except Exception as exp:
+                for exp_key, exp_value in exception_to_api_exception.items():
+                    if isinstance(exp, exp_key):
+                        raise exp_value from None
+
+                raise
+
+        return wrapper
+
+    return decorator
