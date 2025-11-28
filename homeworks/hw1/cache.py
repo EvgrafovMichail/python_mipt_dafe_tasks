@@ -8,7 +8,7 @@ P = ParamSpec("P")
 R = TypeVar("R")
 
 
-def lru_cache(capacity: int):
+def lru_cache(capacity: int) -> Callable[[Callable[P, R]], Callable[P, R]]:
     """
     Параметризованный декоратор для реализации LRU-кеширования.
 
@@ -32,12 +32,12 @@ def lru_cache(capacity: int):
         except TypeError:
             raise TypeError
             
-        cache = {}  # Обычный словарь
+        cache = {}
         def wrapper(*args, **kwargs):
             key = (args, tuple(sorted(kwargs.items()))) if kwargs else args
 
             if key in cache:
-                # Имитируем move_to_end: удаляем и добавляем заново
+
                 value = cache[key]
                 del cache[key]
                 cache[key] = value
@@ -47,7 +47,6 @@ def lru_cache(capacity: int):
             cache[key] = result
 
             if len(cache) > capacity:
-                # Удаляем первый элемент (самый старый)
                 first_key = next(iter(cache))
                 del cache[first_key]
 
