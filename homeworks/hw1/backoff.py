@@ -35,4 +35,36 @@ def backoff(
     """
 
     # ваш код
-    pass
+
+    if retry_amount < 1:
+        raise ValueError("число попыток должно быть больше нуля")
+    if timeout_start <= 0 or timeout_max <= 0 or backoff_scale <= 0:
+        raise ValueError("времена ожидания и множитель должны быть больше нуля")
+    if timeout_start > timeout_max:
+        raise ValueError("начальное время ожидания не может превышать максимальное")
+
+    def decorator(func):
+        def wrapper(*args, **kwargs):
+            delay = timeout_start
+            last_ex = None
+            for attempt in range(retry_amount):
+                try:
+                    res = func(*args, **kwargs)
+                    return res
+                
+                except backoff_triggers as exc:
+                    last_ex = exc
+
+                    if attempt == retry_amount - 1:
+                        break
+
+                    jitter_time = uniform(0, 0.5)
+                    sleep(delay + jitter_time)
+                    new_delay = delay * backoff_scale
+                    delay = new_delay if new_delay < timeout_max else timeout_max
+
+            raise last_ex
+
+        return wrapper
+    
+    return decorator
