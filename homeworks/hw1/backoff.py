@@ -34,5 +34,27 @@ def backoff(
         ValueError, если были переданы невозможные аргументы.
     """
 
-    # ваш код
-    pass
+    if retry_amount <= 0 or timeout_start <= 0 or timeout_max <= 0 or backoff_scale <= 0:
+        raise ValueError()
+
+    def decorator(func):
+        def wrapper(*args, **kwargs):
+            zader = timeout_start
+
+            for attempt in range(retry_amount):
+                try:
+                    return func(*args, **kwargs)
+                except backoff_triggers:
+                    if attempt == retry_amount - 1:
+                        raise Exception
+
+                    jitter_time = uniform(0, 0.5)
+                    sleep(zader + jitter_time)
+                    if zader * backoff_scale > timeout_max:
+                        zader = timeout_max
+                    else:
+                        zader *= backoff_scale
+
+        return wrapper
+
+    return decorator
