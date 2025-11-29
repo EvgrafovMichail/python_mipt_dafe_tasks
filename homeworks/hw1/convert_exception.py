@@ -1,3 +1,4 @@
+from functools import wraps
 from typing import (
     Callable,
     ParamSpec,
@@ -11,18 +12,16 @@ R = TypeVar("R")
 def convert_exceptions_to_api_compitable_ones(
     exception_to_api_exception: dict[type[Exception], type[Exception] | Exception],
 ) -> Callable[[Callable[P, R]], Callable[P, R]]:
-    """
-    Параметризованный декоратор для замены внутренних исключений на API-исключении.
+    def wrapper(func: Callable[P, R]) -> Callable[P, R]:
+        @wraps(func)
+        def inner(*args: P.args, **kwargs: P.kwargs) -> R:
+            try:
+                return func(*args, **kwargs)
+            except Exception as e:
+                if (exception_type := type(e)) in exception_to_api_exception:
+                    raise exception_to_api_exception[exception_type]
+                raise e
 
-    Args:
-        exception_to_api_exception: словарь:
-            ключи - внутренние исключения, которые надо заменить,
-            значения - API-исключения, которые надо возбудить
-                вместо внутренних исключений
+        return inner
 
-    Returns:
-        Декоратор для непосредственного использования.
-    """
-
-    # ваш код
-    pass
+    return wrapper
