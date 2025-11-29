@@ -16,19 +16,19 @@ def _checks_for_valid(
 ) -> None:
     """Функция для проверки валидации входных данных"""
 
-    if (retry_amount < 1) or (retry_amount > 100):
+    if not (1 <= retry_amount <= 100):
         raise ValueError
 
-    if (timeout_start <= 0) or (timeout_start > 10.0):
+    if not (0 < timeout_start <= 10.0):
         raise ValueError
 
-    if (timeout_max <= 0) or (timeout_max > 10.0):
+    if not (0 < timeout_max <= 10.0):
         raise ValueError
 
     if timeout_start > timeout_max:
         raise ValueError
 
-    if (backoff_scale <= 0) or (backoff_scale > 10.0):
+    if not (0 < backoff_scale <= 10.0):
         raise ValueError
 
 
