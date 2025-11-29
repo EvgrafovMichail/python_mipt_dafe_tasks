@@ -36,7 +36,7 @@ def aggregate_segmentation(
             valid_data.pop(audio_id, None)
             continue
 
-        if type(type_val) is str or type(start_val) is float or type(end_val) is float:
+        if type(type_val) is not str or type(start_val) is not float or type(end_val) is not float:
             audio_ids_re_marking.append(audio_id)
             valid_data.pop(audio_id, None)
             continue
