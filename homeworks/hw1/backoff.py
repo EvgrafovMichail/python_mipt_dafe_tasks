@@ -59,13 +59,13 @@ def backoff(
                     exception = exc
 
                     if isinstance(exc, backoff_triggers):
-                        sleep(curr_timeout)
-                        curr_timeout = curr_timeout * backoff_scale + uniform(0, 0.5)
+                        sleep(curr_timeout + uniform(0, 0.5))
+                        curr_timeout = curr_timeout * backoff_scale 
                         if curr_timeout > timeout_max:
                             curr_timeout = timeout_max
 
                     else:
-                        raise exc  # from None
+                        raise exc  
             raise exception
 
         return recall
