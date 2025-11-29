@@ -1,8 +1,9 @@
-import pytest
 from typing import Any
 
+import pytest
+
 # Импортируем тестируемую функцию и константу
-from  homeworks.hw1.aggregate_segmentation import aggregate_segmentation, ALLOWED_TYPES
+from homeworks.hw1.aggregate_segmentation import ALLOWED_TYPES, aggregate_segmentation
 
 
 class TestAggregateSegmentation:
@@ -27,7 +28,7 @@ class TestAggregateSegmentation:
             },
         ]
         valid, invalid = aggregate_segmentation(data)
-        
+
         assert len(invalid) == 0
         assert "audio-123" in valid
         assert "audio-456" in valid
@@ -53,7 +54,7 @@ class TestAggregateSegmentation:
             },
         ]
         valid, invalid = aggregate_segmentation(data)
-        
+
         assert len(invalid) == 0
         assert len(valid["audio-123"]) == 2
         assert "seg-1" in valid["audio-123"]
@@ -78,7 +79,7 @@ class TestAggregateSegmentation:
             },
         ]
         valid, invalid = aggregate_segmentation(data)
-        
+
         assert len(invalid) == 0
         assert valid["audio-123"] == {}
 
@@ -101,7 +102,7 @@ class TestAggregateSegmentation:
             },
         ]
         valid, invalid = aggregate_segmentation(data)
-        
+
         assert len(invalid) == 0
         assert len(valid["audio-123"]) == 1  # Только сегмент с голосом
         assert "seg-1" in valid["audio-123"]
@@ -126,7 +127,7 @@ class TestAggregateSegmentation:
             },
         ]
         valid, invalid = aggregate_segmentation(data)
-        
+
         assert len(invalid) == 0
         assert len(valid["audio-123"]) == 1
 
@@ -149,15 +150,18 @@ class TestAggregateSegmentation:
             },
         ]
         valid, invalid = aggregate_segmentation(data)
-        
+
         assert "audio-123" in invalid
         assert len(valid.get("audio-123", {})) == 0
 
-    @pytest.mark.parametrize("field,value", [
-        ("type", 123),  # type не строка
-        ("segment_start", "not_float"),  # start не float
-        ("segment_end", "not_float"),  # end не float
-    ])
+    @pytest.mark.parametrize(
+        "field,value",
+        [
+            ("type", 123),  # type не строка
+            ("segment_start", "not_float"),  # start не float
+            ("segment_end", "not_float"),  # end не float
+        ],
+    )
     def test_invalid_field_types(self, field: str, value: Any):
         """Тест невалидных типов полей."""
         base_segment = {
@@ -169,19 +173,22 @@ class TestAggregateSegmentation:
         }
         base_segment[field] = value
         data = [base_segment]
-        
+
         valid, invalid = aggregate_segmentation(data)
-        
+
         assert "audio-123" in invalid
         assert len(valid) == 0
 
-    @pytest.mark.parametrize("segment_start,segment_end,type_val", [
-        (None, 2.5, "voice_human"),  # Только start None
-        (0.5, None, "voice_human"),  # Только end None
-        (0.5, 2.5, None),  # Только type None
-        (None, None, "voice_human"),  # Только type не None
-        (0.5, None, None),  # Только start не None
-    ])
+    @pytest.mark.parametrize(
+        "segment_start,segment_end,type_val",
+        [
+            (None, 2.5, "voice_human"),  # Только start None
+            (0.5, None, "voice_human"),  # Только end None
+            (0.5, 2.5, None),  # Только type None
+            (None, None, "voice_human"),  # Только type не None
+            (0.5, None, None),  # Только start не None
+        ],
+    )
     def test_partial_none_values(self, segment_start: Any, segment_end: Any, type_val: Any):
         """Тест частичных None значений (должны быть невалидными)."""
         data = [
@@ -194,7 +201,7 @@ class TestAggregateSegmentation:
             }
         ]
         valid, invalid = aggregate_segmentation(data)
-        
+
         assert "audio-123" in invalid
         assert len(valid) == 0
 
@@ -210,7 +217,7 @@ class TestAggregateSegmentation:
             }
         ]
         valid, invalid = aggregate_segmentation(data)
-        
+
         assert "audio-123" in invalid
         assert len(valid) == 0
 
@@ -233,7 +240,7 @@ class TestAggregateSegmentation:
             },
         ]
         valid, invalid = aggregate_segmentation(data)
-        
+
         assert "audio-123" in invalid
         # Проверяем, что валидные сегменты не добавлены
         assert len(valid.get("audio-123", {})) == 0
@@ -257,7 +264,7 @@ class TestAggregateSegmentation:
             },
         ]
         valid, invalid = aggregate_segmentation(data)
-        
+
         assert len(invalid) == 0
         assert "audio-123" in valid
         assert len(valid["audio-123"]) == 1
@@ -265,7 +272,7 @@ class TestAggregateSegmentation:
     def test_empty_input(self):
         """Тест пустого входного списка."""
         valid, invalid = aggregate_segmentation([])
-        
+
         assert len(valid) == 0
         assert len(invalid) == 0
 
@@ -288,7 +295,7 @@ class TestAggregateSegmentation:
             },
         ]
         valid, invalid = aggregate_segmentation(data)
-        
+
         assert "audio-123" in invalid
         assert len(valid) == 0
 
@@ -318,7 +325,7 @@ class TestAggregateSegmentation:
             },
         ]
         valid, invalid = aggregate_segmentation(data)
-        
+
         assert "audio-123" in invalid
         assert "audio-456" not in invalid
         assert invalid.count("audio-123") == 1  # Только один раз
@@ -344,7 +351,7 @@ class TestAggregateSegmentation:
             },
         ]
         valid, invalid = aggregate_segmentation(data)
-        
+
         assert len(invalid) == 0
         assert len(valid) == 2
 
@@ -356,16 +363,18 @@ class TestAggregateSegmentation:
         for i in range(100):
             audio_id = f"audio-{i}"
             for j in range(10):
-                data.append({
-                    "audio_id": audio_id,
-                    "segment_id": f"seg-{i}-{j}",
-                    "segment_start": float(j),
-                    "segment_end": float(j + 1),
-                    "type": "voice_human" if j % 2 == 0 else "voice_bot",
-                })
-        
+                data.append(
+                    {
+                        "audio_id": audio_id,
+                        "segment_id": f"seg-{i}-{j}",
+                        "segment_start": float(j),
+                        "segment_end": float(j + 1),
+                        "type": "voice_human" if j % 2 == 0 else "voice_bot",
+                    }
+                )
+
         valid, invalid = aggregate_segmentation(data)
-        
+
         assert len(valid) == 100
         assert len(invalid) == 0
         assert all(len(segments) == 10 for segments in valid.values())
@@ -383,7 +392,7 @@ class TestAggregateSegmentation:
             for i, voice_type in enumerate(ALLOWED_TYPES)
         ]
         valid, invalid = aggregate_segmentation(data)
-        
+
         assert len(invalid) == 0
         assert len(valid) == len(ALLOWED_TYPES)
 
@@ -399,7 +408,7 @@ class TestAggregateSegmentation:
             }
         ]
         valid, invalid = aggregate_segmentation(data)
-        
+
         # В текущей реализации это считается валидным
         assert "audio-123" not in invalid
         assert "audio-123" in valid
@@ -416,7 +425,7 @@ class TestAggregateSegmentation:
             }
         ]
         valid, invalid = aggregate_segmentation(data)
-        
+
         # В текущей реализации это считается валидным
         assert "audio-123" not in invalid
         assert "audio-123" in valid

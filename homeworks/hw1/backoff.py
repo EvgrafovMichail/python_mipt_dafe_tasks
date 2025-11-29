@@ -1,3 +1,4 @@
+from functools import wraps
 from random import uniform
 from time import sleep
 from typing import (
@@ -5,11 +6,9 @@ from typing import (
     ParamSpec,
     TypeVar,
 )
-from functools import wraps
 
 P = ParamSpec("P")
 R = TypeVar("R")
-
 
 
 def backoff(
@@ -35,24 +34,25 @@ def backoff(
     Raises:
         ValueError, если были переданы невозможные аргументы.
     """
-    if (retry_amount <= 0 or timeout_max <= 0 or timeout_start <= 0 
-     or backoff_scale <= 0):
+    if retry_amount <= 0 or timeout_max <= 0 or timeout_start <= 0 or backoff_scale <= 0:
         raise ValueError("Detected negative number, use positive numbers for decorator")
+
     def decorator(func: Callable):
         @wraps(func)
         def wrapper(*args, **kargs):
             delay = timeout_start
             for i in range(retry_amount + 1):
                 try:
-                    return func(*args,**kargs)
-                except backoff_triggers as exc:
+                    return func(*args, **kargs)
+                except backoff_triggers:
                     if i == retry_amount + 1:
                         raise
-                    delay_amount = min(timeout_max, delay ) + uniform(0, 0.5)
+                    delay_amount = min(timeout_max, delay) + uniform(0, 0.5)
                     sleep(delay_amount)
                     delay *= backoff_scale
                 except Exception:
                     raise
-        return wrapper
-    return decorator         
 
+        return wrapper
+
+    return decorator
