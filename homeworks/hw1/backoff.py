@@ -34,13 +34,14 @@ def backoff(
         ValueError, если были переданы невозможные аргументы.
     """
 
-    if (retry_amount <= 0 or retry_amount > 100) or (
-       timeout_start <= 0 or timeout_start > 10) or (
-       timeout_max <= 0 or timeout_max > 10) or (
-       backoff_scale <= 0 or backoff_scale > 10):
+    if (
+        (retry_amount <= 0 or retry_amount > 100)
+        or (timeout_start <= 0 or timeout_start > 10)
+        or (timeout_max <= 0 or timeout_max > 10)
+        or (backoff_scale <= 0 or backoff_scale > 10)
+    ):
         raise ValueError("Invalid value")
-    
-    
+
     def decorator(func: Callable[P, R]):
         def wrapper(*args, **kwargs):
             nonlocal backoff_triggers
@@ -49,7 +50,7 @@ def backoff(
             for retry in range(retry_amount + 1):
                 try:
                     return func(*args, **kwargs)
-                
+
                 except backoff_triggers as exc:
                     if retry == retry_amount:
                         raise exc
@@ -57,12 +58,12 @@ def backoff(
                     timeout = min(timeout, timeout_max)
                     sleep_timeout = timeout + uniform(0, 0.5)
                     sleep(sleep_timeout)
-                    
+
                     timeout *= backoff_scale
 
                 except Exception:
                     raise
 
         return wrapper
-    return decorator
 
+    return decorator

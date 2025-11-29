@@ -1,4 +1,3 @@
-from random import uniform
 from typing import (
     Callable,
     ParamSpec,
@@ -29,9 +28,9 @@ def lru_cache(capacity: int) -> Callable[[Callable[P, R]], Callable[P, R]]:
     except Exception:
         raise TypeError from None
     else:
-        if new_capacity < 1:      # < 1 или <= 1 ???
+        if new_capacity < 1:  # < 1 или <= 1 ???
             raise ValueError from None
-    
+
     dictionary = {}
 
     def decorator(func: Callable[P, R]):
@@ -39,27 +38,27 @@ def lru_cache(capacity: int) -> Callable[[Callable[P, R]], Callable[P, R]]:
             nonlocal dictionary, new_capacity
 
             func_args = (args, tuple(kwargs.items()))
-            
+
             if func_args in dictionary:
                 value = dictionary.pop(func_args)
                 dictionary[func_args] = value
                 return value
-            
+
             if len(dictionary) >= new_capacity:
                 first_key, *_ = dictionary
                 dictionary.pop(first_key)
-            
+
             result = func(*args, **kwargs)
             dictionary[func_args] = result
 
             return result
 
-            
         return wrapper
+
     return decorator
 
 
-'''
+"""
 @lru_cache(capacity=2)
 def get_greeting(name: str) -> str:
     greeting = f"Hello, {name}!"
@@ -74,8 +73,8 @@ print(get_greeting("Mr.White"))
 print(get_greeting("Saul Goodman"))
 print(get_greeting("Mr.White"))
 print(get_greeting("Mike"))
-'''
-'''
+"""
+"""
  dictionary = {}
     priority_list = []
 
@@ -108,8 +107,8 @@ print(get_greeting("Mike"))
             
         return wrapper
     return decorator
-'''
-'''
+"""
+"""
 try:
         new_capacity = round(capacity)
     except Exception:
@@ -140,4 +139,4 @@ try:
             
         return wrapper
     return decorator
-'''
+"""

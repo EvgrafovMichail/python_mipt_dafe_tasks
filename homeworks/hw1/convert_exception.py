@@ -23,7 +23,7 @@ def convert_exceptions_to_api_compitable_ones(
     Returns:
         Декоратор для непосредственного использования.
     """
-    
+
     def decorator(func: Callable[P, R]):
         def wrapper(*args, **kwargs):
             try:
@@ -32,9 +32,13 @@ def convert_exceptions_to_api_compitable_ones(
                 raise exception_to_api_exception[type(exc)] from None
             except Exception:
                 raise
+
         return wrapper
+
     return decorator
-'''
+
+
+"""
 @convert_exceptions_to_api_compitable_ones(
 exception_to_api_exception={ValueError: ValueError("it is worked")}
 )
@@ -43,9 +47,9 @@ def raise_key_error() -> None:
 
 raise_key_error()
 
-'''
+"""
 
-'''
+"""
 def decorator(func: Callable[P, R]):
         def wrapper(*args, **kwargs):
             try:
@@ -56,9 +60,9 @@ def decorator(func: Callable[P, R]):
                 raise
         return wrapper
     return decorator
-'''
+"""
 
-'''РАБОТАЕТ!!!
+"""РАБОТАЕТ!!!
 except tuple(exception_to_api_exception.keys()) as exc:
             # Находим точный класс из словаря, который соответствует пойманному исключению
             for exc_type, api_exc in exception_to_api_exception.items():
@@ -69,10 +73,10 @@ except tuple(exception_to_api_exception.keys()) as exc:
                         raise api_exc from None
             # Если вдруг не нашли (маловероятно), пробрасываем оригинал
             raise
-'''
-''' 
+"""
+""" 
             except Exception as exc:
                 if type(exc) in exception_to_api_exception:
                     raise exception_to_api_exception[type(exc)] from None
                 raise
-'''
+"""
