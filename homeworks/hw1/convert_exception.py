@@ -24,5 +24,21 @@ def convert_exceptions_to_api_compitable_ones(
         Декоратор для непосредственного использования.
     """
 
-    # ваш код
-    pass
+    def decorator(func: Callable[P, R]) -> Callable[P, R]:
+        def wrapper(*args: P.args, **kwargs: P.kwargs) -> R:
+            try:
+                return func(*args, **kwargs)
+            except Exception as e:
+                exception_type = type(e)
+                if exception_type in exception_to_api_exception:
+                    exception = exception_to_api_exception[exception_type]
+                    if isinstance(exception, type):
+                        raise exception() from None
+                    else:
+                        raise exception from None
+                else:
+                    raise
+
+        return wrapper
+
+    return decorator
