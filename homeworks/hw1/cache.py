@@ -21,7 +21,7 @@ def lru_cache(capacity: int) -> Callable[[Callable[P, R]], Callable[P, R]]:
         def inner(*args: P.args, **kwargs: P.kwargs) -> R:
             func_code = func.__code__
             arg_names = func_code.co_varnames[: func_code.co_argcount]
-            if defaults := func.__defaults__:
+            if not (defaults := func.__defaults__):
                 defaults = ()
             num_non_defaults = func_code.co_argcount - len(defaults)
 
@@ -31,21 +31,17 @@ def lru_cache(capacity: int) -> Callable[[Callable[P, R]], Callable[P, R]]:
                     key.append(args[i])
                 elif arg_name in kwargs:
                     key.append(kwargs[arg_name])
-                elif i >= num_non_defaults:
+                else:
                     key.append(defaults[i - num_non_defaults])
             key = tuple(key)
 
             if key in cache:
-                result = cache[key]
-                del cache[key]
-                cache[key] = result
+                cache[key] = (result := cache.pop(key))
                 return result
             else:
-                result = func(*args, **kwargs)
-                cache[key] = result
-                if len(cache) > capacity:
-                    first_key = next(iter(cache))
-                    del cache[first_key]
+                if len(cache) > capacity - 1:
+                    del cache[next(iter(cache))]
+                cache[key] = (result := func(*args, **kwargs))
                 return result
 
         return inner
