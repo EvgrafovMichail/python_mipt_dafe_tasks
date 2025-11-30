@@ -3,7 +3,7 @@ from typing import (
     ParamSpec,
     TypeVar,
 )
-
+from functools import wraps
 P = ParamSpec("P")
 R = TypeVar("R")
 
@@ -25,14 +25,14 @@ def convert_exceptions_to_api_compitable_ones(
     """
 
     def decorator(func: Callable[P, R]):
+        @wraps(func)
         def wrapper(*args, **kwargs):
             try:
                 return func(*args, **kwargs)
             except Exception as e:
                 if type(e) in exception_to_api_exception:
                     exc = exception_to_api_exception[type(e)]
-                else:
-                    exc = e
-                raise exc 
+                    raise exc from None
+                raise
         return wrapper
     return decorator
