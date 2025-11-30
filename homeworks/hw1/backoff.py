@@ -1,4 +1,5 @@
 from time import sleep
+from random import uniform
 from typing import (
     Callable,
     ParamSpec,
@@ -38,7 +39,11 @@ def backoff(
                     if delay > timeout_max:
                         delay = timeout_max
                     
-                    sleep(delay)
+                    # Расчет джиттера (jitter)
+                    jitter = uniform(0, 0.5)
+                    total_delay = delay + jitter
+                    
+                    sleep(total_delay)
             
             return func(*args, **kwargs)
 
