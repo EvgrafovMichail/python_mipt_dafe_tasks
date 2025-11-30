@@ -49,7 +49,9 @@ def aggregate_segmentation(
         if not no_voice:
             if start is None or end is None or typ is None:
                 ok = False
-            elif not isinstance(start, float) or not isinstance(end, float) or not isinstance(typ, str):
+            elif (not isinstance(start, float) 
+                  or not isinstance(end, float) 
+                  or not isinstance(typ, str)):
                 ok = False
             elif typ not in ALLOWED_TYPES:
                 ok = False
