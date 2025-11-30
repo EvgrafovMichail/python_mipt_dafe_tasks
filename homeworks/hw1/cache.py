@@ -9,19 +9,31 @@ R = TypeVar("R")
 
 
 def lru_cache(capacity: int) -> Callable[[Callable[P, R]], Callable[P, R]]:
-    """
-    Параметризованный декоратор для реализации LRU-кеширования.
+    try:
+        maxsize = round(capacity)
+    except Exception:
+        raise TypeError
 
-    Args:
-        capacity: целое число, максимальный возможный размер кеша.
+    if maxsize < 1:
+        raise ValueError
 
-    Returns:
-        Декоратор для непосредственного использования.
+    def trying(func):
+        nonlocal maxsize
+        argslist = []
 
-    Raises:
-        TypeError, если capacity не может быть округлено и использовано
-            для получения целого числа.
-        ValueError, если после округления capacity - число, меньшее 1.
-    """
-    # ваш код
-    pass
+        def wrapper(*args):
+            nonlocal argslist, maxsize
+            for pairs in argslist:
+                if pairs[0] == args:
+                    argslist.remove(pairs)
+                    argslist = [pairs] + argslist
+                    return pairs[1]
+            result = func(args)
+            argslist = [(args, result)] + argslist
+            if len(argslist) > maxsize:
+                argslist.pop()
+            return result
+
+        return wrapper
+
+    return trying

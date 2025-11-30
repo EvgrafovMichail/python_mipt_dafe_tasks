@@ -17,22 +17,37 @@ def backoff(
     backoff_scale: float = 2.0,
     backoff_triggers: tuple[type[Exception]] = (Exception,),
 ) -> Callable[[Callable[P, R]], Callable[P, R]]:
-    """
-    Параметризованный декоратор для повторных запусков функций.
+    if (
+        (0 < retry_amount < 101)
+        and (0 < timeout_start < 10)
+        and (0 < timeout_max < 10)
+        and (0 < backoff_scale < 10)
+    ):
+        pass
+    else:
+        raise ValueError
 
-    Args:
-        retry_amount: максимальное количество попыток выполнения функции;
-        timeout_start: начальное время ожидания перед первой повторной попыткой (в секундах);
-        timeout_max: максимальное время ожидания между попытками (в секундах);
-        backoff_scale: множитель, на который увеличивается задержка после каждой неудачной попытки;
-        backoff_triggers: кортеж типов исключений, при которых нужно выполнить повторный вызов.
+    def repeating(func):
+        def wrapper(*args, **kwargs):
+            attempts = 0
+            stoptime = timeout_start
 
-    Returns:
-        Декоратор для непосредственного использования.
+            while True:
+                try:
+                    return func(*args, **kwargs)
 
-    Raises:
-        ValueError, если были переданы невозможные аргументы.
-    """
+                except Exception as err:
+                    if isinstance(err, backoff_triggers):
+                        attempts += 1
+                        if attempts > retry_amount:
+                            raise
+                        sleep(stoptime + uniform(0, 0.5))
+                        stoptime *= backoff_scale
+                        if stoptime > timeout_max:
+                            stoptime = timeout_max
+                    else:
+                        raise
 
-    # ваш код
-    pass
+        return wrapper
+
+    return repeating
