@@ -7,15 +7,15 @@ from typing import (
 P = ParamSpec("P")
 R = TypeVar("R")
 
-class Node:
 
+class Node:
     def __init__(self, data):
         self.data = data
         self.next = None
         self.prev = None
 
-class Priorities:
 
+class Priorities:
     def __init__(self):
         self.head = Node(None)
         self.tail = Node(None)
@@ -29,7 +29,7 @@ class Priorities:
         self.head.next = new
         self.head.next.prev = new
         return new
-    
+
     def remove_last(self):
         last = self.tail.prev
         return last.data
@@ -43,6 +43,7 @@ class Priorities:
         ref.prev = self.head
         ref.next = first
         first.prev = ref
+
 
 def lru_cache(capacity: int) -> Callable[[Callable[P, R]], Callable[P, R]]:
     """
@@ -61,10 +62,9 @@ def lru_cache(capacity: int) -> Callable[[Callable[P, R]], Callable[P, R]]:
     """
     del_priorities = Priorities()
     cache = {}
-    def decorator(func):
 
+    def decorator(func):
         def wrapper(*args):
-            
             nonlocal cache, del_priorities
             if (args) in cache:
                 curr_priority = cache[args][1]
@@ -80,5 +80,7 @@ def lru_cache(capacity: int) -> Callable[[Callable[P, R]], Callable[P, R]]:
                     cache.pop(del_priorities.remove_last())
                     cache[args] = [res, del_priorities.add(args)]
                     return res
+
         return wrapper
+
     return decorator
