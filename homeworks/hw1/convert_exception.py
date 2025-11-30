@@ -1,3 +1,4 @@
+from functools import wraps
 from typing import (
     Callable,
     ParamSpec,
@@ -27,6 +28,7 @@ def convert_exceptions_to_api_compitable_ones(
     # ваш код
 
     def deco_ex_convert(func):
+        @wraps(func)
         def wrapper(*args, **kwargs):
             try:
                 res = func(*args, **kwargs)
