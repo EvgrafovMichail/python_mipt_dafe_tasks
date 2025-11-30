@@ -1,3 +1,4 @@
+from functools import wraps
 from random import uniform
 from time import sleep
 from typing import (
@@ -34,19 +35,20 @@ def backoff(
         ValueError, если были переданы невозможные аргументы.
     """
     if retry_amount <= 0:
-        raise ValueError("retry_amoutn is positive")
+        raise ValueError
     if timeout_start <= 0:
-        raise ValueError("timeout_start is positive")
+        raise ValueError
     if timeout_max <= 0:
-        raise ValueError("timeout_max is positive")
+        raise ValueError
     if backoff_scale <= 0:
-        raise ValueError("backoff_scale is positive")
+        raise ValueError
 
     def create_backoff(func: Callable[P, R]) -> Callable[P, R]:
+        @wraps(func)
         def wrapper(*args: P.args, **kwargs: P.kwargs) -> R:
             current_timeout = timeout_start
 
-            for attempt in range(1, retry_amount + 2):
+            for attempt in range(1, retry_amount + 1):
                 try:
                     return func(*args, **kwargs)
 

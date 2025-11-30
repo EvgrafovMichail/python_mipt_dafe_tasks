@@ -151,6 +151,6 @@ def test_success() -> None:
     func_cached = lru_cache(capacity=capacity)(mock_func)
 
     for args in call_args:
-        func_cached(args)
+        func_cached(*args)
 
     assert mock_func.call_count == call_count_expected
