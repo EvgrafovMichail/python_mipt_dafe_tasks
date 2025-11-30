@@ -20,11 +20,16 @@ def aggregate_segmentation(
         aud_id = item["audio_id"]
         all_audio_ids.add(aud_id)
 
-        if "segment_start" not in item or item["segment_start"] is None or \
-           "segment_end" not in item or item["segment_end"] is None or \
-           "type" not in item or item["type"] is None:
-             continue
+        is_segment_data_invalid = (
+           "segment_start" not in item or item["segment_start"] is None or 
+           "segment_end" not in item or item["segment_end"] is None or 
+           "type" not in item or item["type"] is None
+        )
         
+        if is_segment_data_invalid:
+            bad_audio_ids_set.add(aud_id)
+            continue
+
         if item["segment_start"] >= item["segment_end"]:
             bad_audio_ids_set.add(aud_id)
         

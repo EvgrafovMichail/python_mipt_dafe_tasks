@@ -9,37 +9,56 @@ R = TypeVar("R")
 
 
 def lru_cache(capacity: int) -> Callable[[Callable[P, R]], Callable[P, R]]:
-
-    try:
-        capacity = int(capacity)
-    except (ValueError, TypeError):
-        raise TypeError("Capacity must be convertible to int")
-
-    if capacity < 1:
-        raise ValueError("Capacity must be >= 1")
+    if not isinstance(capacity, int) or capacity < 1:
+        raise ValueError("capacity must be positive integer")
 
     def decorator(func: Callable[P, R]) -> Callable[P, R]:
-        
-        cache = {}
-        
+        cache_values = {}
+        cache_keys = []
+
+        def create_key_part(arg):
+            if isinstance(arg, (int, float)):
+                try:
+                    if round(arg) == arg:
+                        return round(arg)
+                    return arg
+                except (TypeError, ValueError) as e:
+                    raise TypeError(f"Несовместимый аргумент: {arg}") from e
+            
+            try:
+                hash(arg)
+                return arg
+            except TypeError as e:
+                raise TypeError(f"Несовместимый аргумент: {arg}") from e
+
         def wrapper(*args: P.args, **kwargs: P.kwargs) -> R:
             
-            key = args
+            processed_args = tuple(create_key_part(arg) for arg in args)
             
-            if key in cache:
-                result = cache.pop(key)
-                cache[key] = result
-                return result
+            processed_kwargs = tuple(
+                (k, create_key_part(v)) for k, v in sorted(kwargs.items())
+            )
+            
+            key = (processed_args, processed_kwargs)
 
-            if len(cache) >= capacity:
-                for old_key in cache:
-                    cache.pop(old_key)
-                    break
-                    
+            if key in cache_values:
+                cache_keys.remove(key)
+                cache_keys.append(key)
+                return cache_values[key]
+
+            if len(cache_keys) >= capacity:
+                old_key = cache_keys.pop(0)
+                del cache_values[old_key]
+
             result = func(*args, **kwargs)
-            cache[key] = result
             
+            cache_keys.append(key)
+            cache_values[key] = result
             return result
 
+        wrapper.__name__ = func.__name__
+        wrapper.__doc__ = func.__doc__
+
         return wrapper
+
     return decorator
