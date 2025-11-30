@@ -1,8 +1,10 @@
+import functools
 from typing import (
     Callable,
     ParamSpec,
     TypeVar,
 )
+
 
 P = ParamSpec("P")
 R = TypeVar("R")
@@ -25,6 +27,7 @@ def convert_exceptions_to_api_compitable_ones(
     """
 
     def decorator_replacement_exclusive(func):
+        @functools.wraps(func)
         def wrapper(*args, **kwargs):
             try:
                 return func(*args, **kwargs)
