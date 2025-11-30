@@ -38,12 +38,9 @@ def aggregate_segmentation(
             audio_for_remarking.add(audio_id)
             return False
 
+        # это валидный случай - пустой сегмент
         if type_sound is None and start is None and end is None:
-            # это валидный случай - пустой сегмент
-            if audio_id not in final_dict:
-                final_dict[audio_id] = {}
-            final_dict[audio_id][segment_id] = {"start": start, "end": end, "type": type_sound}
-            return False
+            return True
 
         if (
             (not isinstance(type_sound, str))
@@ -82,26 +79,12 @@ def aggregate_segmentation(
         if audio_id not in final_dict:
             final_dict[audio_id] = {}
 
-        final_dict[audio_id][segment_id] = {"start": start, "end": end, "type": type_sound}
+        if not (type_sound is None and start is None and end is None):
+            final_dict[audio_id][segment_id] = {"start": start, "end": end, "type": type_sound}
 
     for audio_id in audio_for_remarking:
         if audio_id in final_dict:
             final_dict.pop(audio_id)
-
-    # аудио пустое, если все параметры каждого сегмента аудио - None
-    for audio_key, audio_value in final_dict.items():
-        is_empty_audio = True
-        for segment_value in audio_value.values():
-            if not (
-                (segment_value["type"] is None)
-                and (segment_value["end"] is None)
-                and (segment_value["start"] is None)
-            ):
-                is_empty_audio = False
-                break
-
-        if is_empty_audio:
-            final_dict[audio_key] = {}
 
     return final_dict, list(audio_for_remarking)
 
@@ -214,6 +197,89 @@ audio_for_remarking = set()
 
         if type_sound not in ALLOWED_TYPES:
             audio_for_remarking.add(audio_id)
+            continue
+
+        if audio_id not in final_dict:
+            final_dict[audio_id] = {}
+
+        final_dict[audio_id][segment_id] = {"start": start, "end": end, "type": type_sound}
+
+    for audio_id in audio_for_remarking:
+        if audio_id in final_dict:
+            final_dict.pop(audio_id)
+
+    # аудио пустое, если все параметры каждого сегмента аудио - None
+    for audio_key, audio_value in final_dict.items():
+        is_empty_audio = True
+        for segment_value in audio_value.values():
+            if not (
+                (segment_value["type"] is None)
+                and (segment_value["end"] is None)
+                and (segment_value["start"] is None)
+            ):
+                is_empty_audio = False
+                break
+
+        if is_empty_audio:
+            final_dict[audio_key] = {}
+
+    return final_dict, list(audio_for_remarking)
+"""
+"""
+Последнее решение
+def validation():
+        # один и тот же сегмент, но разные значения
+        if (
+            (audio_id in final_dict)
+            and (segment_id in final_dict[audio_id])
+            and (
+                start != final_dict[audio_id][segment_id]["start"]
+                or end != final_dict[audio_id][segment_id]["end"]
+                or type_sound != final_dict[audio_id][segment_id]["type"]
+            )
+        ):
+            audio_for_remarking.add(audio_id)
+            return False
+
+        if type_sound is None and start is None and end is None:
+            # это валидный случай - пустой сегмент
+            if audio_id not in final_dict:
+                final_dict[audio_id] = {}
+            final_dict[audio_id][segment_id] = {"start": start, "end": end, "type": type_sound}
+            return False
+
+        if (
+            (not isinstance(type_sound, str))
+            or (not isinstance(start, float))
+            or (not isinstance(end, float))
+        ):
+            audio_for_remarking.add(audio_id)
+            return False
+
+        if type_sound not in ALLOWED_TYPES:
+            audio_for_remarking.add(audio_id)
+            return False
+
+        return True
+
+    audio_for_remarking = set()
+    final_dict = {}
+    for dic in segmentation_data:
+        if "audio_id" not in dic or dic["audio_id"] is None:
+            continue
+
+        audio_id = dic["audio_id"]
+
+        if "segment_id" not in dic or dic["segment_id"] is None:
+            audio_for_remarking.add(dic["audio_id"])
+            continue
+
+        type_sound = dic["type"]
+        start = dic["segment_start"]
+        end = dic["segment_end"]
+        segment_id = dic["segment_id"]
+
+        if not validation():
             continue
 
         if audio_id not in final_dict:

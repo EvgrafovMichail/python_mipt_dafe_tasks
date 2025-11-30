@@ -39,7 +39,7 @@ def lru_cache(capacity: int) -> Callable[[Callable[P, R]], Callable[P, R]]:
         def wrapper(*args, **kwargs):
             nonlocal dictionary, new_capacity
 
-            func_args = (args, tuple(kwargs.items()))
+            func_args = (args, tuple(sorted(kwargs.items())))
 
             if func_args in dictionary:
                 value = dictionary.pop(func_args)
