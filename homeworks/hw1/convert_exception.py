@@ -21,11 +21,10 @@ def convert_exceptions_to_api_compitable_ones(
             except Exception as error:
                 for old_error_type, api_error in exception_to_api_exception.items():
                     if isinstance(error, old_error_type):
-                 #нашли перевод 
                         if isinstance(api_error, type) and issubclass(api_error, Exception):
-                            raise api_error(str(error)) from error
+                            raise api_error(str(error)) from None
                         else:
-                            raise api_error from error
+                            raise api_error from None
                 raise error 
         return wrapper
     return decorator

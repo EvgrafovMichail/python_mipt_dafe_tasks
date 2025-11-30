@@ -59,6 +59,5 @@ def backoff(
                     sleep_time = base_timeout + uniform(0, 0.5)
                     sleep(sleep_time)
                     timeout = next_timeout
-            #return func(*args, **kwargs)
         return wrapper
     return decorator
