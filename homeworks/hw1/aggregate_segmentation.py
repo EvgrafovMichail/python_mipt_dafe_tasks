@@ -3,6 +3,7 @@ ALLOWED_TYPES = {
     "voice_human",
     "voice_bot",
 }
+import uuid
 
 
 def aggregate_segmentation(
@@ -12,11 +13,11 @@ def aggregate_segmentation(
     audio_ids_remarking = set()
 
     for segment in segmentation_data:
-        audio_id = None if "audio_id" not in segment else segment["audio_id"]
-        segment_id = None if "segment_id" not in segment else segment["segment_id"]
-        segment_start = None if "segment_start" not in segment else segment["segment_start"]
-        segment_end = None if "segment_end" not in segment else segment["segment_end"]
-        segment_type = None if "type" not in segment else segment["type"]
+        audio_id = segment.get("audio_id")
+        segment_id = segment.get("segment_id")
+        segment_start = segment.get("segment_start")
+        segment_end = segment.get("segment_end")
+        segment_type = segment.get("type")
 
         if audio_id is None or audio_id in audio_ids_remarking:
             continue
