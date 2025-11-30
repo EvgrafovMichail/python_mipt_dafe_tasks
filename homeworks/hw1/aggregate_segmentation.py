@@ -28,7 +28,6 @@ def aggregate_segmentation(
     audio_invalid = set()
     seen_segments = {}
     audio_has_any_segment = set()
-    audio_has_valid_nonempty = set()
 
     def vailid_segment(segment):
         audio_id = segment.get("audio_id")
@@ -90,18 +89,20 @@ def aggregate_segmentation(
             seen_segments[key] = (typ, start, end)
 
         if not (typ is None and start is None and end is None):
+            if audio_id not in valid_result:
+                valid_result[audio_id] = {}
             valid_result[audio_id][segment_id] = {
                 "type": typ,
                 "start": start,
                 "end": end,
             }
-            audio_has_valid_nonempty.add(audio_id)
 
     for audio_id in audio_has_any_segment:
-        if audio_id not in audio_invalid and audio_id not in audio_has_valid_nonempty:
+        if audio_id not in audio_invalid and audio_id not in valid_result:
             valid_result[audio_id] = {}
 
     for bad in audio_invalid:
-        valid_result.pop(bad, None)
+        if bad in valid_result:
+            del valid_result[bad]
 
-    return dict(valid_result), sorted(audio_invalid)
+    return valid_result, sorted(audio_invalid)
