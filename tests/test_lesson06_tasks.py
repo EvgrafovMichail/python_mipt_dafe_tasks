@@ -101,9 +101,6 @@ def test_is_there_any_good_subarray(nums, k, expected):
     assert is_there_any_good_subarray(nums, k) == expected
 
 
-import pytest
-
-
 @pytest.mark.parametrize(
     "text, expected",
     [

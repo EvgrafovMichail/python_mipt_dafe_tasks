@@ -1,6 +1,6 @@
+import functools
 from random import uniform
 from time import sleep
-import functools
 from typing import (
     Callable,
     ParamSpec,
@@ -51,7 +51,7 @@ def backoff(
             for attemp in range(1, retry_amount + 1):
                 try:
                     return func(*args, **kwargs)
-                except backoff_triggers as exc:
+                except backoff_triggers:
                     if attemp == retry_amount:
                         raise
 
