@@ -33,6 +33,41 @@ def backoff(
     Raises:
         ValueError, если были переданы невозможные аргументы.
     """
+    def deco(func):
+        def wrapper(*args, **kwargs):
+            if (retry_amount > 0) and (timeout_start > 0) and (timeout_max > 0) and \
+                (backoff_scale > 0):
+                timeout_start1 = timeout_start
+                counter = 1
+                last_exception = None
 
-    # ваш код
-    pass
+                while counter <= retry_amount:
+                    try:
+                        res = func(*args, **kwargs)
+                        return res
+
+                    except Exception as exception1:
+                        counter += 1
+
+                        jitter_time = uniform(0, 0.5)
+
+                        if timeout_start1 < timeout_max:
+                            current_timeout = timeout_start1 + jitter_time
+                            timeout_start1 *= backoff_scale
+
+                        else:
+                            current_timeout = timeout_max + jitter_time
+
+                        last_exception = exception1
+
+                        if type(exception1) in backoff_triggers:
+                            sleep(current_timeout)
+                            continue
+                        else:
+                            raise exception1
+                raise last_exception
+
+            else:
+                raise ValueError()
+        return wrapper
+    return deco
