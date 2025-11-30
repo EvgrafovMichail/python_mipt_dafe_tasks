@@ -1,3 +1,4 @@
+from functools import wraps
 from typing import (
     Callable,
     ParamSpec,
@@ -25,6 +26,7 @@ def convert_exceptions_to_api_compitable_ones(
     """
 
     def decorator(func: Callable[P, R]):
+        @wraps(func)
         def wrapper(*args, **kwargs):
             try:
                 return func(*args, **kwargs)
