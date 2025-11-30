@@ -60,6 +60,7 @@ def aggregate_segmentation(
             and (current_type in ALLOWED_TYPES or current_type is None)
         ):
             invalid_result.add(audio_id)
+            valid_result.pop(audio_id, None)
             continue
 
         else:
