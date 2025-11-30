@@ -35,16 +35,16 @@ def backoff(
     """
     if retry_amount < 1 or retry_amount > 100:
         raise ValueError
-
+    
     if timeout_start <= 0 or timeout_start >= 10:
         raise ValueError
-
+    
     if timeout_max <= 0 or timeout_max >= 10:
         raise ValueError
-
+    
     if backoff_scale <= 0 or backoff_scale >= 10:
         raise ValueError
-
+    
     if timeout_start > timeout_max:
         raise ValueError
 
@@ -52,27 +52,27 @@ def backoff(
         def wrapper(*args: P.args, **kwargs: P.kwargs) -> R:
             last_exception = None
             current_timeout = timeout_start
-
-            for num_try in range(retry_amount + 1):
+            
+            for num_try in range(retry_amount+1):
                 try:
                     return func(*args, **kwargs)
                 except backoff_triggers as e:
                     last_exception = e
-
+                    
                     if num_try == retry_amount:
                         raise last_exception
-
-                    jitter = uniform(0, 0.5)
+                    
+                    jitter = uniform(0, 0.5)  
                     total_sleep_time = min(current_timeout + jitter, timeout_max)
-
+                    
                     sleep(total_sleep_time)
 
                     current_timeout *= backoff_scale
                     if current_timeout > timeout_max:
                         current_timeout = timeout_max
-
+            
             raise last_exception
-
+        
         return wrapper
-
+    
     return decorator
