@@ -60,7 +60,7 @@ def backoff(
 
                         last_exception = exception1
 
-                        if type(exception1) in backoff_triggers:
+                        if any(isinstance(exception1, trigger) for trigger in backoff_triggers):
                             sleep(current_timeout)
                             continue
                         else:
