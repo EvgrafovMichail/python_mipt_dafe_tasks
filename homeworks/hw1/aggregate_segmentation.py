@@ -30,7 +30,7 @@ def aggregate_segmentation(
             )
             type_end = isinstance(segment["segment_end"], float) or segment["segment_end"] is None
             type_None = lst.count(None) == 3 or lst.count(None) == 0
-            type_type_allowed = segment["type"] in ALLOWED_TYPES or segment["type"] == None
+            type_type_allowed = segment["type"] in ALLOWED_TYPES or segment["type"] is None
             if (
                 type_type
                 and type_start
