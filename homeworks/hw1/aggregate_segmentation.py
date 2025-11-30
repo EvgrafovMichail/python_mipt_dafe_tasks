@@ -15,13 +15,13 @@ def aggregate_segmentation(
     for segment in segmentation_data:
         if (
             "audio_id" in segment.keys()
-            and type(segment["audio_id"]) == str
+            and isinstance(segment["audio_id"], str)
             and segment["audio_id"] != ""
         ):
             lst = [segment["type"], segment["segment_start"], segment["segment_end"]]
             got_segment_id = (
                 "segment_id" in segment.keys()
-                and type(segment["segment_id"]) == str
+                and isinstance(segment["segment_id"], str)
                 and segment["segment_id"] != ""
             )
             type_type = isinstance(segment["type"], str) or segment["type"] is None
@@ -61,7 +61,7 @@ def aggregate_segmentation(
                     ):  # если не встречали audio_id ранее - создаем новый словарь в valid_data
                         valid_data[segment["audio_id"]] = {}
                     if (
-                        segment["segment_start"] != None
+                        segment["segment_start"] is not None
                     ):  # только если поля не None, добавляем информацию, иначе игнорируем
                         valid_data[segment["audio_id"]][segment["segment_id"]] = {
                             "start": segment["segment_start"],
