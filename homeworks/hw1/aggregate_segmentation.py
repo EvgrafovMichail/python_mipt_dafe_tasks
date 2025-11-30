@@ -7,13 +7,13 @@ ALLOWED_TYPES = {
 def valid_check(segment: dict):
     segment_start = segment.get("segment_start")
     segment_end = segment.get("segment_end")
-    segment_type = segment.get("segment_type")
+    segment_type = segment.get("type")
 
-    if segment_start is not None and not isinstance(segment_start, float):
+    if segment_start is not None and type(segment_start) is not float:
         return False
-    if segment_end is not None and not isinstance(segment_end, float):
+    if segment_end is not None and type(segment_end) is not float:
         return False
-    if segment_type is not None and not isinstance(segment_type, str):
+    if segment_type is not None and type(segment_type) is not str:
         return False
     
 
@@ -90,9 +90,7 @@ def aggregate_segmentation(
             valid_data[audio_id] = {}
 
 
-        if segment["segment_start"] is None and segment["segment_end"] is None and segment["type"] is None:
-            continue
-        else:
+        if segment["segment_start"] is not None:
             valid_data[audio_id][segment_id] = {
                 "start": segment["segment_start"],
                 "end": segment["segment_end"],

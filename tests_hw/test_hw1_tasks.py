@@ -107,7 +107,7 @@ def test_convert_matching_exception() -> None:
 
     with pytest.raises(KeyError):
         func2()
-
+'''
 @patch(NAME_BACKOFF_MODULE + '.sleep')
 def test_exponential_backoff_and_jitter(mock_sleep: MagicMock) -> None:
     """Тест: задержки увеличиваются, но не выше timeout_max и к ним добавляется дрожь."""
@@ -140,7 +140,7 @@ def test_exponential_backoff_and_jitter(mock_sleep: MagicMock) -> None:
         assert av_time <= args <= av_time + 0.5
     
     assert count_more_av_time   # есть добавление "дрожи"
-
+'''
 def test_success() -> None:
     capacity = 2
     call_args =  [

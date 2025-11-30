@@ -34,5 +34,34 @@ def backoff(
         ValueError, если были переданы невозможные аргументы.
     """
 
-    # ваш код
-    pass
+    if retry_amount < 1:
+        raise ValueError("максимальное количество попыток выполнения функции должно быть положительно")
+    if timeout_start <= 0 or timeout_max <= 0:
+        raise ValueError("Время - деньги")
+    if backoff_scale <= 0:
+        raise ValueError("Кэфы горят, надо лить")
+
+    def deko(func: Callable[P, R]):
+        def wrapper(*args, **kwargs):
+            exceptionn = None
+            timeout = timeout_start
+            
+            for tryy in range(retry_amount):
+                try:
+                    return func(*args, **kwargs)
+                except backoff_triggers as z:
+                    exceptionn = z
+
+                    if tryy == retry_amount - 1:
+                        raise exceptionn
+                    
+                    jiter = uniform(0, 0.5)
+                    time = min(timeout + jiter, timeout_max)
+
+                    sleep(time)
+
+                    timeout = min(timeout * backoff_scale, timeout_max)
+
+        return wrapper
+        
+    return deko
