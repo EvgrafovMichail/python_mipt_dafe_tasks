@@ -18,7 +18,7 @@ def convert_exceptions_to_api_compitable_ones(
             except Exception as exc:
                 if type(exc) in exception_to_api_exception:
                     result_exc = exception_to_api_exception[type(exc)]
-                    raise result_exc from exc
+                    raise result_exc from None
                 raise
 
         return wrapper
