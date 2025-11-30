@@ -9,19 +9,37 @@ R = TypeVar("R")
 
 
 def lru_cache(capacity: int) -> Callable[[Callable[P, R]], Callable[P, R]]:
-    """
-    Параметризованный декоратор для реализации LRU-кеширования.
 
-    Args:
-        capacity: целое число, максимальный возможный размер кеша.
+    try:
+        capacity = int(capacity)
+    except (ValueError, TypeError):
+        raise TypeError("Capacity must be convertible to int")
 
-    Returns:
-        Декоратор для непосредственного использования.
+    if capacity < 1:
+        raise ValueError("Capacity must be >= 1")
 
-    Raises:
-        TypeError, если capacity не может быть округлено и использовано
-            для получения целого числа.
-        ValueError, если после округления capacity - число, меньшее 1.
-    """
-    # ваш код
-    pass
+    def decorator(func: Callable[P, R]) -> Callable[P, R]:
+        
+        cache = {}
+        
+        def wrapper(*args: P.args, **kwargs: P.kwargs) -> R:
+            
+            key = args
+            
+            if key in cache:
+                result = cache.pop(key)
+                cache[key] = result
+                return result
+
+            if len(cache) >= capacity:
+                for old_key in cache:
+                    cache.pop(old_key)
+                    break
+                    
+            result = func(*args, **kwargs)
+            cache[key] = result
+            
+            return result
+
+        return wrapper
+    return decorator
