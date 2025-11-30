@@ -64,7 +64,7 @@ def aggregate_segmentation(
     not_valid_audio_id = set()
 
     for i in segmentation_data:
-        audio_id = i["audio_id"]
+        audio_id = i["audio_id"] if "audio_id" in i else None
         segment_id = i["segment_id"]
         start = i["segment_start"]
         end = i["segment_end"]
