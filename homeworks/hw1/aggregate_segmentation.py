@@ -18,8 +18,7 @@ def is_valid_segment(audio_segment):
         return True
 
     if not (
-        isinstance(type_val, str) and isinstance(
-            start_val, float) and isinstance(end_val, float)
+        isinstance(type_val, str) and isinstance(start_val, float) and isinstance(end_val, float)
     ):
         return False
 
@@ -95,6 +94,5 @@ def aggregate_segmentation(
         if type_val is None and start_val is None and end_val is None:
             continue
 
-        result_dict[audio_id][segment_id] = {
-            "type": type_val, "start": start_val, "end": end_val}
+        result_dict[audio_id][segment_id] = {"type": type_val, "start": start_val, "end": end_val}
     return result_dict, list(wrong_audio)
