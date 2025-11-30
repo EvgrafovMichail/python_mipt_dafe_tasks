@@ -23,8 +23,9 @@ def aggregate_segmentation(
                     resdict[audid][segid] = {}
                 else:
                     resdict[audid] = {segid: {}}
-            elif bool(ttype is not None and start is not None and end is not None) or (not
-                bool(ttype is not None or start is not None or end is not None)):
+            elif bool(ttype is not None and start is not None and end is not None) or (
+                not bool(ttype is not None or start is not None or end is not None)
+            ):
                 if type(start) is float and type(end) is float and type(ttype) is str:
                     if ttype in ALLOWED_TYPES:
                         if audid in resdict and audid not in removelist:
