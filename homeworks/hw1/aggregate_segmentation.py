@@ -20,6 +20,7 @@ def aggregate_segmentation(
         if "segment_id" not in segment:
             audio_ids_re_marking.append(segment["audio_id"])
 
+            # удаляем невалидный сегмент, если он до этого был валидным
             if segment["audio_id"] in valid_segmentation_data:
                 del valid_segmentation_data[segment["audio_id"]]
             continue
@@ -31,7 +32,7 @@ def aggregate_segmentation(
         ]
 
         # голос найден
-        if any(auxiliary_arr) and not all(auxiliary_arr):
+        if any(auxiliary_arr) and not all(auxiliary_arr) and 0 not in auxiliary_arr:
             audio_ids_re_marking.append(segment["audio_id"])
 
             if segment["audio_id"] in valid_segmentation_data:
@@ -42,6 +43,7 @@ def aggregate_segmentation(
         if not any(auxiliary_arr):
             if segment["audio_id"] in valid_segmentation_data:
                 continue
+
             valid_segmentation_data[segment["audio_id"]] = {}
             continue
 
@@ -74,12 +76,12 @@ def aggregate_segmentation(
                 del valid_segmentation_data[segment["audio_id"]]
             continue
 
-        valid_segmentation_data[segment["audio_id"]] = {
-            segment["segment_id"]: {
+        if segment["audio_id"] not in valid_segmentation_data:
+            valid_segmentation_data[segment["audio_id"]] = {}
+        valid_segmentation_data[segment["audio_id"]][segment["segment_id"]] = {
                 "start": segment["segment_start"],
                 "end": segment["segment_end"],
                 "type": segment["type"],
             }
-        }
 
     return valid_segmentation_data, audio_ids_re_marking

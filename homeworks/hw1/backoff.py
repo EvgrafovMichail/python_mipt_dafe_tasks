@@ -33,7 +33,7 @@ def backoff(
                 try:
                     return func(*args, **kwargs)
                 except backoff_triggers as e:
-                    if attempt == timeout_max - 1:
+                    if attempt == retry_amount - 1:
                         raise e
                     time = uniform(0, 0.5) + timeout_start * backoff_scale**attempt
                     if time <= timeout_max:
