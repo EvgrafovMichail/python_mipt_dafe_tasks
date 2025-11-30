@@ -1,5 +1,4 @@
-import uuid
-from typing import List, Dict, Any, Tuple
+
 
 ALLOWED_TYPES = {
     "spotter_word",
@@ -54,6 +53,8 @@ def aggregate_segmentation(
 
         if not is_valid:
             audio_ids_for_remarking.add(audio_id)
+            if audio_id in valid_data:
+                del valid_data[audio_id]
             continue
 
 
@@ -63,6 +64,8 @@ def aggregate_segmentation(
                 existing_data["end"] != segment_end or 
                 existing_data["type"] != segment_type):
                 audio_ids_for_remarking.add(audio_id)
+                if audio_id in valid_data:
+                    del valid_data[audio_id]
                 continue
         else:
             seen_segments[(audio_id, segment_id)] = {
@@ -70,8 +73,7 @@ def aggregate_segmentation(
             "end": segment_end, 
             "type": segment_type
             }
-
-        if audio_id not in valid_data:
+        if audio_id not in valid_data and audio_id not in audio_ids_for_remarking:
             valid_data[audio_id] = {}
 
         #проверить сегмент без рeчи

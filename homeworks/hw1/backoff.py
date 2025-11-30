@@ -3,8 +3,7 @@ from time import sleep
 from typing import (
     Callable,
     ParamSpec,
-    TypeVar,
-    Any
+    TypeVar
 )
 
 P = ParamSpec("P")
@@ -17,6 +16,7 @@ def _validate_backoff_parameters(
     backoff_scale: float,
     backoff_triggers: tuple[type[Exception], ...],
 ) -> None:
+    
     if retry_amount < 1 or retry_amount > 100:
         raise ValueError(f"retry_amount should be 1-100, yours{retry_amount}")
     if timeout_start <= 0 or timeout_start >= 10:
@@ -29,7 +29,7 @@ def _validate_backoff_parameters(
         raise ValueError("backoff_triggers is empty!")
     for trigger in backoff_triggers:
         if not issubclass(trigger, Exception):
-            raise ValueError(" All elements backoff_triggers should be Exception")
+            raise ValueError("All elements backoff_triggers should be Exception")
 
 def backoff(
     retry_amount: int = 3,
@@ -59,6 +59,6 @@ def backoff(
                     sleep_time = base_timeout + uniform(0, 0.5)
                     sleep(sleep_time)
                     timeout = next_timeout
-            return func(*args, **kwargs)
+            #return func(*args, **kwargs)
         return wrapper
     return decorator
