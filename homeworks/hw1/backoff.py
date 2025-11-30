@@ -1,5 +1,6 @@
 from random import uniform
 from time import sleep
+import functools
 from typing import (
     Callable,
     ParamSpec,
@@ -34,5 +35,32 @@ def backoff(
         ValueError, если были переданы невозможные аргументы.
     """
 
-    # ваш код
-    pass
+    if retry_amount <= 0 or timeout_start <= 0 or timeout_max <= 0 or backoff_scale <= 0:
+        raise ValueError
+
+    if not isinstance(backoff_triggers, tuple) or not all(
+        issubclass(exc, Exception) for exc in backoff_triggers
+    ):
+        raise ValueError
+
+    def decorator(func):
+        @functools.wraps(func)
+        def wrapper(*args, **kwargs):
+            delay = timeout_start
+
+            for attemp in range(1, retry_amount + 1):
+                try:
+                    return func(*args, **kwargs)
+                except backoff_triggers as exc:
+                    if attemp == retry_amount:
+                        raise
+
+                    jitter = uniform(0, 0.5)
+                    sleep_time = min(delay, timeout_max) + jitter
+                    sleep(sleep_time)
+
+                    delay = min(delay * backoff_scale, timeout_max)
+
+        return wrapper
+
+    return decorator
