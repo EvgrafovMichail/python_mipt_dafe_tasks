@@ -3,7 +3,6 @@ ALLOWED_TYPES = {
     "voice_human",
     "voice_bot",
 }
-print("AAAAAAAAAAAAAAAAAAAAAAAAAa")
 
 def aggregate_segmentation(
     segmentation_data: list[dict[str, str | float | None]],
