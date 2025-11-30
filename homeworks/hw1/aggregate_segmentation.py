@@ -1,3 +1,6 @@
+from tracemalloc import start
+
+
 ALLOWED_TYPES = {
     "spotter_word",
     "voice_human",
@@ -35,7 +38,7 @@ def aggregate_segmentation(
         typ = data["type"]
 
 
-        if seg_id is None:
+        if seg_id is None or "segment_id" not in data:
             return False
 
         if start is None and end is None and typ is None:
@@ -44,8 +47,9 @@ def aggregate_segmentation(
         if start is None or end is None or typ is None:
             return False
 
-        if (type(start) != type(1.0)) or (type(end) != type(1.0)) or (type(typ) != type(" ")):
+        if not isinstance(start, float) or not isinstance(end, float) or not isinstance(typ, str):
             return False
+
 
         if typ not in ALLOWED_TYPES:
             return False

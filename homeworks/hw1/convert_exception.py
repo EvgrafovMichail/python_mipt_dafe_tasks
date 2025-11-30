@@ -1,9 +1,10 @@
+from functools import wraps
 from typing import (
     Callable,
     ParamSpec,
     TypeVar,
 )
-from functools import wraps
+
 P = ParamSpec("P")
 R = TypeVar("R")
 
@@ -29,10 +30,11 @@ def convert_exceptions_to_api_compitable_ones(
         def wrapper(*args, **kwargs):
             try:
                 return func(*args, **kwargs)
-            except Exception as e:
-                if type(e) in exception_to_api_exception:
-                    exc = exception_to_api_exception[type(e)]
-                    raise exc from None
+            except tuple(exception_to_api_exception.keys()) as exc:
+                raise exception_to_api_exception[type(exc)] from None
+            except Exception:
                 raise
+
         return wrapper
+
     return decorator
