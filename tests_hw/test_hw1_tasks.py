@@ -1,15 +1,12 @@
-import pytest
 import uuid
-from unittest.mock import MagicMock, patch, Mock
+from unittest.mock import MagicMock, Mock, patch
 
-from homeworks.hw1.aggregate_segmentation import aggregate_segmentation, ALLOWED_TYPES
+import pytest
+
+from homeworks.hw1.aggregate_segmentation import ALLOWED_TYPES, aggregate_segmentation
 from homeworks.hw1.backoff import backoff
 from homeworks.hw1.cache import lru_cache
 from homeworks.hw1.convert_exception import convert_exceptions_to_api_compitable_ones
-from tests_hw.hw1_test_data.cache_test_data import (
-    TESTCASE_DATA,
-    TESTCASE_IDS,
-)
 
 NAME_BACKOFF_MODULE = "homeworks.hw1.backoff" # название модуля с backoff
 

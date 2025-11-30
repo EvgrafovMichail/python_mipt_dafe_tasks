@@ -19,6 +19,7 @@ def collect_statistic(statistics: dict[str, list[float, int]]) -> Callable[[T], 
             end = time.time()
 
             counter += 1
+            
             accumulator += end - start
 
             statistics[function.__name__] = [accumulator / counter, counter]
