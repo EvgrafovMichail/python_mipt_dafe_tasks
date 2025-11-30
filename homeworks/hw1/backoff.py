@@ -7,6 +7,23 @@ P = ParamSpec("P")
 R = TypeVar("R")
 
 
+def _validate_backoff_params(
+    retry_amount: int,
+    timeout_start: float,
+    timeout_max: float,
+    backoff_scale: float,
+) -> None:
+    """Валидация параметров декоратора backoff"""
+    if retry_amount < 1 or retry_amount > 100:
+        raise ValueError()
+    if timeout_start <= 0 or timeout_start >= 10:
+        raise ValueError()
+    if timeout_max <= 0 or timeout_max >= 10:
+        raise ValueError()
+    if backoff_scale <= 0 or backoff_scale >= 10:
+        raise ValueError()
+
+
 def backoff(
     retry_amount: int = 3,
     timeout_start: float = 0.5,
@@ -18,14 +35,7 @@ def backoff(
     Параметризованный декоратор для повторных запусков функций.
     """
 
-    if retry_amount < 1 or retry_amount > 100:
-        raise ValueError()
-    if timeout_start <= 0 or timeout_start >= 10:
-        raise ValueError()
-    if timeout_max <= 0 or timeout_max >= 10:
-        raise ValueError()
-    if backoff_scale <= 0 or backoff_scale >= 10:
-        raise ValueError()
+    _validate_backoff_params(retry_amount, timeout_start, timeout_max, backoff_scale)
 
     def decorator(func: Callable[P, R]) -> Callable[P, R]:
         @wraps(func)
