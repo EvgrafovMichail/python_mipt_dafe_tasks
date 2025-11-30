@@ -49,7 +49,7 @@ def backoff(
         raise ValueError
 
     def decorator(func: Callable[P, R]) -> Callable[P, R]:
-        def wrapper(*args: P.args, **kwargs: P.kwargs) -> R:
+        def wrapper(*args, **kwargs) -> R:
             last_exception = None
             current_timeout = timeout_start
             
