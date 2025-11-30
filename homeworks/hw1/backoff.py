@@ -5,6 +5,7 @@ from typing import (
     ParamSpec,
     TypeVar,
 )
+from functools import wraps
 
 P = ParamSpec("P")
 R = TypeVar("R")
@@ -29,6 +30,7 @@ def backoff(
         raise ValueError
 
     def decorator(func: Callable[P, R]) -> Callable[P, R]:
+        @wraps(func)
         def wrapper(*args: P.args, **kwargs: P.kwargs) -> R:
             timeout = timeout_start
 

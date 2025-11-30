@@ -3,6 +3,7 @@ from typing import (
     ParamSpec,
     TypeVar,
 )
+from functools import wraps
 
 P = ParamSpec("P")
 R = TypeVar("R")
@@ -19,6 +20,7 @@ def lru_cache(capacity: int) -> Callable[[Callable[P, R]], Callable[P, R]]:
     def decorator(func: Callable[P, R]) -> Callable[P, R]:
         cache_dictionary: dict[tuple, R] = {}
 
+        @wraps(func)
         def wrapper(*args: P.args, **kwargs: P.kwargs):
             key = (args, tuple(sorted(kwargs.items())))
             if key in cache_dictionary:
