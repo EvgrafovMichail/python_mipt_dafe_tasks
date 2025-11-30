@@ -79,9 +79,9 @@ def aggregate_segmentation(
         if segment["audio_id"] not in valid_segmentation_data:
             valid_segmentation_data[segment["audio_id"]] = {}
         valid_segmentation_data[segment["audio_id"]][segment["segment_id"]] = {
-                "start": segment["segment_start"],
-                "end": segment["segment_end"],
-                "type": segment["type"],
-            }
+            "start": segment["segment_start"],
+            "end": segment["segment_end"],
+            "type": segment["type"],
+        }
 
     return valid_segmentation_data, audio_ids_re_marking

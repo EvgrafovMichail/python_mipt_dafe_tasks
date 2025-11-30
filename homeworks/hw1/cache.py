@@ -27,6 +27,7 @@ def lru_cache(capacity: int) -> Callable[[Callable[P, R]], Callable[P, R]]:
             per_names = func.__code__.co_varnames[:argcount]
 
         except AttributeError:
+
             @functools.wraps(func)
             def inner(*args, **kwargs):
                 args = tuple(args)
@@ -43,7 +44,8 @@ def lru_cache(capacity: int) -> Callable[[Callable[P, R]], Callable[P, R]]:
                     data[args] = func(*args, **kwargs)
                     return data[args]
 
-        else :
+        else:
+
             @functools.wraps(func)
             def inner(*args: P.args, **kwargs: P.kwargs) -> Any:
                 key = []
