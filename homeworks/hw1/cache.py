@@ -35,7 +35,7 @@ def lru_cache(capacity: int) -> Callable[[Callable[P, R]], Callable[P, R]]:
         cache = {}
 
         def wrapper(*args, **kwargs):
-            key = (args, tuple(kwargs.items()))
+            key = (args, tuple(sorted(kwargs.items())))
 
             if key in cache:
                 value = cache.pop(key)

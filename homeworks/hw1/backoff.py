@@ -33,20 +33,21 @@ def backoff(
     Raises:
         ValueError, если были переданы невозможные аргументы.
     """
-    if retry_amount <= 0 or timeout_start <= 0 or timeout_max <= 0 or backoff_scale <= 0 or ():
+    if retry_amount <= 0 or timeout_start <= 0 or timeout_max <= 0 or backoff_scale <= 0:
         raise ValueError("переданы невозможный аргументы")
 
     def decorator(func: Callable[P, R]) -> Callable[P, R]:
         def wrapper(*args, **kwargs):
             delay = timeout_start
-            for retry in range(1 + retry_amount):
+            for retry in range(retry_amount):
                 try:
                     return func(*args, **kwargs)
                 except backoff_triggers:
-                    if retry == retry_amount:
+                    if retry == retry_amount - 1:
                         raise
 
-                    sleep(delay + uniform(0, 0.5))
+                    if retry < retry_amount - 1:
+                        sleep(delay + uniform(0, 0.5))
                     delay = min(delay * backoff_scale, timeout_max)
                 except Exception:
                     raise
@@ -55,4 +56,3 @@ def backoff(
 
     return decorator
     # ваш код
-    pass

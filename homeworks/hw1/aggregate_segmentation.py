@@ -12,14 +12,22 @@ def aggregate_segmentation(
     bad_audio_ids = set()
     seen_segments = {}
     audio_seen = set()
-    audio_with_speech = set()
 
     for seg in segmentation_data:
+        if "audio_id" not in seg:
+            continue
+
         audio = seg["audio_id"]
+
+        if "segment_id" not in seg:
+            bad_audio_ids.add(audio)
+            continue
+
         segment_id = seg["segment_id"]
         start = seg["segment_start"]
         end = seg["segment_end"]
         typ = seg["type"]
+
         if audio is None:
             continue
 
@@ -49,10 +57,13 @@ def aggregate_segmentation(
 
         if key in seen_segments and seen_segments[key] != current:
             bad_audio_ids.add(audio)
+            for k in list(seen_segments.keys()):
+                if k[0] == audio:
+                    del seen_segments[k]
             continue
 
-        seen_segments[key] = current
-        audio_with_speech.add(audio)
+        if audio not in bad_audio_ids:
+            seen_segments[key] = current
 
     for (audio, segment_id), (start, end, typ) in seen_segments.items():
         if audio in bad_audio_ids:
