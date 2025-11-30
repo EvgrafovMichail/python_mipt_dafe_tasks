@@ -34,5 +34,30 @@ def backoff(
         ValueError, если были переданы невозможные аргументы.
     """
 
-    # ваш код
-    pass
+    if (
+        not 1 <= retry_amount <= 100
+        or not 0 < timeout_start <= timeout_max < 10
+        or not 0 < backoff_scale < 10
+    ):
+        raise ValueError
+
+    def decorator(func: Callable):
+        def wrapper(*args, **kwargs):
+            current_delay = timeout_start
+            for _ in range(retry_amount - 1):
+                try:
+                    return func(*args, **kwargs)
+                except Exception as e:
+                    if type(e) not in backoff_triggers:
+                        raise e
+                    else:
+                        sleep(
+                            min(current_delay, timeout_max) + uniform(0.0, 0.5)
+                        )
+
+                        current_delay *= backoff_scale
+            return func(*args, **kwargs)
+
+        return wrapper
+
+    return decorator

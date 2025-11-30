@@ -24,5 +24,70 @@ def aggregate_segmentation(
         Список `audio_id` (str), которые требуют переразметки.
     """
 
-    # ваш код
-    return {}, []
+    validated: dict[str, dict] = {}
+    not_validated: set[str] = set()
+
+    seen_segments: dict[
+        tuple[str, str], tuple[float | None, float | None, str | None]
+    ] = {}
+
+    for segment in segmentation_data:
+        audio_id = segment.get("audio_id")
+        segment_id = segment.get("segment_id")
+        s_start = segment.get("segment_start")
+        s_end = segment.get("segment_end")
+        s_type = segment.get("type")
+
+        if audio_id is None:
+            continue
+
+        is_silent = s_type is None and s_start is None and s_end is None
+
+        invalid = False
+
+        if segment_id is None:
+            invalid = True
+
+        elif not is_silent:
+            if not isinstance(s_type, str):
+                invalid = True
+            if not isinstance(s_start, float):
+                invalid = True
+            if not isinstance(s_end, float):
+                invalid = True
+
+        if not is_silent:
+            if s_type is None or s_start is None or s_end is None:
+                invalid = True
+
+        if not is_silent and s_type not in ALLOWED_TYPES:
+            invalid = True
+
+        key = (audio_id, segment_id)
+        if not is_silent:
+            if key in seen_segments:
+                prev = seen_segments[key]
+                if prev != (s_start, s_end, s_type):
+                    invalid = True
+            else:
+                seen_segments[key] = (s_start, s_end, s_type)
+
+        if invalid:
+            not_validated.add(audio_id)
+            continue
+
+        if audio_id not in validated:
+            validated[audio_id] = {}
+
+        if is_silent:
+
+            validated.setdefault(audio_id, {})
+            continue
+
+        validated[audio_id][segment_id] = {
+            "start": s_start,
+            "end": s_end,
+            "type": s_type,
+        }
+
+    return validated, list(not_validated)
