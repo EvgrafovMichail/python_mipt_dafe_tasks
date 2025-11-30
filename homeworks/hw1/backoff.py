@@ -38,8 +38,6 @@ def backoff(
                     
                     if delay > timeout_max:
                         delay = timeout_max
-                    
-                    # Расчет джиттера (jitter)
                     jitter = uniform(0, 0.5)
                     total_delay = delay + jitter
                     
