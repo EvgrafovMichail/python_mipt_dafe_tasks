@@ -43,15 +43,17 @@ def aggregate_segmentation(
         end = seg.get("segment_end")
         typ = seg.get("type")
 
-        no_voice = (start is None and end is None and typ is None)
+        no_voice = start is None and end is None and typ is None
         ok = True
 
         if not no_voice:
             if start is None or end is None or typ is None:
                 ok = False
-            elif (not isinstance(start, float) 
-                  or not isinstance(end, float) 
-                  or not isinstance(typ, str)):
+            elif (
+                not isinstance(start, float)
+                or not isinstance(end, float)
+                or not isinstance(typ, str)
+            ):
                 ok = False
             elif typ not in ALLOWED_TYPES:
                 ok = False

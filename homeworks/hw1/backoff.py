@@ -57,5 +57,7 @@ def backoff(
                     zadergka = min(wait, timeout_max) + uniform(0, 0.5)
                     sleep(zadergka)
                     wait *= backoff_scale
+
         return wrapper
+
     return decorator

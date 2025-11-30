@@ -36,5 +36,7 @@ def convert_exceptions_to_api_compitable_ones(
                         else:
                             raise p from None
                 raise
+
         return wrapper
+
     return decorator
