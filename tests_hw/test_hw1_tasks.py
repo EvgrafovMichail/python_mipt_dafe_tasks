@@ -101,12 +101,26 @@ def test_convert_matching_exception() -> None:
     @convert_exceptions_to_api_compitable_ones({ValueError: ApiValueError})
     def func2():
         raise KeyError("Внутренняя ошибка")
+    
+    @convert_exceptions_to_api_compitable_ones({ValueError: ApiValueError})
+    def func3():
+        raise IndexError("Внутренняя ошибка")
+    
+    @convert_exceptions_to_api_compitable_ones({ValueError: ApiValueError})
+    def func4():
+        raise SyntaxError("Внутренняя ошибка")
 
     with pytest.raises(ApiValueError):
         func()
 
     with pytest.raises(KeyError):
         func2()
+
+    with pytest.raises(IndexError):
+        func3()
+
+    with pytest.raises(SyntaxError):
+        func4()
 
 @patch(NAME_BACKOFF_MODULE + '.sleep')
 def test_exponential_backoff_and_jitter(mock_sleep: MagicMock) -> None:
@@ -142,13 +156,17 @@ def test_exponential_backoff_and_jitter(mock_sleep: MagicMock) -> None:
     assert count_more_av_time   # есть добавление "дрожи"
 
 def test_success() -> None:
-    capacity = 2
+    capacity = 4
     call_args =  [
         (1, 2),
         (1, 2),
         (2, 2),
+        (3, 1),
+        (4, 2),
+        (4, 4),
+        (5, 7)
     ]
-    call_count_expected = 2
+    call_count_expected = 6
     
     mock_func = Mock()
     func_cached = lru_cache(capacity=capacity)(mock_func)

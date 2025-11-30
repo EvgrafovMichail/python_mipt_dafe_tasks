@@ -34,5 +34,38 @@ def backoff(
         ValueError, если были переданы невозможные аргументы.
     """
 
-    # ваш код
-    pass
+    def decorator(func):
+        timeout = timeout_start
+        jitter_time = uniform(0, 0.5)
+        def wrapper(*args, **kwargs):
+            for i in range(retry_amount):
+                try:
+                    return func(*args, **kwargs)
+                except backoff_triggers as exc:
+                    nonlocal timeout
+                    if timeout > timeout_max:
+                        raise TimeoutError
+                    sleep(timeout + jitter_time)
+                    timeout *= backoff_scale
+            raise exc("no attempts left")
+        return wrapper
+    return decorator
+
+attempts = 0
+timeout_max = 4
+retry_amount = 4
+timeouts = [1, 2, 4, 4]
+@backoff(
+        retry_amount=retry_amount,
+        timeout_start=1,
+        timeout_max=timeout_max,
+        backoff_scale=2.0
+    )
+def func():
+    global attempts
+    attempts += 1
+    if attempts < retry_amount:
+        raise ConnectionError("Ошибка подключения")
+    return "успех"
+
+print(func())
