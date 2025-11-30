@@ -1,4 +1,4 @@
-    from typing import (
+from typing import (
         Callable,
         ParamSpec,
         TypeVar,
@@ -7,15 +7,15 @@
         Union,
         Tuple,
     )
-    from functools import wraps
+from functools import wraps
 
-    P = ParamSpec("P")
-    R = TypeVar("R")
+P = ParamSpec("P")
+R = TypeVar("R")
 
-    ExceptionMapping = Dict[Type[Exception], Union[Type[Exception], Exception]]
+ExceptionMapping = Dict[Type[Exception], Union[Type[Exception], Exception]]
 
 
-    def convert_exceptions_to_api_compitable_ones(
+def convert_exceptions_to_api_compitable_ones(
         exception_to_api_exception: ExceptionMapping,
     ) -> Callable[[Callable[P, R]], Callable[P, R]]:
         
