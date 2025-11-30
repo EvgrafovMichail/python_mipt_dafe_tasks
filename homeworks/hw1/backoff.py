@@ -34,5 +34,28 @@ def backoff(
         ValueError, если были переданы невозможные аргументы.
     """
 
-    # ваш код
-    pass
+    if not isinstance(retry_amount, int) or retry_amount <= 0:
+        raise ValueError()
+    if not isinstance(timeout_start, (int, float)) or timeout_start <= 0:
+        raise ValueError()
+    if not isinstance(timeout_max, (int, float)) or timeout_max <= 0:
+        raise ValueError()
+    if not isinstance(backoff_scale, (int, float)) or backoff_scale <= 0:
+        raise ValueError()
+    if not isinstance(backoff_triggers, tuple):
+        raise ValueError()
+
+    def decorator(func):
+        def wrapper(*args, **kwargs):
+            wait = timeout_start
+            for attempt in range(1, retry_amount + 1):
+                try:
+                    return func(*args, **kwargs)
+                except backoff_triggers:
+                    if attempt == retry_amount:
+                        return None
+                    zadergka = min(wait, timeout_max) + uniform(0, 0.5)
+                    sleep(zadergka)
+                    wait *= backoff_scale
+        return wrapper
+    return decorator
