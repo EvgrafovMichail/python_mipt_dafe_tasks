@@ -37,7 +37,7 @@ def aggregate_segmentation(
             if segment_id is None:
                 need_remark.add(audio_id)
             elif segment_end is None and segment_start is None and type is None:
-                if not (audio_id in right_data):
+                if audio_id not in right_data:
                     right_data[audio_id] = {}
                 continue
             elif not isinstance(segment_start, float):
@@ -46,7 +46,7 @@ def aggregate_segmentation(
                 need_remark.add(audio_id)
             elif not isinstance(type, str):
                 need_remark.add(audio_id)
-            elif not (type in ALLOWED_TYPES):
+            elif type not in ALLOWED_TYPES:
                 need_remark.add(audio_id)
             elif segment_end is None or segment_start is None or type is None:
                 need_remark.add(audio_id)
