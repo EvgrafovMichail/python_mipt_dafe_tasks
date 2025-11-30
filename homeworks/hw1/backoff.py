@@ -1,3 +1,4 @@
+import functools
 from random import uniform
 from time import sleep
 from typing import (
@@ -27,6 +28,8 @@ def backoff(
         raise ValueError
 
     def decorator(func):
+        functools.wraps(func)
+
         def wraps(*args, **kwargs):
             current_timeout = timeout_start
             attempts_remaining = retry_amount

@@ -11,7 +11,7 @@ from tests_hw.hw1_test_data.cache_test_data import (
     TESTCASE_IDS,
 )
 
-NAME_BACKOFF_MODULE = "homeworks.hw1.backoff"  # название модуля с backoff
+NAME_BACKOFF_MODULE = "homeworks.hw1.backoff"
 
 
 def test_valid_segments() -> None:
