@@ -52,12 +52,12 @@ def backoff(
             nonlocal backoff_triggers
             timeout = timeout_start
 
-            for retry in range(retry_amount + 1):
+            for retry in range(retry_amount):
                 try:
                     return func(*args, **kwargs)
 
                 except backoff_triggers as exc:
-                    if retry == retry_amount:
+                    if retry + 1 == retry_amount:
                         raise exc
 
                     timeout = min(timeout, timeout_max)
