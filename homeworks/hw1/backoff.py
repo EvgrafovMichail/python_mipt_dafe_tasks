@@ -35,4 +35,34 @@ def backoff(
     """
 
     # ваш код
-    pass
+    if not (isinstance(retry_amount, int) and 1 <= retry_amount <= 100):
+        raise ValueError("retry_amount должен быть целым числом от 1 до 100")
+    for name, value, lim in (
+        ("timeout_start", timeout_start, (0, 10)),
+        ("timeout_max", timeout_max, (0, 10)),
+        ("backoff_scale", backoff_scale, (0, 10)),
+    ):
+        if not (isinstance(value, (int, float)) and lim[0] < value < lim[1]):
+            raise ValueError(f"{name} должен быть в интервале {lim}")
+
+    def decorator(func: Callable[P, R]) -> Callable[P, R]:
+        def wrapper(*args: P.args, **kwargs: P.kwargs) -> R:
+            delay = timeout_start
+            last_exc: Exception | None = None
+
+            for attempt in range(retry_amount):
+                try:
+                    return func(*args, **kwargs)
+                except backoff_triggers as exc:
+                    last_exc = exc
+                    if attempt == retry_amount - 1:
+                        break
+                    sleep(min(delay, timeout_max) + uniform(0, 0.5))
+                    delay *= backoff_scale
+
+            assert last_exc is not None
+            raise last_exc
+
+        return wrapper
+
+    return decorator
