@@ -18,15 +18,14 @@ def aggregate_segmentation(
             continue
         if segid:
             start, end, ttype = onefragm["segment_start"], onefragm["segment_end"], onefragm["type"]
-            if start == None and end == None and ttype == None:
+            if start is None and end is None and ttype is None:
                 if audid in resdict:
                     resdict[audid][segid] = {}
                 else:
                     resdict[audid] = {segid: {}}
-            elif (bool(ttype != None and start != None and end != None) == True) or (
-                bool(ttype != None or start != None or end != None) == False
-            ):
-                if type(start) == float and type(end) == float and type(ttype) == str:
+            elif bool(ttype is not None and start is not None and end is not None) or (not
+                bool(ttype is not None or start is not None or end is not None)):
+                if type(start) is float and type(end) is float and type(ttype) is str:
                     if ttype in ALLOWED_TYPES:
                         if audid in resdict and audid not in removelist:
                             if segid in resdict[audid]:
