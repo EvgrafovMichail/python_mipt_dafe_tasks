@@ -44,7 +44,7 @@ def backoff(
     def decorator(func: Callable):
         def wrapper(*args, **kwargs):
             current_delay = timeout_start
-            for _ in range(retry_amount - 1):
+            for _ in range(retry_amount):
                 try:
                     return func(*args, **kwargs)
                 except Exception as e:

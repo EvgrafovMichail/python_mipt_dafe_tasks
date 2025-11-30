@@ -69,6 +69,8 @@ def aggregate_segmentation(
                 prev = seen_segments[key]
                 if prev != (s_start, s_end, s_type):
                     invalid = True
+                    if audio_id in validated:
+                        validated.pop(audio_id)
             else:
                 seen_segments[key] = (s_start, s_end, s_type)
 
