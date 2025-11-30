@@ -1,3 +1,4 @@
+from functools import wraps
 from random import uniform
 from time import sleep
 from typing import (
@@ -43,6 +44,7 @@ def backoff(
         raise ValueError("Invalid value")
 
     def decorator(func: Callable[P, R]):
+        @wraps(func)
         def wrapper(*args, **kwargs):
             nonlocal backoff_triggers
             timeout = timeout_start

@@ -1,3 +1,4 @@
+from functools import wraps
 from typing import (
     Callable,
     ParamSpec,
@@ -34,6 +35,7 @@ def lru_cache(capacity: int) -> Callable[[Callable[P, R]], Callable[P, R]]:
     dictionary = {}
 
     def decorator(func: Callable[P, R]):
+        @wraps(func)
         def wrapper(*args, **kwargs):
             nonlocal dictionary, new_capacity
 
