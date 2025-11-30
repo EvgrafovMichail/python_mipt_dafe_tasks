@@ -35,4 +35,37 @@ def backoff(
     """
 
     # ваш код
-    pass
+
+    if retry_amount < 1:
+        raise ValueError()
+    if timeout_start <= 0 or timeout_start >= 10:
+        raise ValueError()
+    if timeout_max <= 0 or timeout_max >= 10:
+        raise ValueError()
+    if backoff_scale <= 0 or backoff_scale >= 10:
+        raise ValueError()
+
+    def decorator(func: Callable):
+        def wrapper(*args, **kwargs):
+            time_delay = timeout_start
+
+            for try_num in range(retry_amount + 1):
+                try:
+                    return func(*args, **kwargs)
+                except backoff_triggers as exp:
+                    if try_num == retry_amount:
+                        raise exp from None
+
+                    if time_delay < timeout_max:
+                        delay = time_delay + uniform(0, 0.5)
+                    else:
+                        delay = timeout_max
+                    if delay >= timeout_max:
+                        delay = timeout_max
+
+                    sleep(delay)
+                    time_delay *= backoff_scale
+
+        return wrapper
+
+    return decorator
