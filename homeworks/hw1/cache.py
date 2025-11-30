@@ -47,10 +47,10 @@ def lru_cache(capacity: int) -> Callable[[Callable[P, R]], Callable[P, R]]:
     try:
         capacity = int(round(capacity))
     except Exception:
-        raise TypeError
+        raise TypeError()
     
     if capacity < 1:
-        raise ValueError
+        raise ValueError()
 
     def add_cache(func: Callable[P, R]) -> Callable[P,R]:
         cache: OrderedDict = OrderedDict() 

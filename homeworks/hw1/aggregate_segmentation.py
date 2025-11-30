@@ -29,7 +29,11 @@ def aggregate_segmentation(
     temp_data: dict[str, dict[str, dict[str, str | float]]] = dict()
 
     for data in segmentation_data:
-        (audio_id, segment_id, segment_start, segment_end, voice_type) = data.values()
+        audio_id      = data.get("audio_id")
+        segment_id    = data.get("segment_id")
+        segment_start = data.get("segment_start")
+        segment_end   = data.get("segment_end")
+        voice_type    = data.get("type")
 
         if not audio_id:
             continue
