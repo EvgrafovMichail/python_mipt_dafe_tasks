@@ -32,7 +32,7 @@ def convert_exceptions_to_api_compitable_ones(
                
                 if type (e) in exception_to_api_exception:
                     api_exception = exception_to_api_exception[type(e)]
-                    raise api_exception from e
+                    raise api_exception from None
                 raise 
         return wrapper
     return decorator
