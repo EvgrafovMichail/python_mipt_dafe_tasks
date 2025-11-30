@@ -35,7 +35,7 @@ def lru_cache(capacity: int) -> Callable[[Callable[P, R]], Callable[P, R]]:
         storage = {}
 
         def wrapper(*args, **kwargs):
-            kw = tuple(kwargs.items())
+            kw = tuple(sorted(kwargs.items()))
             packed = (args, kw)
 
             exist = storage.get(packed)

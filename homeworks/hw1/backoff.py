@@ -44,9 +44,9 @@ def backoff(
             for attempt in range(retry_amount):
                 try:
                     return func(*args, **kwargs)
-                except backoff_triggers:
+                except backoff_triggers as e:
                     if attempt == retry_amount - 1:
-                        raise Exception
+                        raise e from None
 
                     jitter_time = uniform(0, 0.5)
                     sleep(zader + jitter_time)

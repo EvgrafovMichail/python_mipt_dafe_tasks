@@ -34,8 +34,6 @@ def aggregate_segmentation(
         end = data["segment_end"]
         typ = data["type"]
 
-        if audio_id is None:
-            return False
 
         if seg_id is None:
             return False
@@ -63,6 +61,9 @@ def aggregate_segmentation(
         return True
 
     for data in segmentation_data:
+        if "audio_id" not in data:
+            continue
+
         check = valid_data(data)
 
         if check == {}:
