@@ -23,20 +23,25 @@ def convert_exceptions_to_api_compitable_ones(
     Returns:
         Декоратор для непосредственного использования.
     """
-    def call (func):
+
+    def call(func):
         def wrapper(*args, **kwargs):
             try:
-                return func(*args,**kwargs)
+                return func(*args, **kwargs)
             except Exception as exc:
                 if type(exc) in exception_to_api_exception:
                     return_exc = exception_to_api_exception[type(exc)]
-                    if isinstance(return_exc,type) and issubclass(return_exc, Exception):
+                    if isinstance(return_exc, type) and issubclass(return_exc, Exception):
                         return_exc = return_exc()
                         raise return_exc
                     else:
                         raise exception_to_api_exception[type(exc)]
                 else:
-                    raise 
+                    raise
+
         return wrapper
-    return call 
+
+    return call
+
+
 pass
