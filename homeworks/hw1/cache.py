@@ -27,6 +27,7 @@ def lru_cache(capacity: int) -> Callable[[Callable[P, R]], Callable[P, R]]:
     # ваш код
     from typing import Callable, ParamSpec, TypeVar, Any
 
+
 P = ParamSpec("P")
 R = TypeVar("R")
 
@@ -42,6 +43,7 @@ def lru_cache(capacity: int) -> Callable[[Callable[P, R]], Callable[P, R]]:
     def decorator(func: Callable[P, R]) -> Callable[P, R]:
         class _Node:
             __slots__ = ("key", "value", "prev", "next")
+
             def __init__(self, key: Any, value: Any):
                 self.key = key
                 self.value = value

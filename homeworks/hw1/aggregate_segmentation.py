@@ -26,7 +26,7 @@ def aggregate_segmentation(
 
     # ваш код
     valid: dict[str, dict[str, dict[str, str | float]]] = {}
-    seen:  dict[tuple[str, str], tuple[float, float, str]] = {}
+    seen: dict[tuple[str, str], tuple[float, float, str]] = {}
     to_remark: set[str] = set()
 
     def ok_type(v) -> bool:
@@ -36,7 +36,9 @@ def aggregate_segmentation(
         return v is None or isinstance(v, float)
 
     def valid_voice_fields(t, s, e) -> bool:
-        return (t is None and s is None and e is None) or (t is not None and s is not None and e is not None)
+        return (t is None and s is None and e is None) or (
+            t is not None and s is not None and e is not None
+        )
 
     for seg in segmentation_data:
         aid = seg.get("audio_id")
@@ -44,7 +46,7 @@ def aggregate_segmentation(
         if not aid or not sid:
             continue
 
-        t  = seg.get("type")
+        t = seg.get("type")
         st = seg.get("segment_start")
         en = seg.get("segment_end")
 
