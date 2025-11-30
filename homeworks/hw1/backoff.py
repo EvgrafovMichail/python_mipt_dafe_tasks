@@ -35,13 +35,16 @@ def backoff(
         ValueError, если были переданы невозможные аргументы.
     """
 
-    if (
-        (retry_amount <= 0 or retry_amount > 100)
-        or (timeout_start <= 0 or timeout_start > 10)
-        or (timeout_max <= 0 or timeout_max > 10)
-        or (backoff_scale <= 0 or backoff_scale > 10)
-    ):
-        raise ValueError("Invalid value")
+    def validation():
+        if (
+            (retry_amount <= 0 or retry_amount > 100)
+            or (timeout_start <= 0 or timeout_start > 10)
+            or (timeout_max <= 0 or timeout_max > 10)
+            or (backoff_scale <= 0 or backoff_scale > 10)
+        ):
+            raise ValueError("Invalid value")
+
+    validation()
 
     def decorator(func: Callable[P, R]):
         @wraps(func)
