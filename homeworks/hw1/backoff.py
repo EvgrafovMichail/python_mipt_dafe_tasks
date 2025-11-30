@@ -31,7 +31,7 @@ def backoff(
             delay = timeout_start
 
             attempt = 0
-            while attempt <= retry_amount:
+            while attempt < retry_amount:
                 try:
                     return func(*args, **kwargs)
 
