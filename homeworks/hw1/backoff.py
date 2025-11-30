@@ -17,22 +17,26 @@ def backoff(
     backoff_scale: float = 2.0,
     backoff_triggers: tuple[type[Exception]] = (Exception,),
 ) -> Callable[[Callable[P, R]], Callable[P, R]]:
-    """
-    Параметризованный декоратор для повторных запусков функций.
-
-    Args:
-        retry_amount: максимальное количество попыток выполнения функции;
-        timeout_start: начальное время ожидания перед первой повторной попыткой (в секундах);
-        timeout_max: максимальное время ожидания между попытками (в секундах);
-        backoff_scale: множитель, на который увеличивается задержка после каждой неудачной попытки;
-        backoff_triggers: кортеж типов исключений, при которых нужно выполнить повторный вызов.
-
-    Returns:
-        Декоратор для непосредственного использования.
-
-    Raises:
-        ValueError, если были переданы невозможные аргументы.
-    """
-
-    # ваш код
-    pass
+    if not (1 <= retry_amount <= 100 and 0 < timeout_start <= 10 and 0 < timeout_max <= 10 and 0 < backoff_scale <= 10 and timeout_start <= timeout_max):
+        raise ValueError("Invalid arguments")
+    
+    def decorator(func: Callable[P, R]) -> Callable[P, R]:
+        def wrapper(*args: P.args, **kwargs: P.kwargs) -> R:
+            last_exception = None
+            current_delay = timeout_start
+            for attempt in range(retry_amount):
+                try:
+                    result_value = func(*args, **kwargs)
+                    return result_value
+                except backoff_triggers as exc:
+                    last_exception = exc
+                    if attempt == retry_amount - 1:
+                        break
+                    jitter = uniform(0, 0.5)
+                    wait_time = min(current_delay + jitter, timeout_max)
+                    sleep(wait_time)
+                    current_delay = min(current_delay * backoff_scale, timeout_max)
+            if last_exception is not None:
+                raise last_exception
+        return wrapper
+    return decorator
