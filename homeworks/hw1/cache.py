@@ -19,7 +19,7 @@ def lru_cache(capacity: int) -> Callable[[Callable[P, R]], Callable[P, R]]:
 
     def decorator(func):
         cache = dict()
-        
+
         @functools.wraps(func)
         def wraps(*args, **kwargs):
             key = (args, tuple(sorted(kwargs.items()))) if kwargs else args

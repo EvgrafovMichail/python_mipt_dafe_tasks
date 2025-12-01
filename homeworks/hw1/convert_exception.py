@@ -13,7 +13,6 @@ def convert_exceptions_to_api_compitable_ones(
     exception_to_api_exception: dict[type[Exception], type[Exception] | Exception],
 ) -> Callable[[Callable[P, R]], Callable[P, R]]:
     def handle_error(func):
-        
         @functools.wraps(func)
         def wraps(*args, **kwargs):
             try:
