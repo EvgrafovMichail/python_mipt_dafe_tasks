@@ -82,7 +82,7 @@ class Vector2D:
     def __rtruediv__(self, other):
         return NotImplemented
 
-    def __add__(self, other: "Vector2D" | Real) -> "Vector2D":
+    def __add__(self, other) -> "Vector2D":
         if isinstance(other, Real):
             other = Vector2D(other, other)
         elif isinstance(other, Vector2D):
@@ -95,7 +95,7 @@ class Vector2D:
     def __radd__(self, other: Real) -> "Vector2D":
         return self + other
 
-    def __sub__(self, other: Real | "Vector2D") -> "Vector2D":
+    def __sub__(self, other) -> "Vector2D":
         if isinstance(other, Real):
             other = Vector2D(other, other)
         elif isinstance(other, Vector2D):
