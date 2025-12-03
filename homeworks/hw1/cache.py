@@ -89,12 +89,13 @@ def lru_cache(capacity: int) -> Callable[[Callable[P, R]], Callable[P, R]]:
     def decorator(func):
         lru_local = LRU(rounded_capacity)
 
-        def wrapper(*args):
-            if args in lru_local.know_args:
-                return lru_local.get(args)
+        def wrapper(*args, **kwargs):
+            arguments = (args, tuple(sorted(kwargs.items())))
+            if arguments in lru_local.know_args:
+                return lru_local.get(arguments)
             else:
-                ans = func(*args)
-                lru_local.put(ans, args)
+                ans = func(*args, **kwargs)
+                lru_local.put(ans, arguments)
                 return ans
 
         return wrapper
