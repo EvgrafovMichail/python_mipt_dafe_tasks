@@ -15,7 +15,7 @@ class Node:
         self.prev = None
 
 
-class Priorities:
+class LastRecentUsed:
     def __init__(self):
         self.head = Node(None)
         self.tail = Node(None)
@@ -31,8 +31,7 @@ class Priorities:
         return new
 
     def remove_last(self):
-        last = self.tail.prev
-        return last.data
+        pass
 
     def set_lowest_priority(self, ref):
         first = self.head.next
@@ -60,25 +59,23 @@ def lru_cache(capacity: int) -> Callable[[Callable[P, R]], Callable[P, R]]:
             для получения целого числа.
         ValueError, если после округления capacity - число, меньшее 1.
     """
-    del_priorities = Priorities()
+    del_priorities = LastRecentUsed()
     cache = {}
 
     def decorator(func):
         def wrapper(*args):
             nonlocal cache, del_priorities
             if (args) in cache:
-                curr_priority = cache[args][1]
-                res = cache[args][0]
-                del_priorities.set_lowest_priority(curr_priority)
+                
                 return res
             else:
                 res = func(*args)
                 if len(cache) < capacity:
-                    cache[args] = [res, del_priorities.add(args)]
+                    cache[args] = LastRecentUsed.add(res)
                     return res
                 else:
-                    cache.pop(del_priorities.remove_last())
-                    cache[args] = [res, del_priorities.add(args)]
+                    LastRecentUsed.remove_last()
+                    cache[args] = LastRecentUsed.add(res)
                     return res
 
         return wrapper
