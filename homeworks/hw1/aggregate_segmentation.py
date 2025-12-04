@@ -1,4 +1,3 @@
-
 ALLOWED_TYPES = {
     "spotter_word",
     "voice_human",
