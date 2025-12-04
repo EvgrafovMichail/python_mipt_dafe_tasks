@@ -30,7 +30,9 @@ class Vector2D:
         return self.__ordinate
 
     def __repr__(self) -> str:
-        return f"Vector2D(abscissa={self.abscissa:.1f}, ordinate={self.ordinate:.1f})".replace('.0', '')
+        return f"Vector2D(abscissa={self.abscissa:.1f}, ordinate={self.ordinate:.1f})".replace(
+            ".0", ""
+        )
 
     def __eq__(self, vec2: "Vector2D") -> bool:
         if not isinstance(vec2, Vector2D):
@@ -43,32 +45,30 @@ class Vector2D:
     def __ne__(self, vec2: object) -> bool:
         if not isinstance(vec2, Vector2D):
             return NotImplemented
-        
+
         return not (self == vec2)
-    
+
     def __gt__(self, vec2: "Vector2D") -> bool:
         if not isinstance(vec2, Vector2D):
             return NotImplemented
-        
+
         if vec2 == self:
             return False
 
         if math.isclose(self.abscissa, vec2.abscissa):
-        
-           return self.ordinate > vec2.ordinate
+            return self.ordinate > vec2.ordinate
         else:
             return self.abscissa > vec2.abscissa
 
     def __lt__(self, vec2: "Vector2D") -> bool:
         if not isinstance(vec2, Vector2D):
             return NotImplemented
-        
+
         if vec2 == self:
             return False
 
         if math.isclose(self.abscissa, vec2.abscissa):
-        
-           return self.ordinate < vec2.ordinate
+            return self.ordinate < vec2.ordinate
         else:
             return self.abscissa < vec2.abscissa
 
@@ -82,8 +82,10 @@ class Vector2D:
         return math.sqrt(self.abscissa**2 + self.ordinate**2)
 
     def __bool__(self) -> bool:
-        return not (math.isclose(self.abscissa, 0, abs_tol=1e-15) and 
-                    math.isclose(self.ordinate, 0, abs_tol=1e-15))
+        return not (
+            math.isclose(self.abscissa, 0, abs_tol=1e-15)
+            and math.isclose(self.ordinate, 0, abs_tol=1e-15)
+        )
 
     def __mul__(self, scale: Real) -> "Vector2D":
         if not isinstance(scale, Real):
@@ -113,7 +115,6 @@ class Vector2D:
         if not isinstance(other, Vector2D):
             return NotImplemented
 
-
         return Vector2D(other.abscissa + self.abscissa, other.ordinate + self.ordinate)
 
     def __radd__(self, other: Real) -> "Vector2D":
@@ -126,7 +127,6 @@ class Vector2D:
         if not isinstance(other, Vector2D):
             return NotImplemented
 
-        
         return Vector2D(self.abscissa - other.abscissa, self.ordinate - other.ordinate)
 
     def __neg__(self) -> "Vector2D":
