@@ -11,10 +11,8 @@ from homeworks.hw1.convert_exception import convert_exceptions_to_api_compitable
 NAME_BACKOFF_MODULE = "homeworks.hw1.backoff"  # название модуля с backoff
 
 
-
-#сюда тупа скопировать свой файл с 1 заданием 
-#и потом запустить счерез pytest
-
+# сюда тупа скопировать свой файл с 1 заданием
+# и потом запустить счерез pytest
 
 
 def test_valid_segments() -> None:

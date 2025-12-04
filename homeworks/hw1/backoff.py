@@ -38,7 +38,7 @@ def backoff(
                     sleep(min(timeout_max, timeout_start) + uniform(0, 0.5))
                     timeout_start *= backoff_scale
             raise
-        
+
         return wrapper
 
     return decorator
