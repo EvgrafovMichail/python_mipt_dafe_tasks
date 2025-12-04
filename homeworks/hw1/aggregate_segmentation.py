@@ -47,10 +47,16 @@ def aggregate_segmentation(
 
         audio_id = segment["audio_id"]
         segment_id = segment["segment_id"]
+        
+        if audio_id in not_valid_list:
+            continue
 
         if is_not_valid_segment(segment):
             if audio_id not in not_valid_list:
                 not_valid_list.append(audio_id)
+
+            if audio_id in not_valid_list:
+                del res_dct[audio_id]
             continue
 
         segment_type = segment.get("type")
@@ -59,9 +65,11 @@ def aggregate_segmentation(
 
         if (segment_type is None) and (segment_start is None) and (segment_end is None):
             if audio_id not in res_dct:
-                res_dct[audio_id] = {}
+                res_dct[audio_id]= {segment_id: {}}
+            else: 
+                res_dct[audio_id][segment_id] = {}
             continue
-
+            
         if audio_id in res_dct:
             if segment_id in res_dct[audio_id]:
                 curr_seg = res_dct[audio_id][segment_id]
@@ -73,6 +81,9 @@ def aggregate_segmentation(
                 ):
                     if audio_id not in not_valid_list:
                         not_valid_list.append(audio_id)
+                        
+                    if audio_id in not_valid_list:
+                        del res_dct[audio_id]
             else:
                 res_dct[audio_id][segment_id] = {
                     "start": segment_start,
@@ -83,5 +94,19 @@ def aggregate_segmentation(
             res_dct[audio_id] = {
                 segment_id: {"start": segment_start, "end": segment_end, "type": segment_type}
             }
+            
+    for _audio_id in res_dct: 
+        len_res_dict = len(res_dct[_audio_id])
+        count_empty = 0
+        for _segment_id in res_dct[_audio_id]:
+            if res_dct[_audio_id][_segment_id] == {}: 
+                count_empty += 1
+        if count_empty == len_res_dict:
+            res_dct[_audio_id] = {}
 
     return res_dct, not_valid_list
+
+
+
+
+
