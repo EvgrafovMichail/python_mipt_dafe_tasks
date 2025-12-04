@@ -27,22 +27,19 @@ def convert_exceptions_to_api_compitable_ones(
     """
 
     def decorator(func: Callable[P, R]) -> Callable[P, R]:
-
         functools.wraps(func)
+
         def wrapper(*args: P.args, **kwargs: P.kwargs) -> R:
-            
             try:
                 return func(*args, **kwargs)
 
             except Exception as ex:
-
                 for exception, api_exception in exception_to_api_exception.items():
-                    
                     if isinstance(ex, exception):
                         raise api_exception
-                    
+
                     raise ex
 
         return wrapper
-    
+
     return decorator

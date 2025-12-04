@@ -34,31 +34,23 @@ def backoff(
         ValueError, если были переданы невозможные аргументы.
     """
 
-    #Валидация аргументов
-    if (
-        retry_amount <= 0 or
-        timeout_start <= 0 or
-        timeout_max <= 0 or
-        backoff_scale <= 0
-    ):
+    # Валидация аргументов
+    if retry_amount <= 0 or timeout_start <= 0 or timeout_max <= 0 or backoff_scale <= 0:
         raise ValueError
 
     def decorator(func: Callable[P, R]) -> Callable[P, R]:
-
         def wrapper(*args: P.args, **kwargs: P.kwargs) -> R:
-            
-            #Переменные цикла
+            # Переменные цикла
             current_timeout: float = timeout_start
             retry_count: int = 0
             last_exception: Exception
 
-            while retry_count < retry_amount: 
-
+            while retry_count < retry_amount:
                 try:
                     return func(*args, **kwargs)
 
                 except Exception as last_exception:
-                    #Проверка на наследование или совпадение исключений
+                    # Проверка на наследование или совпадение исключений
                     if isinstance(last_exception, backoff_triggers):
                         retry_count += 1
                         jitter_time = uniform(0, 0.5)
@@ -71,5 +63,5 @@ def backoff(
             raise last_exception
 
         return wrapper
-    
+
     return decorator
