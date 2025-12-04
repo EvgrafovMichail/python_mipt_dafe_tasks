@@ -37,7 +37,6 @@ def aggregate_segmentation(
         end = data["segment_end"]
         typ = data["type"]
 
-
         if seg_id is None or "segment_id" not in data:
             return False
 
@@ -49,7 +48,6 @@ def aggregate_segmentation(
 
         if not isinstance(start, float) or not isinstance(end, float) or not isinstance(typ, str):
             return False
-
 
         if typ not in ALLOWED_TYPES:
             return False
