@@ -72,7 +72,8 @@ class Vector2D:
         )
 
     def __bool__(self) -> bool:
-        return not (isclose(self._abscissa, 0.0) and isclose(self._ordinate, 0.0))
+        return not (isclose(self._abscissa, 0.0, abs_tol=1e-15)
+                    and isclose(self._ordinate, 0.0, abs_tol=1e-15))
 
     def __abs__(self) -> float:
         return hypot(self._abscissa, self._ordinate)
