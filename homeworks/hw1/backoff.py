@@ -43,7 +43,7 @@ def backoff(
             # Переменные цикла
             current_timeout: float = timeout_start
             retry_count: int = 0
-            last_exception: Exception
+            last_exception: Exception = Exception
 
             while retry_count < retry_amount:
                 try:
