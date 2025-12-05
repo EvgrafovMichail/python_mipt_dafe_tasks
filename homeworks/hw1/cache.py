@@ -43,15 +43,14 @@ def lru_cache(capacity: int) -> Callable[[Callable[P, R]], Callable[P, R]]:
     def decorator(func: Callable[P, R]) -> Callable[P, R]:
         class _Node:
             __slots__ = ("key", "value", "prev", "next")
-
-            def __init__(self, key: Any, value: Any):
+            def __init__(self, key: tuple, value: R):
                 self.key = key
                 self.value = value
                 self.prev: _Node | None = None
                 self.next: _Node | None = None
 
-        head = _Node(None, None)
-        tail = _Node(None, None)
+        head = _Node(None, None)   # type: ignore
+        tail = _Node(None, None)   # type: ignore
         head.next = tail
         tail.prev = head
 
@@ -75,16 +74,17 @@ def lru_cache(capacity: int) -> Callable[[Callable[P, R]], Callable[P, R]]:
                 _remove(node)
                 _add_to_head(node)
                 return node.value
-            else:
-                result = func(*args, **kwargs)
-                new_node = _Node(key, result)
-                cache[key] = new_node
-                _add_to_head(new_node)
-                if len(cache) > capacity:
-                    lru = tail.prev
-                    _remove(lru)
-                    del cache[lru.key]
-                return result
+
+            result = func(*args, **kwargs)
+            new_node = _Node(key, result)
+            cache[key] = new_node
+            _add_to_head(new_node)
+
+            if len(cache) > capacity:
+                lru = tail.prev
+                _remove(lru)
+                del cache[lru.key]
+            return result
 
         return wrapper
 
