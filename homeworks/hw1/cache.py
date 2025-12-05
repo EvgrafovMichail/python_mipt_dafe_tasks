@@ -4,8 +4,6 @@ from typing import (
     TypeVar,
 )
 
-from unittest.mock import MagicMock, patch, Mock
-
 P = ParamSpec("P")
 R = TypeVar("R")
 

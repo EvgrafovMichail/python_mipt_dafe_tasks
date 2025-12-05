@@ -1,5 +1,6 @@
-import pytest
 from unittest.mock import Mock
+
+import pytest
 
 # Импортируем тестируемую функцию
 from homeworks.hw1.cache import lru_cache

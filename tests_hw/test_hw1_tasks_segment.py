@@ -1,8 +1,9 @@
-import pytest
 from typing import Any
 
+import pytest
+
 # Импортируем тестируемую функцию и константу
-from homeworks.hw1.aggregate_segmentation import aggregate_segmentation, ALLOWED_TYPES
+from homeworks.hw1.aggregate_segmentation import ALLOWED_TYPES, aggregate_segmentation
 
 
 class TestAggregateSegmentation:
