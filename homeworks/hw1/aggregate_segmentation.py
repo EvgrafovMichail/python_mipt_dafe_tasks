@@ -3,7 +3,6 @@ ALLOWED_TYPES = {
     "voice_human",
     "voice_bot",
 }
-import uuid
 
 
 def aggregate_segmentation(
