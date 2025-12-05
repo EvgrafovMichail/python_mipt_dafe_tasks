@@ -63,6 +63,8 @@ class Vector2D:
     def __truediv__(self, number: Real):
         if not isinstance(number, Real):
             return NotImplemented
+        if math.isclose(number, 0):
+            raise ZeroDivisionError
         return Vector2D(self.abscissa / number, self.ordinate / number)
 
     def __add__(self, other):
