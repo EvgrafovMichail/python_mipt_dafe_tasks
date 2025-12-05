@@ -1,5 +1,6 @@
-from math import isclose, acos
+from math import acos, isclose
 from numbers import Real
+
 
 class Vector2D:
     _abscissa: float
@@ -27,12 +28,18 @@ class Vector2D:
         return not (self == other)
 
     def __gt__(self, other: "Vector2D") -> bool:
-        return (self.abscissa > other.abscissa or
-                self.abscissa == other.abscissa and self.ordinate > other.ordinate)
+        return (
+            self.abscissa > other.abscissa
+            or self.abscissa == other.abscissa
+            and self.ordinate > other.ordinate
+        )
 
     def __lt__(self, other: "Vector2D") -> bool:
-        return (self.abscissa < other.abscissa or
-                self.abscissa == other.abscissa and self.ordinate < other.ordinate)
+        return (
+            self.abscissa < other.abscissa
+            or self.abscissa == other.abscissa
+            and self.ordinate < other.ordinate
+        )
 
     def __ge__(self, other: "Vector2D") -> bool:
         return self > other or self == other
@@ -41,7 +48,7 @@ class Vector2D:
         return self < other or self == other
 
     def __abs__(self) -> float:
-        return (self.abscissa ** 2 + self.ordinate ** 2) ** 0.5
+        return (self.abscissa**2 + self.ordinate**2) ** 0.5
 
     def __bool__(self) -> bool:
         return bool(abs(self))
@@ -68,7 +75,9 @@ class Vector2D:
         if isinstance(other, Real):
             other = Vector2D(abscissa=other, ordinate=other)
 
-        return Vector2D(abscissa=self.abscissa + other.abscissa, ordinate=self.ordinate + other.ordinate)
+        return Vector2D(
+            abscissa=self.abscissa + other.abscissa, ordinate=self.ordinate + other.ordinate
+        )
 
     def __radd__(self, other: Real) -> "Vector2D":
         return self + other
