@@ -22,23 +22,37 @@ class Vector2D:
         return f"Vector2D(abscissa={self.abscissa}, ordinate={self.ordinate})"
 
     def __eq__(self, other: "Vector2D") -> bool:
+        if not isinstance(other, Vector2D):
+            return NotImplemented
         return isclose(self.abscissa, other.abscissa) and isclose(self.ordinate, other.ordinate)
 
     def __ne__(self, other: "Vector2D") -> bool:
         return not (self == other)
 
     def __gt__(self, other: "Vector2D") -> bool:
+        if not isinstance(other, Vector2D):
+            return NotImplemented
         return (
-            self.abscissa > other.abscissa
-            or self.abscissa == other.abscissa
-            and self.ordinate > other.ordinate
+            (not isclose(self.abscissa, other.abscissa))
+            and self.abscissa > other.abscissa
+            or (
+                isclose(self.abscissa, other.abscissa)
+                and self.ordinate > other.ordinate
+                and not isclose(self.ordinate, other.ordinate)
+            )
         )
 
     def __lt__(self, other: "Vector2D") -> bool:
+        if not isinstance(other, Vector2D):
+            return NotImplemented
         return (
-            self.abscissa < other.abscissa
-            or self.abscissa == other.abscissa
-            and self.ordinate < other.ordinate
+            (not isclose(self.abscissa, other.abscissa))
+            and self.abscissa < other.abscissa
+            or (
+                isclose(self.abscissa, other.abscissa)
+                and self.ordinate < other.ordinate
+                and not isclose(self.ordinate, other.ordinate)
+            )
         )
 
     def __ge__(self, other: "Vector2D") -> bool:
@@ -51,7 +65,10 @@ class Vector2D:
         return (self.abscissa**2 + self.ordinate**2) ** 0.5
 
     def __bool__(self) -> bool:
-        return bool(abs(self))
+        return not (
+            isclose(self._abscissa, 0.0, abs_tol=1e-15)
+            and isclose(self._ordinate, 0.0, abs_tol=1e-15)
+        )
 
     def __mul__(self, scale: Real) -> "Vector2D":
         if not isinstance(scale, Real):
@@ -79,14 +96,16 @@ class Vector2D:
             abscissa=self.abscissa + other.abscissa, ordinate=self.ordinate + other.ordinate
         )
 
-    def __radd__(self, other: Real) -> "Vector2D":
+    def __radd__(self, other) -> "Vector2D":
         return self + other
 
     def __sub__(self, other) -> "Vector2D":
         return self + (-1 * other)
 
-    def __rsub__(self, other: "Vector2D") -> "Vector2D":
-        return other + (-1 * self)
+    def __rsub__(self, other) -> "Vector2D":
+        if not isinstance(other, Real | Vector2D):
+            return NotImplemented
+        raise TypeError("Non-existent operation")
 
     def __neg__(self) -> "Vector2D":
         return -1 * self
@@ -101,6 +120,8 @@ class Vector2D:
         return complex(real=self.abscissa, imag=self.ordinate)
 
     def __matmul__(self, other: "Vector2D") -> float:
+        if not isinstance(other, Vector2D):
+            return NotImplemented
         return self.abscissa * other.abscissa + self.ordinate * other.ordinate
 
     def __rmatmul__(self, other: "Vector2D") -> float:
@@ -110,6 +131,8 @@ class Vector2D:
         return Vector2D(self.abscissa, -self.ordinate)
 
     def get_angle(self, other: "Vector2D") -> float:
+        if not isinstance(other, Vector2D):
+            raise TypeError("Объект не является Vector2D")
         if isclose(abs(self), 0) or isclose(abs(other), 0):
             raise ValueError("Расчет угла между данным вектором и нулевым вектором невозможен")
 
