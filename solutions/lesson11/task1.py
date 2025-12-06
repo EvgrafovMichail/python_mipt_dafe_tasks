@@ -24,7 +24,7 @@ class Vector2D:
     def __ne__ (self, other : "Vector2D") -> bool:
         if not isinstance(other, Vector2D):
             raise TypeError("other должен быть вектором")
-        return (self.abscissa == other.abscissa) and (self.ordinate == other.ordinate)
+        return (self.abscissa != other.abscissa) and (self.ordinate != other.ordinate)
     
     def __lt__ (self, other : "Vector2D") -> bool:
         if not isinstance(other, Vector2D):
