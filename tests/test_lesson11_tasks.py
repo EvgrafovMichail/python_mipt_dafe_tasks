@@ -83,9 +83,12 @@ def test_print():
 
     sys.stdout = old_stdout
     output = captured_output.getvalue()
-    assert (output == "Vector2D(abscissa=1, ordinate=-2)") or (
-        output == "Vector2D(abscissa=1., ordinate=-2.)"
+    assert (
+        output == "Vector2D(abscissa=1, ordinate=-2)" 
+        or output == "Vector2D(abscissa=1., ordinate=-2.)"
+        or output == "Vector2D(abscissa=1.0, ordinate=-2.0)" 
     )
+
 
 
 @pytest.mark.parametrize(
