@@ -34,14 +34,15 @@ def lru_cache(capacity: int) -> Callable[[Callable[P, R]], Callable[P, R]]:
     def decorator(func: Callable[P, R]) -> Callable[P, R]:
         class _Node:
             __slots__ = ("key", "value", "prev", "next")
+
             def __init__(self, key: tuple, value: R):
                 self.key = key
                 self.value = value
                 self.prev: _Node | None = None
                 self.next: _Node | None = None
 
-        head = _Node(None, None)   # type: ignore
-        tail = _Node(None, None)   # type: ignore
+        head = _Node(None, None)  # type: ignore
+        tail = _Node(None, None)  # type: ignore
         head.next = tail
         tail.prev = head
 
