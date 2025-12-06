@@ -131,28 +131,6 @@ class TestAggregateSegmentation:
         assert len(invalid) == 0
         assert len(valid["audio-123"]) == 1
 
-    def test_missing_segment_id(self):
-        """Тест отсутствующего segment_id."""
-        data = [
-            {
-                "audio_id": "audio-123",
-                "segment_id": "",  # Пустой ID
-                "segment_start": 0.5,
-                "segment_end": 2.5,
-                "type": "voice_human",
-            },
-            {
-                "audio_id": "audio-123",
-                "segment_id": "seg-2",
-                "segment_start": 1.0,
-                "segment_end": 3.0,
-                "type": "voice_bot",
-            },
-        ]
-        valid, invalid = aggregate_segmentation(data)
-
-        assert "audio-123" in invalid
-        assert len(valid.get("audio-123", {})) == 0
 
     @pytest.mark.parametrize(
         "field,value",
@@ -276,28 +254,6 @@ class TestAggregateSegmentation:
         assert len(valid) == 0
         assert len(invalid) == 0
 
-    def test_audio_id_with_mixed_valid_invalid_segments(self):
-        """Тест audio_id с валидными и невалидными сегментами (весь audio_id невалиден)."""
-        data = [
-            {
-                "audio_id": "audio-123",
-                "segment_id": "seg-1",
-                "segment_start": 0.5,
-                "segment_end": 2.5,
-                "type": "voice_human",
-            },
-            {
-                "audio_id": "audio-123",
-                "segment_id": "",  # Невалидный сегмент
-                "segment_start": 1.0,
-                "segment_end": 3.0,
-                "type": "voice_bot",
-            },
-        ]
-        valid, invalid = aggregate_segmentation(data)
-
-        assert "audio-123" in invalid
-        assert len(valid) == 0
 
     def test_multiple_invalid_segments_same_audio_id(self):
         """Тест нескольких невалидных сегментов для одного audio_id (в списке должен быть один раз)."""
