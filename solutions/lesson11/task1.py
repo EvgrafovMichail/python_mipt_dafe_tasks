@@ -61,7 +61,7 @@ class Vector2D:
         return (self.abscissa**2 + self.ordinate**2) ** 0.5
 
     def __bool__(self) -> bool:
-        return not math.isclose(abs(self), 0, abs_tol=1e-18)
+        return not math.isclose(abs(self), 0, abs_tol=1e-12)
 
     def __mul__(self, scale: Real) -> "Vector2D":
         if not isinstance(scale, Real):
