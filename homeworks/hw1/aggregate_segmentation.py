@@ -1,4 +1,3 @@
-import uuid
 from dataclasses import asdict, dataclass
 
 ALLOWED_TYPES = {
@@ -135,7 +134,7 @@ def aggregate_segmentation(
         if audio_id not in valid_audio:
             valid_audio[audio_id] = {}
 
-        if validator.is_segment_empty(segment):
+        if SegmentValidator.is_segment_empty(segment):
             continue
 
         valid_audio[audio_id][segment.segment_id] = {
@@ -148,33 +147,3 @@ def aggregate_segmentation(
         valid_audio.pop(to_re_marking, None)
 
     return valid_audio, list(ids_re_marking)
-
-
-audio_segments = [
-    {
-        "audio_id": str(uuid.uuid4()),
-        "segment_id": str(uuid.uuid4()),
-        "segment_start": 2.0,
-        "segment_end": 5.5,
-        "type": "voice_bot",
-    },
-    {
-        "audio_id": str(uuid.uuid4()),
-        "segment_id": str(uuid.uuid4()),
-        "segment_start": 5.5,
-        "segment_end": 9.5,
-        "type": "voice_human",
-    },
-    {
-        "audio_id": str(uuid.uuid4()),
-        "segment_id": str(uuid.uuid4()),
-        "segment_start": None,
-        "segment_end": 9.5,
-        "type": "voice_human",
-    },
-]
-
-valid_audio, audio_ids_re_marking = aggregate_segmentation(audio_segments)
-
-print(valid_audio)
-print(audio_ids_re_marking)
