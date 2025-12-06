@@ -2,7 +2,6 @@ from typing import (
     Callable,
     ParamSpec,
     TypeVar,
-    Any,
 )
 
 P = ParamSpec("P")
@@ -25,14 +24,6 @@ def lru_cache(capacity: int) -> Callable[[Callable[P, R]], Callable[P, R]]:
         ValueError, если после округления capacity - число, меньшее 1.
     """
     # ваш код
-    from typing import Callable, ParamSpec, TypeVar, Any
-
-
-P = ParamSpec("P")
-R = TypeVar("R")
-
-
-def lru_cache(capacity: int) -> Callable[[Callable[P, R]], Callable[P, R]]:
     try:
         capacity = round(capacity)
     except Exception:
