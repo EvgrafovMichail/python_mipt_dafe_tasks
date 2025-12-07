@@ -1,10 +1,11 @@
-from time import sleep
 from random import uniform
+from time import sleep
 from typing import (
     Callable,
     ParamSpec,
     TypeVar,
 )
+from functools import wraps
 
 P = ParamSpec("P")
 R = TypeVar("R")
@@ -23,6 +24,7 @@ def backoff(
 
     def decorator(func: Callable[P, R]) -> Callable[P, R]:
         
+        @wraps(func)
         def wrapper(*args: P.args, **kwargs: P.kwargs) -> R:
             
             for attempt in range(retry_amount):
@@ -38,12 +40,11 @@ def backoff(
                     
                     if delay > timeout_max:
                         delay = timeout_max
+                        
                     jitter = uniform(0, 0.5)
                     total_delay = delay + jitter
                     
                     sleep(total_delay)
-            
-            return func(*args, **kwargs)
 
         return wrapper
     return decorator

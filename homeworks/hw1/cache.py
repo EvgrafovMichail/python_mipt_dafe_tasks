@@ -1,8 +1,9 @@
+from functools import wraps
 from typing import (
+    Any,
     Callable,
     ParamSpec,
     TypeVar,
-    Any,
 )
 
 P = ParamSpec("P")
@@ -19,29 +20,27 @@ def lru_cache(capacity: int) -> Callable[[Callable[P, R]], Callable[P, R]]:
 
         def create_key_part(arg: Any) -> Any:
             
+            rounded_value = None
+            
             try:
-                rounded_value = round(arg) 
+                rounded_value = round(arg)
             except TypeError as e:
                 raise TypeError(f"'{arg}' incompatible with round()") from e
             except Exception:
                 pass
 
-            try:
-                if rounded_value < 1:
-                    raise ValueError(f"round({arg}) < 1")
-            except NameError:
-                pass
-            except TypeError as e:
-                raise TypeError(f"round result not comparable to 1") from e
+            if rounded_value is not None:
+                try:
+                    if rounded_value < 1:
+                        raise ValueError(f"round({arg}) < 1")
+                except TypeError as e:
+                    raise TypeError("round result not comparable to 1") from e
 
-            
-            try:
-                if rounded_value == arg:
-                    return rounded_value
-            except NameError:
-                pass
-            except TypeError:
-                pass
+                try:
+                    if rounded_value == arg:
+                        return rounded_value
+                except TypeError:
+                    pass
 
             try:
                 hash(arg)
@@ -50,6 +49,7 @@ def lru_cache(capacity: int) -> Callable[[Callable[P, R]], Callable[P, R]]:
                 raise TypeError(f"'{arg}' is not hashable") from e
 
 
+        @wraps(func)
         def wrapper(*args: P.args, **kwargs: P.kwargs) -> R:
             
             try:

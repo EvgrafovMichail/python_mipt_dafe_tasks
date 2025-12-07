@@ -1,75 +1,94 @@
-ALLOWED_TYPES = {
+from dataclasses import dataclass
+from typing import List, Dict, Union, Any, Tuple, Set, Optional
+
+ALLOWED_TYPES: Set[str] = {
     "spotter_word",
     "voice_human",
     "voice_bot",
 }
 
+@dataclass
+class SegmentInfo:
+    start: float
+    end: float
+    type: str
 
 def aggregate_segmentation(
-    segmentation_data: list[dict[str, str | float | None]],
-) -> tuple[dict[str, dict[str, dict[str, str | float]]], list[str]]:
-    valid_data = {}
-    audio_id_invalid_segments = set()
-    obrabotan_segments = {}
+    segmentation_data: List[Dict[str, Union[str, float, None]]],
+) -> Tuple[Dict[str, Dict[str, Dict[str, Union[str, float]]]], List[str]]:
+    
+    valid_data: Dict[str, Dict[str, Optional[SegmentInfo]]] = {}
+    audio_id_invalid_segments: Set[str] = set()
+    obrabotan_segments: Dict[str, Dict[str, Any]] = {}
 
     for segment in segmentation_data:
-        if "audio_id" not in segment or not segment["audio_id"]:
-            continue
+        audio_id = segment.get("audio_id")
+        segment_id = segment.get("segment_id")
 
-        if "segment_id" not in segment or not segment["segment_id"]:
-            audio_id_invalid_segments.add(segment["audio_id"])
+        if not isinstance(audio_id, str) or not audio_id:
             continue
-
-        audio_id = segment["audio_id"]
-        segment_id = segment["segment_id"]
+        
+        if not isinstance(segment_id, str) or not segment_id:
+            audio_id_invalid_segments.add(audio_id)
+            continue
 
         if segment_id in obrabotan_segments:
-            dublicat_segment = obrabotan_segments[segment_id]
-            if (dublicat_segment["segment_start"] != segment.get("segment_start") or
-                dublicat_segment["segment_end"] != segment.get("segment_end") or
-                dublicat_segment["type"] != segment.get("type")):
+            duplicate = obrabotan_segments[segment_id]
+            
+            if (duplicate.get("segment_start") != segment.get("segment_start") or
+                duplicate.get("segment_end") != segment.get("segment_end") or
+                duplicate.get("type") != segment.get("type")):
+                
                 audio_id_invalid_segments.add(audio_id)
-                continue
-            else:
-                continue
-        
-        flag_is_valid = True
-
-        if (not isinstance(segment.get("type"), (str, type(None))) or
-           (not isinstance(segment.get("segment_start"), (float, type(None)))) or
-           (not isinstance(segment.get("segment_end"), (float, type(None))))):
-            flag_is_valid = False
+            continue
         
         type_val = segment.get("type")
         start_val = segment.get("segment_start")
         end_val = segment.get("segment_end")
         
-        if type_val is None and start_val is None and end_val is None:
-            pass
-        else:
-            if (type_val is None or start_val is None or end_val is None):
-                flag_is_valid = False
-            elif (type_val is not None and type_val not in ALLOWED_TYPES):
-                flag_is_valid = False
+        type_check = isinstance(type_val, (str, type(None)))
+        start_check = isinstance(start_val, (float, int, type(None)))
+        end_check = isinstance(end_val, (float, int, type(None)))
         
-        if not flag_is_valid:
+        if not (type_check and start_check and end_check):
             audio_id_invalid_segments.add(audio_id)
             continue
-        
-        obrabotan_segments[segment_id] = segment
 
+        if isinstance(start_val, int):
+            start_val = float(start_val)
+        if isinstance(end_val, int):
+            end_val = float(end_val)
+            
+        is_full_segment = (type_val is not None and 
+                           start_val is not None and 
+                           end_val is not None)
+                           
+        is_empty_segment = (type_val is None and 
+                            start_val is None and 
+                            end_val is None)
+                            
+        if is_full_segment:
+            if type_val not in ALLOWED_TYPES:
+                audio_id_invalid_segments.add(audio_id)
+                continue
+        elif not is_empty_segment:
+            audio_id_invalid_segments.add(audio_id)
+            continue
+            
+        obrabotan_segments[segment_id] = segment
+        
         if audio_id not in valid_data:
             valid_data[audio_id] = {}
-        
-        if type_val is not None and start_val is not None and end_val is not None:
+
+        if is_full_segment:
             valid_data[audio_id][segment_id] = {
                 "start": start_val,
                 "end": end_val,
                 "type": type_val
             }
-    
+        
     for audio_id_to_remove in audio_id_invalid_segments:
         if audio_id_to_remove in valid_data:
             del valid_data[audio_id_to_remove]
-        
+            
     return valid_data, list(audio_id_invalid_segments)

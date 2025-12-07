@@ -1,13 +1,13 @@
-from typing import (
-        Callable,
-        ParamSpec,
-        TypeVar,
-        Dict,
-        Type,
-        Union,
-        Tuple,
-    )
 from functools import wraps
+from typing import (
+    Callable,
+    Dict,
+    ParamSpec,
+    Tuple,
+    Type,
+    TypeVar,
+    Union,
+)
 
 P = ParamSpec("P")
 R = TypeVar("R")
@@ -16,38 +16,41 @@ ExceptionMapping = Dict[Type[Exception], Union[Type[Exception], Exception]]
 
 
 def convert_exceptions_to_api_compitable_ones(
-        exception_to_api_exception: ExceptionMapping,
-    ) -> Callable[[Callable[P, R]], Callable[P, R]]:
+    exception_to_api_exception: ExceptionMapping,
+) -> Callable[[Callable[P, R]], Callable[P, R]]:
         
-        exception_types_to_check: Tuple[Type[Exception], ...] = tuple(exception_to_api_exception.keys())
+    exception_types_to_check: Tuple[Type[Exception], ...] = \
+        tuple(exception_to_api_exception.keys())
 
-        def decorator(func: Callable[P, R]) -> Callable[P, R]:
+    def decorator(func: Callable[P, R]) -> Callable[P, R]:
+        
+        @wraps(func)
+        def wrapper(*args: P.args, **kwargs: P.kwargs) -> R:
             
-            @wraps(func)
-            def wrapper(*args: P.args, **kwargs: P.kwargs) -> R:
+            try:
+                return func(*args, **kwargs)
+            
+            except Exception as e:
                 
-                try:
-                    return func(*args, **kwargs)
+                api_exception_target = None
                 
-                except Exception as e:
+                for exc_type_in_mapping in exception_types_to_check:
+                    if isinstance(e, exc_type_in_mapping):
+                        api_exception_target = \
+                            exception_to_api_exception[exc_type_in_mapping]
+                        break 
+                
+                if api_exception_target is not None:
                     
-                    api_exception_target = None
+                    if (isinstance(api_exception_target, type) and 
+                            issubclass(api_exception_target, Exception)):
+                        raise api_exception_target(*e.args) 
                     
-                    for exc_type_in_mapping in exception_types_to_check:
-                        if isinstance(e, exc_type_in_mapping):
-                            api_exception_target = exception_to_api_exception[exc_type_in_mapping]
-                            break 
-                    
-                    if api_exception_target is not None:
-                        
-                        if isinstance(api_exception_target, type) and issubclass(api_exception_target, Exception):
-                            raise api_exception_target(*e.args) 
-                        
-                        else:
-                            raise api_exception_target
-                    
-                    raise
+                    else:
+                        raise api_exception_target
+                
+                raise
 
-            return wrapper
-            
-        return decorator
+        return wrapper
+        
+    return decorator
