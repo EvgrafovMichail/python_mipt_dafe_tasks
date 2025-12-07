@@ -1,5 +1,5 @@
-from dataclasses import dataclass, field
 import math
+from dataclasses import dataclass, field
 
 
 @dataclass(frozen=True)
@@ -76,9 +76,12 @@ class Vector2D:
 
     def get_angle(self, other: "Vector2D") -> float:
         if not isinstance(other, Vector2D):
-            raise TypeError(
-                f"Операция 'get_angle' не поддерживается между 'Vector2D' и '{type(other).__name__}'"
+            # Исправлена ошибка E501: строка разбита на две
+            err_msg = (
+                f"Операция 'get_angle' не поддерживается "
+                f"между 'Vector2D' и '{type(other).__name__}'"
             )
+            raise TypeError(err_msg)
 
         if abs(self) == 0 or abs(other) == 0:
             raise ValueError("расчет угла между данным вектором и нулевым вектором невозможен")
