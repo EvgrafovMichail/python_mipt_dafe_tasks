@@ -1,49 +1,48 @@
 from functools import wraps
-from typing import (
-    Callable,
-    Dict,
-    ParamSpec,
-    Tuple,
-    Type,
-    TypeVar,
-    Union,
-)
+from random import uniform
+from time import sleep
+from typing import Callable, ParamSpec, TypeVar
 
 P = ParamSpec("P")
 R = TypeVar("R")
 
-def convert_exception(
-    from_exception: Union[Type[Exception], Tuple[Type[Exception], ...]],
-    to_exception: Type[Exception],
-    message: str = "An error occurred"
+
+def backoff(
+    retry_amount: int = 3,
+    timeout_start: float = 0.5,
+    timeout_max: float = 10.0,
+    backoff_scale: float = 2.0,
+    backoff_triggers: tuple[type[Exception]] = (Exception,),
 ) -> Callable[[Callable[P, R]], Callable[P, R]]:
     def decorator(func: Callable[P, R]) -> Callable[P, R]:
         @wraps(func)
         def wrapper(*args: P.args, **kwargs: P.kwargs) -> R:
-            try:
-                return func(*args, **kwargs)
-            except from_exception as e:
-                raise to_exception(message) from e
+            for attempt in range(retry_amount):
+                try:
+                    return func(*args, **kwargs)
+                except backoff_triggers:
+                    if attempt == retry_amount - 1:
+                        raise
+                    timeout = min(
+                        timeout_start * (backoff_scale**attempt) + uniform(0, 0.5),
+                        timeout_max
+                    )
+                    sleep(timeout)
+            raise Exception("Max retries exceeded")
+
         return wrapper
+
     return decorator
 
-class OriginalError(Exception):
-    pass
 
-class NewError(Exception):
-    pass
-
-@convert_exception(OriginalError, NewError, "Converted error")
-def risky_function(x: int) -> int:
-    if x < 0:
-        raise OriginalError("Negative value")
+@backoff(retry_amount=2, timeout_start=0.1)
+def example_function(x: int) -> int:
     return x * 2
 
+
 def main() -> None:
-    try:
-        result = risky_function(-5)
-    except NewError:
-        result = 0
+    example_function(5)
+
 
 if __name__ == "__main__":
     main()

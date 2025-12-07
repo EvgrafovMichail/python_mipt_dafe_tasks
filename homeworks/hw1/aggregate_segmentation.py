@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from typing import Dict, List, Set, Tuple, Union
+from typing import Dict, List, Set, Union
 
 ALLOWED_TYPES: Set[str] = {"int", "float", "str"}
 
