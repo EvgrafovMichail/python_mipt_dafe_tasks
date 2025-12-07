@@ -1,9 +1,6 @@
 from math import isclose, sqrt, acos
 
 class Vector2D:
-    _abscissa: float        # Может быть не нужно
-    _ordinate: float
-
     def __init__(self, abscissa: float = 0.0, ordinate: float = 0.0) -> None:
         self._abscissa = abscissa
         self._ordinate = ordinate
@@ -13,16 +10,13 @@ class Vector2D:
         return self._abscissa
     
     @property
-    def ordinate(self):             # Добавить возвращаемое значение или переделать
+    def ordinate(self):
         return self._ordinate
-    
-    # def _is_valid_other(other, return_value = NotImplemented):      # Переделать
-        
 
     def __repr__(self) -> str:
         return f"Vector2D(abscissa={self._abscissa}, ordinate={self._ordinate})"
     
-    def __eq__(self, other) -> bool:      # Добавить тип для other
+    def __eq__(self, other) -> bool:
         if not isinstance(other, Vector2D):
             return False
         return isclose(self._abscissa, other._abscissa) and isclose(self._ordinate, other._ordinate)
@@ -30,8 +24,12 @@ class Vector2D:
     def __lt__(self, other) -> bool:
         if not isinstance(other, Vector2D):
             raise TypeError
-        return self != other and ((self._abscissa < other._abscissa) or\
-            (isclose(self._abscissa, other._abscissa) and self._ordinate < other._ordinate))
+        
+        if self == other:
+            return False
+        if not isclose(self._abscissa, other._abscissa):
+            return self._abscissa < other._abscissa
+        return self._ordinate < other._ordinate
     
     def __gt__(self, other) -> bool:
         if not isinstance(other, Vector2D):
@@ -70,7 +68,7 @@ class Vector2D:
         _inverse = 1.0 / other
         return Vector2D(self._abscissa * _inverse, self._ordinate * _inverse)
     
-    def __rtruediv__(self, other):      # Возможно надо изменить
+    def __rtruediv__(self, other):
         raise TypeError
 
     def __add__(self, other):
