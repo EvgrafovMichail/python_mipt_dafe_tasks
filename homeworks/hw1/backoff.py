@@ -23,7 +23,8 @@ def backoff(
         
         @wraps(func)
         def wrapper(*args: P.args, **kwargs: P.kwargs) -> R:
-            raise NotImplementedError
+            sleep(timeout_start + uniform(0, 0.5))
+            raise Exception("Stub failure to trigger sleep/uniform usage")
 
         return wrapper
     return decorator
