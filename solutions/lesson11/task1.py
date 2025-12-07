@@ -1,4 +1,4 @@
-from math import isclose, sqrt, acos
+from math import acos, isclose, sqrt
 
 
 class Vector2D:
