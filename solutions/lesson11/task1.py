@@ -23,7 +23,8 @@ class Vector2D:
     def __eq__(self, other):
         if not isinstance(other, Vector2D):
             return NotImplemented
-        return math.isclose(self._abscissa, other._abscissa) and math.isclose(self._ordinate, other._ordinate)
+        return math.isclose(self._abscissa, other._abscissa) \
+            and math.isclose(self._ordinate, other._ordinate)
 
     def __ne__(self, other):
         if not isinstance(other, Vector2D):
@@ -33,8 +34,10 @@ class Vector2D:
     def __lt__(self, other):
         if not isinstance(other, Vector2D):
             return NotImplemented
-        return (self._abscissa < other._abscissa and not math.isclose(self._abscissa, other._abscissa)) \
-            or (self._ordinate < other._ordinate and not math.isclose(self._ordinate, other._ordinate) \
+        return (self._abscissa < other._abscissa \
+            and not math.isclose(self._abscissa, other._abscissa)) \
+            or (self._ordinate < other._ordinate \
+            and not math.isclose(self._ordinate, other._ordinate) \
             and math.isclose(self._abscissa, other._abscissa))
 
     def __gt__(self, other):
