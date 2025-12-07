@@ -1,4 +1,4 @@
-from math import isclose, sqrt
+from math import isclose, sqrt, acos
 
 class Vector2D:
     _abscissa: float        # Может быть не нужно
@@ -113,9 +113,13 @@ class Vector2D:
     def get_angle(self, other) -> float:
         if not isinstance(other, Vector2D):
             raise TypeError
-        if other._abscissa == other._ordinate == 0:
+        if not bool(self) or not bool(other):
             raise ValueError("Calculating the angle between the vector and the zero vector is not possible")
-        return (self @ other) / (abs(self) * abs(other))
+        product = self @ other
+        abs_product =  abs(self) * abs(other)
+
+        cos_angle = max(-1.0, min(1.0, product / abs_product))
+        return acos(cos_angle)
 
     def conj(self) -> "Vector2D":
         return Vector2D(self._abscissa, -self._ordinate)
