@@ -42,11 +42,11 @@ def backoff(
         def wrapper(*args: P.args, **kwargs: P.kwargs) -> R:
             current_timeout = timeout_start
 
-            for i in range(retry_amount + 1):
+            for i in range(retry_amount):
                 try:
                     return func(*args, **kwargs)
                 except backoff_triggers as e:
-                    if i == retry_amount:
+                    if i == (retry_amount - 1):
                         raise e
 
                     sleep_time = min(current_timeout, timeout_max) + uniform(0, 0.5)
