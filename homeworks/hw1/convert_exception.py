@@ -34,7 +34,7 @@ def convert_exceptions_to_api_compitable_ones(
                 exc_type = type(exc)
                 new_exc = exception_to_api_exception.get(exc_type)
                 if new_exc:
-                    raise new_exc
+                    raise new_exc from None
                 else:
                     raise
 
