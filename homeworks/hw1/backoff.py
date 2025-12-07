@@ -31,12 +31,12 @@ def backoff(
             delay = timeout_start
 
             attempt = 0
-            while attempt <= retry_amount:
+            while attempt < retry_amount:
                 try:
                     return func(*args, **kwargs)
 
                 except backoff_triggers:
-                    if attempt == retry_amount:
+                    if attempt + 1 == retry_amount:
                         raise
 
                     sleep(min(delay, timeout_max) + uniform(0, 0.5))
