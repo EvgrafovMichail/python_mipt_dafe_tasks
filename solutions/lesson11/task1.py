@@ -71,12 +71,11 @@ class Vector2D:
     def __neg__(self):
         return self * (-1)
 
-    def conjugate(self):
+    def conj(self):
         return Vector2D(self.abscissa, -self.ordinate)
 
     def get_angle(self, other: "Vector2D") -> float:
         if not isinstance(other, Vector2D):
-            # Исправлена ошибка E501: строка разбита на две
             err_msg = (
                 f"Операция 'get_angle' не поддерживается "
                 f"между 'Vector2D' и '{type(other).__name__}'"
@@ -114,7 +113,10 @@ class Vector2D:
             return Vector2D(self.abscissa - other, self.ordinate - other)
 
     def __rsub__(self, other):
-        return Vector2D(other - self.abscissa, other - self.ordinate)
+        try:
+            return Vector2D(other - self.abscissa, other - self.ordinate)
+        except TypeError:
+            return NotImplemented
 
     def __mul__(self, scalar):
         return Vector2D(self.abscissa * scalar, self.ordinate * scalar)
