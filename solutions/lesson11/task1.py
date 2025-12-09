@@ -11,12 +11,11 @@ class Vector2D:
         return f"Vector2D(abscissa={self.abscissa}, ordinate={self.ordinate})"
 
     def __eq__(self, other) -> bool:
-        try:
-            return math.isclose(self.abscissa, other.abscissa) and math.isclose(
-                self.ordinate, other.ordinate
-            )
-        except AttributeError:
-            return False
+        if not isinstance(other, Vector2D):
+            return NotImplemented
+        return math.isclose(self.abscissa, other.abscissa) and math.isclose(
+            self.ordinate, other.ordinate
+        )
 
     def __ne__(self, other) -> bool:
         return not self == other
@@ -25,39 +24,38 @@ class Vector2D:
         if not isinstance(other, Vector2D):
             return NotImplemented
 
-        return self.abscissa < other.abscissa or (
-            math.isclose(self.abscissa, other.abscissa) and self.ordinate < other.ordinate
-        )
+        if math.isclose(self.abscissa, other.abscissa):
+            if math.isclose(self.ordinate, other.ordinate):
+                return False
+            return self.ordinate < other.ordinate
+
+        return self.abscissa < other.abscissa
 
     def __le__(self, other):
         if not isinstance(other, Vector2D):
             return NotImplemented
-
         return self == other or self < other
 
     def __gt__(self, other):
         if not isinstance(other, Vector2D):
             return NotImplemented
-
         return not self <= other
 
     def __ge__(self, other):
         if not isinstance(other, Vector2D):
             return NotImplemented
-
         return self == other or self > other
 
     def __matmul__(self, other):
         if not isinstance(other, Vector2D):
             return NotImplemented
-
         return self.abscissa * other.abscissa + self.ordinate * other.ordinate
 
     def __abs__(self):
         return math.sqrt(self.abscissa**2 + self.ordinate**2)
 
     def __bool__(self):
-        return self.__abs__() != 0.0
+        return not math.isclose(self.__abs__(), 0.0, abs_tol=1e-7)
 
     def __complex__(self):
         return complex(self.abscissa, self.ordinate)
@@ -69,7 +67,7 @@ class Vector2D:
         return int(self.__abs__())
 
     def __neg__(self):
-        return self * (-1)
+        return Vector2D(-self.abscissa, -self.ordinate)
 
     def conj(self):
         return Vector2D(self.abscissa, -self.ordinate)
@@ -94,37 +92,47 @@ class Vector2D:
         return math.acos(cosine_angle)
 
     def __add__(self, other):
-        try:
-            new_abscissa = self.abscissa + other.abscissa
-            new_ordinate = self.ordinate + other.ordinate
-            return Vector2D(new_abscissa, new_ordinate)
-        except AttributeError:
+        if isinstance(other, Vector2D):
+            return Vector2D(self.abscissa + other.abscissa, self.ordinate + other.ordinate)
+
+        if isinstance(other, (int, float)):
             return Vector2D(self.abscissa + other, self.ordinate + other)
+
+        return NotImplemented
 
     def __radd__(self, other):
         return self.__add__(other)
 
     def __sub__(self, other):
-        try:
-            new_abscissa = self.abscissa - other.abscissa
-            new_ordinate = self.ordinate - other.ordinate
-            return Vector2D(new_abscissa, new_ordinate)
-        except AttributeError:
+        if isinstance(other, Vector2D):
+            return Vector2D(self.abscissa - other.abscissa, self.ordinate - other.ordinate)
+
+        if isinstance(other, (int, float)):
             return Vector2D(self.abscissa - other, self.ordinate - other)
 
+        return NotImplemented
+
     def __rsub__(self, other):
-        try:
-            return Vector2D(other - self.abscissa, other - self.ordinate)
-        except TypeError:
+        if isinstance(other, Vector2D):
+            return Vector2D(other.abscissa - self.abscissa, other.ordinate - self.ordinate)
+
+        if isinstance(other, (int, float)):
             return NotImplemented
 
+        return NotImplemented
+
     def __mul__(self, scalar):
+        if not isinstance(scalar, (int, float)):
+            return NotImplemented
         return Vector2D(self.abscissa * scalar, self.ordinate * scalar)
 
     def __rmul__(self, scalar):
         return self.__mul__(scalar)
 
     def __truediv__(self, scalar):
+        if not isinstance(scalar, (int, float)):
+            return NotImplemented
+
         if scalar == 0:
             raise ZeroDivisionError("division by zero")
 
