@@ -2,13 +2,16 @@ from typing import Any, Generator, Iterable
 
 
 def circle(iterable: Iterable) -> Generator[Any, None, None]:
-    it = list(iterable)
-    n = len(it)
+    elem = []
+    for it in iterable:
+        elem.append(it)
+        yield it
 
-    if not it:
+    if not elem:
         return
 
     i = 0
+    n = len(elem)
     while True:
-        yield it[i]
+        yield elem[i]
         i = (i + 1) % n
