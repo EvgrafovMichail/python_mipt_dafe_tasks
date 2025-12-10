@@ -8,6 +8,6 @@ def chunked(iterable: Iterable, size: int) -> Generator[tuple[Any], None, None]:
         if len(res) == size:
             yield tuple(res)
             res = []
-    if res:
+    
+    if res: 
         yield tuple(res)
-        
