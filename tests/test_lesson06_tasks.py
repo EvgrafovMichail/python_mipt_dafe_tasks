@@ -1,4 +1,4 @@
-import pytest 
+import pytest
 
 from solutions.lesson06.task1 import int_to_roman
 from solutions.lesson06.task2 import get_len_of_longest_substring
@@ -87,6 +87,7 @@ def test_is_there_any_good_subarray(nums, k, expected):
 
 
 import pytest
+
 
 @pytest.mark.parametrize("text, expected", [
     pytest.param("", 0, id="empty_string"),
