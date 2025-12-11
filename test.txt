@@ -1,0 +1,2 @@
+Hello, World!
+This text must be printed into file
