@@ -1,5 +1,6 @@
 from typing import Any, Generator, Iterable
 
+
 def circle(iterable: Iterable) -> Generator[Any, None, None]:
     # ваш код
 
@@ -13,9 +14,8 @@ def circle(iterable: Iterable) -> Generator[Any, None, None]:
 
     size = len(elements)
     ind = 0
-    
+
     while True:
-        
         ind %= size
         yield elements[ind]
         ind += 1
