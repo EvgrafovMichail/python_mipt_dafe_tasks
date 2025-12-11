@@ -1,3 +1,4 @@
+from functools import wraps
 from random import uniform
 from time import sleep
 from typing import (
@@ -33,6 +34,31 @@ def backoff(
     Raises:
         ValueError, если были переданы невозможные аргументы.
     """
+    my_args = (retry_amount, timeout_start, timeout_max, backoff_scale)
+    for current in my_args:
+        if current <= 0:
+            raise ValueError
 
-    # ваш код
-    pass
+    def decor(func: Callable) -> Callable:
+        @wraps(func)
+        def wrapper(*args, **kwargs):
+            current_time = timeout_start
+            for i in range(0, retry_amount):
+                try:
+                    result = func(*args, **kwargs)
+                except backoff_triggers as exc:
+                    if not isinstance(exc, backoff_triggers):
+                        raise
+                    if i < retry_amount - 1:
+                        jitter_time = uniform(0, 0.5)
+                        sleep_time = min(current_time, timeout_max)
+                        sleep(sleep_time + jitter_time)
+                        current_time = backoff_scale * current_time
+                    else:
+                        raise
+                else:
+                    return result
+
+        return wrapper
+
+    return decor
