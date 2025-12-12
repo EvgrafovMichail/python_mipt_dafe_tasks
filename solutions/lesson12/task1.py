@@ -3,7 +3,7 @@ from typing import Any, Generator, Iterable
 
 def chunked(iterable: Iterable, size: int) -> Generator[tuple[Any], None, None]:
     if size <= 0:
-        raise StopIteration
+        raise ValueError
 
     chunk = []
 
