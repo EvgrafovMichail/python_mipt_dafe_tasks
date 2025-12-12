@@ -8,7 +8,7 @@ class FileOut:
         self.path_to_file = path_to_file
         self.file = None
         self._original_stdout = None
-    
+
     def __enter__(self) -> Self:
         self.original_stdout = sys.stdout
         self.file = open(self.path_to_file, "w")
