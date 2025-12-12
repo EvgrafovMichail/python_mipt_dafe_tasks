@@ -24,5 +24,16 @@ def convert_exceptions_to_api_compitable_ones(
         Декоратор для непосредственного использования.
     """
 
-    # ваш код
-    pass
+    def outwrapper(func):
+        def inwrapper(*args, **kwargs):
+            try:
+                result = func(*args, **kwargs)
+            except Exception as exc:
+                if type(exc) in exception_to_api_exception:
+                    raise exception_to_api_exception[type(exc)] from None
+                raise exc
+            return result
+
+        return inwrapper
+
+    return outwrapper
