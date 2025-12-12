@@ -1,6 +1,6 @@
 import sys
-from typing import Optional
 from types import TracebackType
+from typing import Optional
 
 
 class FileOut:
