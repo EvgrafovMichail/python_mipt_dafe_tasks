@@ -34,5 +34,31 @@ def backoff(
         ValueError, если были переданы невозможные аргументы.
     """
 
-    # ваш код
-    pass
+    if any([v <= 0 for v in [retry_amount, timeout_start, timeout_max, backoff_scale]]):
+        raise ValueError("retry_amount, timeout_start, timeout_max, backoff_scale must be positive")
+
+    def decorator(func: Callable[[P], R]) -> Callable[[P], R]:
+        def wrapper(*args: P.args, **kwargs: P.kwargs) -> R:
+            timeout_current = timeout_start
+            last_exc = None
+
+            for attempt in range(1, retry_amount + 1):
+                try:
+                    return func(*args, **kwargs)
+                except Exception as e:
+                    if not any([isinstance(e, trigger) for trigger in backoff_triggers]):
+                        raise e
+                    else:
+                        if attempt == retry_amount:
+                            last_exc = e
+                            break
+
+                        jitter = uniform(0, 0.5)
+                        sleep(min(timeout_current, timeout_max) + jitter)
+                        timeout_current *= backoff_scale
+
+            raise last_exc
+
+        return wrapper
+
+    return decorator
