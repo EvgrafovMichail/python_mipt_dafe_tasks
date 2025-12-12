@@ -23,5 +23,36 @@ def lru_cache(capacity: int) -> Callable[[Callable[P, R]], Callable[P, R]]:
             для получения целого числа.
         ValueError, если после округления capacity - число, меньшее 1.
     """
-    # ваш код
-    pass
+    try:
+        capacity = round(capacity)
+    except Exception:
+        raise TypeError
+
+    if capacity < 1:
+        raise ValueError
+
+    def decorator(func):
+        storage = {}
+
+        def wrapper(*args, **kwargs):
+            kw = tuple(sorted(kwargs.items()))
+            packed = (args, kw)
+
+            exist = storage.get(packed)
+            if exist is not None:
+                storage.pop(packed)
+                storage[packed] = exist
+                return exist
+            else:
+                ans = func(*args, **kwargs)
+                storage[packed] = ans
+
+            if len(storage) > capacity:
+                old_key = list(storage.keys())[0]
+                storage.pop(old_key)
+
+            return ans
+
+        return wrapper
+
+    return decorator

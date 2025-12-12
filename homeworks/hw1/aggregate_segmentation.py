@@ -23,6 +23,71 @@ def aggregate_segmentation(
         Словарь с валидными сегментами, объединёнными по `audio_id`;
         Список `audio_id` (str), которые требуют переразметки.
     """
+    val = {}
+    neval = []
+    check_dubl = {}
 
-    # ваш код
-    return {}, []
+    def valid_data(data):
+        audio_id = data["audio_id"]
+        seg_id = data["segment_id"]
+        start = data["segment_start"]
+        end = data["segment_end"]
+        typ = data["type"]
+
+        if seg_id is None or "segment_id" not in data:
+            return False
+
+        if start is None and end is None and typ is None:
+            return {}
+
+        if start is None or end is None or typ is None:
+            return False
+
+        if not isinstance(start, float) or not isinstance(end, float) or not isinstance(typ, str):
+            return False
+
+        if typ not in ALLOWED_TYPES:
+            return False
+
+        znach = {"start": start, "end": end, "type": typ}
+
+        if (audio_id, seg_id) in check_dubl:
+            if check_dubl[(audio_id, seg_id)] != znach:
+                return False
+        else:
+            check_dubl[(audio_id, seg_id)] = znach
+
+        return True
+
+    for data in segmentation_data:
+        if "audio_id" not in data:
+            continue
+
+        check = valid_data(data)
+
+        if check == {}:
+            val.setdefault(data["audio_id"], {})
+            continue
+
+        elif check:
+            audio_id = data["audio_id"]
+            seg_id = data["segment_id"]
+
+            if audio_id not in val:
+                val[audio_id] = {}
+
+            val[audio_id][seg_id] = {
+                "start": data["segment_start"],
+                "end": data["segment_end"],
+                "type": data["type"],
+            }
+            continue
+
+        else:
+            neval.append(data["audio_id"])
+
+    for i in neval:
+        val.pop(i, None)
+
+    neval = list(set(neval))
+    return val, neval
