@@ -1,3 +1,4 @@
+from functools import wraps
 from typing import (
     Callable,
     ParamSpec,
@@ -25,4 +26,19 @@ def convert_exceptions_to_api_compitable_ones(
     """
 
     # ваш код
-    pass
+
+    def deco_ex_convert(func):
+        @wraps(func)
+        def wrapper(*args, **kwargs):
+            try:
+                res = func(*args, **kwargs)
+                return res
+            except Exception as exc:
+                for exc_key, api_similar in exception_to_api_exception.items():
+                    if isinstance(exc, exc_key):
+                        if isinstance(api_similar, type): # Проверка на класс!!!
+                            raise api_similar() # Создаем экземпляр, если он на самом деле класс
+                        raise api_similar
+                raise exc
+        return wrapper
+    return deco_ex_convert 
