@@ -131,7 +131,6 @@ class TestAggregateSegmentation:
         assert len(invalid) == 0
         assert len(valid["audio-123"]) == 1
 
-
     @pytest.mark.parametrize(
         "field,value",
         [
@@ -253,7 +252,6 @@ class TestAggregateSegmentation:
 
         assert len(valid) == 0
         assert len(invalid) == 0
-
 
     def test_multiple_invalid_segments_same_audio_id(self):
         """Тест нескольких невалидных сегментов для одного audio_id (в списке должен быть один раз)."""
