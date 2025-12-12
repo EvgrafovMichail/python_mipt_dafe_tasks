@@ -11,7 +11,8 @@ from tests_hw.hw1_test_data.cache_test_data import (
     TESTCASE_IDS,
 )
 
-NAME_BACKOFF_MODULE = "homeworks.hw1.backoff" # название модуля с backoff
+NAME_BACKOFF_MODULE = "homeworks.hw1.backoff"  # название модуля с backoff
+
 
 def test_valid_segments() -> None:
     """Тест: валидные сегменты."""
@@ -74,11 +75,13 @@ def test_valid_segments() -> None:
     expected_valid = {
         audio_id_1: {
             segment_id_1: {"start": 0.0, "end": 1.0, "type": list_allow_types[0]},
-            segment_id_2: {"start": 2.5, "end": 3.5, "type": list_allow_types[1]}
+            segment_id_2: {"start": 2.5, "end": 3.5,
+                           "type": list_allow_types[1]}
         },
         audio_id_2: {
             segment_id_3: {"start": 4.5, "end": 4.6, "type": list_allow_types[0]},
-            segment_id_4: {"start": 5.5, "end": 6.5, "type": list_allow_types[1]}
+            segment_id_4: {"start": 5.5, "end": 6.5,
+                           "type": list_allow_types[1]}
         },
         audio_id_3: {},
     }
@@ -87,6 +90,7 @@ def test_valid_segments() -> None:
     result_valid, result_forbidden = aggregate_segmentation(input_data)
     assert result_valid == expected_valid
     assert result_forbidden == expected_forbidden
+
 
 def test_convert_matching_exception() -> None:
     """Тест: исключение заменяется на API-совместимое."""
@@ -97,7 +101,7 @@ def test_convert_matching_exception() -> None:
     @convert_exceptions_to_api_compitable_ones({ValueError: ApiValueError})
     def func():
         raise ValueError("Внутренняя ошибка")
-    
+
     @convert_exceptions_to_api_compitable_ones({ValueError: ApiValueError})
     def func2():
         raise KeyError("Внутренняя ошибка")
@@ -107,6 +111,7 @@ def test_convert_matching_exception() -> None:
 
     with pytest.raises(KeyError):
         func2()
+
 
 @patch(NAME_BACKOFF_MODULE + '.sleep')
 def test_exponential_backoff_and_jitter(mock_sleep: MagicMock) -> None:
@@ -134,22 +139,24 @@ def test_exponential_backoff_and_jitter(mock_sleep: MagicMock) -> None:
     assert mock_sleep.call_count == retry_amount - 1
 
     count_more_av_time = 0
-    args_list = map(lambda call_val: call_val.args[0], mock_sleep.call_args_list)
+    args_list = map(
+        lambda call_val: call_val.args[0], mock_sleep.call_args_list)
     for av_time, args in zip(timeouts, args_list):
         count_more_av_time += args > av_time
         assert av_time <= args <= av_time + 0.5
-    
+
     assert count_more_av_time   # есть добавление "дрожи"
+
 
 def test_success() -> None:
     capacity = 2
-    call_args =  [
+    call_args = [
         (1, 2),
         (1, 2),
         (2, 2),
     ]
     call_count_expected = 2
-    
+
     mock_func = Mock()
     func_cached = lru_cache(capacity=capacity)(mock_func)
 

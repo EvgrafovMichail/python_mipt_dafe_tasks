@@ -25,12 +25,17 @@ def infinite_generator():
 @pytest.mark.parametrize(
     "iter_obj, size, expected",
     [
-        pytest.param([1, 2, [3], "4", 5], 2, [(1, 2), ([3], "4"), (5,)], id="list"),
-        pytest.param([1, 2, [3], "4", 5], 1, [(1,), (2,), ([3],), ("4",), (5,)], id="list-size-1"),
-        pytest.param("abcdefg", 3, [("a", "b", "c"), ("d", "e", "f"), ("g",)], id="str"),
+        pytest.param([1, 2, [3], "4", 5], 2, [
+                     (1, 2), ([3], "4"), (5,)], id="list"),
+        pytest.param([1, 2, [3], "4", 5], 1, [(1,), (2,),
+                     ([3],), ("4",), (5,)], id="list-size-1"),
+        pytest.param("abcdefg", 3, [("a", "b", "c"),
+                     ("d", "e", "f"), ("g",)], id="str"),
         pytest.param({1, 2, 3, 4, 5}, 2, [(1, 2), (3, 4), (5,)], id="set"),
-        pytest.param(map(lambda x: x, [1, 2, 3, 4, 5]), 2, [(1, 2), (3, 4), (5,)], id="iterator"),
-        pytest.param(finite_generator(), 2, [(1, 2), (3, 4), (5,)], id="finite_generator"),
+        pytest.param(map(lambda x: x, [1, 2, 3, 4, 5]), 2, [
+                     (1, 2), (3, 4), (5,)], id="iterator"),
+        pytest.param(finite_generator(), 2, [
+                     (1, 2), (3, 4), (5,)], id="finite_generator"),
     ],
 )
 def test_chunked(iter_obj, size, expected):
@@ -61,12 +66,15 @@ def test_empty_chunked():
         pytest.param([1, 2, [3]], [1, 2, [3], 1, 2, [3], 1, 2], id="list"),
         pytest.param("aB", ["a", "B", "a", "B", "a"], id="str"),
         pytest.param({1, 2, 3}, [1, 2, 3, 1, 2, 3, 1, 2], id="set"),
-        pytest.param({1: "a", 2: "b", 3: "c"}, [1, 2, 3, 1, 2, 3, 1, 2], id="dict"),
-        pytest.param(map(lambda x: x, [1, 2, 3]), [1, 2, 3, 1, 2, 3, 1, 2], id="iterator"),
+        pytest.param({1: "a", 2: "b", 3: "c"}, [
+                     1, 2, 3, 1, 2, 3, 1, 2], id="dict"),
+        pytest.param(map(lambda x: x, [1, 2, 3]), [
+                     1, 2, 3, 1, 2, 3, 1, 2], id="iterator"),
         pytest.param(
             finite_generator(), [1, 2, 3, 4, 5, 1, 2, 3, 4, 5, 1, 2], id="finite_generator"
         ),
-        pytest.param(infinite_generator(), [1, 2, 3, 4, 5, 6, 7, 8], id="infinite_generator"),
+        pytest.param(infinite_generator(), [
+                     1, 2, 3, 4, 5, 6, 7, 8], id="infinite_generator"),
     ],
 )
 def test_circle(iter_obj, expected):
