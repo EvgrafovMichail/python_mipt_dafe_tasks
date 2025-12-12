@@ -7,10 +7,11 @@ class FileOut:
 
     def __enter__(self) -> "FileOut":
         self._orig_stdout = sys.stdout
-        sys.stdout = open(self._path_to_file, "w")
+        self._file = open(self._path_to_file, "w")
+        sys.stdout = self._file
         return self
 
-    def __exit__(self, *args) -> bool:
-        sys.stdout.close()
+    def __exit__(self, *_) -> bool:
+        self._file.close()
         sys.stdout = self._orig_stdout
         return False
