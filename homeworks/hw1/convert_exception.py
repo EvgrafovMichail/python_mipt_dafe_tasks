@@ -23,6 +23,21 @@ def convert_exceptions_to_api_compitable_ones(
     Returns:
         Декоратор для непосредственного использования.
     """
+    def deco(func):
+        def wrapper(*args, **kwargs):
+            try:
 
-    # ваш код
-    pass
+                res = func(*args, **kwargs)
+                return res
+
+            except Exception as exception:
+
+                if type(exception) in exception_to_api_exception.keys():
+                    raise exception_to_api_exception[type(exception)]
+
+                else:
+                    raise exception
+
+        return wrapper
+    return deco
+

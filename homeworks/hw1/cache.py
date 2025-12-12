@@ -23,5 +23,34 @@ def lru_cache(capacity: int) -> Callable[[Callable[P, R]], Callable[P, R]]:
             для получения целого числа.
         ValueError, если после округления capacity - число, меньшее 1.
     """
-    # ваш код
-    pass
+
+    try:
+        capacity = round(capacity)
+    except TypeError:
+        raise TypeError()
+    if capacity < 1:
+        raise ValueError()
+
+    def deco(func):
+        cache = {}
+
+        def wrapper(*args, **kwargs):
+            nonlocal cache
+            args = tuple(args)
+
+            if args in cache.keys():
+                item = cache[args]
+                del cache[args]
+                cache[args] = item
+                return cache[args]
+
+            else:
+                if len(cache) == capacity:
+                    del cache[next(iter(cache))]
+                cache[args] = func(*args, **kwargs)
+                return cache[args]
+
+        return wrapper
+
+    return deco
+
