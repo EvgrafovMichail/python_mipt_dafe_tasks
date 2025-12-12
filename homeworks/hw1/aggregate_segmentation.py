@@ -8,21 +8,78 @@ ALLOWED_TYPES = {
 def aggregate_segmentation(
     segmentation_data: list[dict[str, str | float | None]],
 ) -> tuple[dict[str, dict[str, dict[str, str | float]]], list[str]]:
-    """
-    Функция для валидации и агрегации данных разметки аудио сегментов.
+    valid_data = {}
+    bad_audio_ids = set()
+    seen_segments = {}
+    audio_seen = set()
 
-    Args:
-        segmentation_data: словарь, данные разметки аудиосегментов с полями:
-            "audio_id" - уникальный идентификатор аудио.
-            "segment_id" - уникальный идентификатор сегмента.
-            "segment_start" - время начала сегмента.
-            "segment_end" - время окончания сегмента.
-            "type" - тип голоса в сегменте.
+    for seg in segmentation_data:
+        if "audio_id" not in seg:
+            continue
 
-    Returns:
-        Словарь с валидными сегментами, объединёнными по `audio_id`;
-        Список `audio_id` (str), которые требуют переразметки.
-    """
+        audio = seg["audio_id"]
 
-    # ваш код
-    return {}, []
+        if "segment_id" not in seg:
+            bad_audio_ids.add(audio)
+            continue
+
+        segment_id = seg["segment_id"]
+        start = seg["segment_start"]
+        end = seg["segment_end"]
+        typ = seg["type"]
+
+        if audio is None:
+            continue
+
+        audio_seen.add(audio)
+
+        if segment_id is None:
+            bad_audio_ids.add(audio)
+            continue
+
+        if start is None and end is None and typ is None:
+            continue
+
+        if start is None or end is None or typ is None:
+            bad_audio_ids.add(audio)
+            continue
+
+        if not isinstance(start, float) or not isinstance(end, float) or not isinstance(typ, str):
+            bad_audio_ids.add(audio)
+            continue
+
+        if typ not in ALLOWED_TYPES:
+            bad_audio_ids.add(audio)
+            continue
+
+        key = (audio, segment_id)
+        current = (start, end, typ)
+
+        if key in seen_segments and seen_segments[key] != current:
+            bad_audio_ids.add(audio)
+            for k in list(seen_segments.keys()):
+                if k[0] == audio:
+                    del seen_segments[k]
+            continue
+
+        if audio not in bad_audio_ids:
+            seen_segments[key] = current
+
+    for (audio, segment_id), (start, end, typ) in seen_segments.items():
+        if audio in bad_audio_ids:
+            continue
+
+        if audio not in valid_data:
+            valid_data[audio] = {}
+
+        valid_data[audio][segment_id] = {
+            "start": start,
+            "end": end,
+            "type": typ,
+        }
+
+    for audio in audio_seen:
+        if audio not in bad_audio_ids and audio not in valid_data:
+            valid_data[audio] = {}
+
+    return valid_data, list(bad_audio_ids)
