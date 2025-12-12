@@ -1,5 +1,5 @@
 import sys
-from typing import TextIO, Self, Any
+from typing import Any, Self, TextIO
 
 
 class FileOut:
