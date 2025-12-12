@@ -33,6 +33,35 @@ def backoff(
     Raises:
         ValueError, если были переданы невозможные аргументы.
     """
+    if retry_amount <= 0 or timeout_start <= 0 or timeout_max <= 0 or backoff_scale <= 0:
+        raise ValueError("invalid value")
+    
 
-    # ваш код
-    pass
+    def call(func):
+        def wrapper(*args, **kwargs):
+            delay = timeout_start
+            for attemps in range(retry_amount):
+                try:
+                    return func(*args, **kwargs)
+                except Exception as exc:
+                    if isinstance(exc, backoff_triggers):
+                        if attemps != retry_amount - 1:
+                            jitter_time = uniform(0, 0.5)
+                            sleep(delay + jitter_time)
+
+                            if delay < timeout_max:
+                                delay = delay * backoff_scale
+                            if delay >= timeout_max:
+                                delay = timeout_max
+
+                        else:
+                            raise
+                    else:
+                        raise
+
+        return wrapper
+
+    return call
+
+
+pass
