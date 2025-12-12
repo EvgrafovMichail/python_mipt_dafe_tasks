@@ -79,17 +79,17 @@ class Vector2D:
         Vector2D._validate_val(val)
         return self * (1 / val)
 
-    def __add__(self, other: "Vector2D" | float) -> "Vector2D":
+    def __add__(self, other) -> "Vector2D":
         Vector2D._validate_scal(other)
         if isinstance(other, Vector2D):
             return Vector2D(self._abscissa + other._abscissa, self._ordinate + other._ordinate)
         return Vector2D(self._abscissa + other, self._ordinate + other)
 
-    def __radd__(self, other: "Vector2D" | float) -> "Vector2D":
+    def __radd__(self, other) -> "Vector2D":
         Vector2D._validate_scal(other)
         return self + other
 
-    def __sub__(self, other: "Vector2D" | float) -> "Vector2D":
+    def __sub__(self, other) -> "Vector2D":
         Vector2D._validate_scal(other)
         if isinstance(other, Vector2D):
             return Vector2D(self._abscissa - other._abscissa, self._ordinate - other._ordinate)
