@@ -1,9 +1,8 @@
 import math
 
-
 class Vector2D:
-    _x: float
-    _y: float
+    _x : float
+    _y : float
 
     def __init__(self, abscissa=0, ordinate=0):
         self._x = float(abscissa)
@@ -59,15 +58,13 @@ class Vector2D:
         if not isinstance(other, Vector2D):
             return NotImplemented
         return not self < other
-
+    
     def __abs__(self):
-        # hypot-вычисляет евклидово расстояние в n-мерном пространстве.
+        #hypot-вычисляет евклидово расстояние в n-мерном пространстве. 
         return math.hypot(self._x, self._y)
 
     def __bool__(self):
-        return not (
-            math.isclose(self._x, 0.0, abs_tol=1e-12) and math.isclose(self._y, 0.0, abs_tol=1e-12)
-        )
+        return not (math.isclose(self._x, 0.0, abs_tol=1e-12) and math.isclose(self._y, 0.0, abs_tol=1e-12))
 
     def __neg__(self):
         return Vector2D(-self._x, -self._y)
