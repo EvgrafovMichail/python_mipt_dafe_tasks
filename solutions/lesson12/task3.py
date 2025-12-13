@@ -1,5 +1,5 @@
-import sys
-
+import sys # noqa: F401
+# а то гит ругается
 
 class FileOut:
     def __init__(
