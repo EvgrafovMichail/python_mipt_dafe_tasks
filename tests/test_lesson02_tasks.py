@@ -1,16 +1,16 @@
 import pytest
 
-from solutions.lesson02.task1 import get_factorial
-from solutions.lesson02.task2 import get_doubled_factorial
-from solutions.lesson02.task3 import get_amount_of_ways_to_climb
-from solutions.lesson02.task4 import get_multiplications_amount
-from solutions.lesson02.task5 import get_gcd
-from solutions.lesson02.task6 import get_sum_of_prime_divisors
-from solutions.lesson02.task7 import is_palindrome
+from ..solutions.lesson02.task1 import get_factorial
+from ..solutions.lesson02.task2 import get_doubled_factorial
+from ..solutions.lesson02.task3 import get_amount_of_ways_to_climb
+from ..solutions.lesson02.task4 import get_multiplications_amount
+from ..solutions.lesson02.task5 import get_gcd
+from ..solutions.lesson02.task6 import get_sum_of_prime_divisors
+from ..solutions.lesson02.task7 import is_palindrome
 
 
 @pytest.mark.parametrize(
-    "num, result_expected", 
+    "num, result_expected",
     (
         pytest.param(
             0,
@@ -44,7 +44,7 @@ def test_get_factorial(num: int, result_expected: int) -> None:
 
 
 @pytest.mark.parametrize(
-    "num, result_expected", 
+    "num, result_expected",
     (
         pytest.param(
             0,
@@ -83,7 +83,7 @@ def test_get_doubled_factorial(num: int, result_expected: int) -> None:
 
 
 @pytest.mark.parametrize(
-    "num, result_expected", 
+    "num, result_expected",
     (
         pytest.param(
             1,
@@ -125,7 +125,7 @@ def test_get_amount_of_ways_to_climb(
 
 
 @pytest.mark.parametrize(
-    "num, result_expected", 
+    "num, result_expected",
     (
         pytest.param(
             1,
@@ -162,7 +162,7 @@ def test_get_multiplications_amount(
 
 
 @pytest.mark.parametrize(
-    "num1, num2, result_expected", 
+    "num1, num2, result_expected",
     (
         pytest.param(
             1,
@@ -229,7 +229,7 @@ def test_get_gcd(
 
 
 @pytest.mark.parametrize(
-    "num, result_expected", 
+    "num, result_expected",
     (
         pytest.param(
             1,
@@ -273,10 +273,10 @@ def test_get_sum_of_prime_divisors(num: int, result_expected: int) -> None:
 
 
 @pytest.mark.parametrize(
-    "num, result_expected", 
+    "num, result_expected",
     (
         pytest.param(
-            -10**10,
+            -(10**10),
             False,
             id="negative-ten-billion",
         ),
