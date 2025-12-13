@@ -1,3 +1,7 @@
+import sys
+sys.version
+
+
 class FileOut:
     def __init__(
         self,
