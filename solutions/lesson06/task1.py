@@ -1,3 +1,42 @@
 def int_to_roman(num: int) -> str:
-    # ваш код
-    return ""
+    answ = ""
+    while num >= 1000:
+        num -= 1000
+        answ += "M"
+    while num >= 900:
+        num -= 900
+        answ += "CM"
+    while num >= 500:
+        num -= 500
+        answ += "D"
+    while num >= 400:
+        num -= 400
+        answ += "CD"
+    while num >= 100:
+        num -= 100
+        answ += "C"
+    while num >= 90:
+        num -= 90
+        answ += "XC"
+    while num >= 50:
+        num -= 50
+        answ += "L"
+    while num >= 40:
+        num -= 40
+        answ += "XL"
+    while num >= 10:
+        num -= 10
+        answ += "X"
+    while num >= 9:
+        num -= 9
+        answ += "IX"
+    while num >= 5:
+        num -= 5
+        answ += "V"
+    while num >= 4:
+        num -= 4
+        answ += "IV"
+    while num >= 1:
+        num -= 1
+        answ += "I"
+    return answ
