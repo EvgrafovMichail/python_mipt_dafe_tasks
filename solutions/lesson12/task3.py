@@ -17,6 +17,7 @@ class FileOut:
         return self
 
     def __exit__(self, *args):
+        if self.file:
+            self.file.close()
         sys.stdout = self.stdout
-        self.file.close()
         return False
