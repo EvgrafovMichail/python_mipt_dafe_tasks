@@ -1,3 +1,4 @@
+import functools
 from typing import (
     Callable,
     ParamSpec,
@@ -24,5 +25,23 @@ def convert_exceptions_to_api_compitable_ones(
         Декоратор для непосредственного использования.
     """
 
-    # ваш код
-    pass
+    def decorator(func):
+        @functools.wraps(func)
+        def wrapper(*args, **kwargs):
+            try:
+                return func(*args, **kwargs)
+            except Exception as exc:
+                exc_type = type(exc)
+
+                if exc_type in exception_to_api_exception:
+                    api_exc = exception_to_api_exception[exc_type]
+                else:
+                    raise
+
+                if isinstance(api_exc, type):
+                    raise api_exc() from None
+                raise api_exc from None
+
+        return wrapper
+
+    return decorator
