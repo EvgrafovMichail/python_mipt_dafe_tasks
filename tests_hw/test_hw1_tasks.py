@@ -121,6 +121,7 @@ def test_exponential_backoff_and_jitter(mock_sleep: MagicMock) -> None:
         timeout_start=1,
         timeout_max=timeout_max,
         backoff_scale=2.0
+        
     )
     def func():
         nonlocal attempts
