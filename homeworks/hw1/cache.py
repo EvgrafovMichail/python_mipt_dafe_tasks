@@ -23,5 +23,5 @@ def lru_cache(capacity: int) -> Callable[[Callable[P, R]], Callable[P, R]]:
             для получения целого числа.
         ValueError, если после округления capacity - число, меньшее 1.
     """
-    # ваш код
+
     pass

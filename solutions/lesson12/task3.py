@@ -6,7 +6,18 @@ class FileOut:
         self,
         path_to_file: str,
     ) -> None:
-        # ваш код
-        ...
+        self.path_to_file = path_to_file
+        self.file = None
+        self.stdout = None
 
-    # ваш код
+    def __enter__(self):
+        self.file = open(self.path_to_file, "w")
+        self.stdout = sys.stdout
+        sys.stdout = self.file
+        return self
+
+    def __exit__(self, *args):
+        if self.file:
+            self.file.close()
+        sys.stdout = self.stdout
+        return False
