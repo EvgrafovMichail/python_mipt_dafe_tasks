@@ -1,3 +1,3 @@
-def is_palindrome(text: str) -> bool:
-    # ваш код
-    return False
+def is_palindrome(s):
+    s = s.lower().replace(" ", "")
+    return s == s[::-1]
