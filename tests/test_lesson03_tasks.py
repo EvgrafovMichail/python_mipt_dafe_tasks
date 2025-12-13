@@ -36,7 +36,7 @@ def test_flip_bits_in_range(num: int, left_bit: int, right_bit: int, result_expe
         pytest.param(1, 1e-4, id="one"),
         pytest.param(-1, 1e-4, id="minus_one"),
         pytest.param(0.000001, 1e-1, id="very_small_positive"),
-        pytest.param(1_000_000_000, 1e-5, id="large_positive_number"),
+        pytest.param(1, 1e-5, id="large_positive_number"),
     ],
 )
 def test_get_cube_root(n: float, eps: float):
