@@ -1,21 +1,20 @@
-from typing import Any, Generator, Iterable, Iterator
-from copy import deepcopy
+from typing import Any, Generator, Iterable
 
-def circle(iterable: Iterable) -> Generator[Any, None, None]:   
+
+def circle(iterable: Iterable) -> Generator[Any, None, None]:
     cache = []
-    
+
     for element in iterable:
         yield element
         cache.append(element)
-    
+
     if not cache:
         return
-        
+
     while True:
         for element in cache:
-              yield element
+            yield element
 
-            
 
 circle_gen = circle("abc")
 
