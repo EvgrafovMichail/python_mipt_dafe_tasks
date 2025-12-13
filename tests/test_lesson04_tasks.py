@@ -2,11 +2,18 @@ import pytest
 import random
 
 from solutions.lesson04.task1 import is_arithmetic_progression
+
 from solutions.lesson04.task2 import merge_intervals
+
 from solutions.lesson04.task3 import find_single_number
+
 from solutions.lesson04.task4 import move_zeros_to_end
+
 from solutions.lesson04.task5 import find_row_with_most_ones
+
 from solutions.lesson04.task6 import count_cycles
+
+
 
 @pytest.mark.parametrize("lst, expected", [
     pytest.param([], True, id="empty_list"),

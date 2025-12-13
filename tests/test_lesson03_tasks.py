@@ -1,9 +1,10 @@
 import pytest
 
 from solutions.lesson03.task1 import flip_bits_in_range
-from solutions.lesson03.task2 import get_cube_root
-from solutions.lesson03.task3 import get_nth_digit
 
+from solutions.lesson03.task2 import get_cube_root
+
+from solutions.lesson03.task3 import get_nth_digit
 
 @pytest.mark.parametrize(
     "num, left_bit, right_bit, result_expected",
