@@ -6,7 +6,15 @@ class FileOut:
         self,
         path_to_file: str,
     ) -> None:
-        # ваш код
-        ...
+        self.path = path_to_file
 
-    # ваш код
+    def __enter__(self):
+        self.file = open(self.path, "w")
+        self.stdout = sys.stdout
+        sys.stdout = self.file
+
+        return self
+
+    def __exit__(self, *_):
+        sys.stdout = self.stdout
+        self.file.close()

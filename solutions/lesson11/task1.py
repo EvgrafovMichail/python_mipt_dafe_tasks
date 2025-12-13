@@ -42,11 +42,11 @@ class Vector2D:
             self.ordinate, vec2.ordinate
         )
 
-    def __ne__(self, vec2: object) -> bool:
-        if not isinstance(vec2, Vector2D):
-            return NotImplemented
+    # def __ne__(self, vec2: object) -> bool:
+    #     if not isinstance(vec2, Vector2D):
+    #         return NotImplemented
 
-        return not (self == vec2)
+    #     return not (self == vec2)
 
     def __gt__(self, vec2: "Vector2D") -> bool:
         if not isinstance(vec2, Vector2D):
