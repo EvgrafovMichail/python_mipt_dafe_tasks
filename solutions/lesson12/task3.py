@@ -1,5 +1,6 @@
-import sys # noqa: F401
-# а то гит ругается
+import sys
+sys.version
+
 
 class FileOut:
     def __init__(
