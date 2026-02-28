@@ -1,3 +1,7 @@
+matplotlib==3.8.0
+numpy==1.26.1
+pandas==2.2.2
+
 pytest==8.4.2
 pytest-cov==7.0.0
 ruff==0.13.0

@@ -5,7 +5,7 @@
 
 Ваша задача — определить, является ли заданная строка палиндромом.
 
-Допишите код в файле [task1](https://github.com/EvgrafovMichail/python_mipt_dafe_tasks/blob/main/solutions/lesson05/task1.py).
+Допишите код в файле [task1](https://github.com/EvgrafovMichail/python_mipt_dafe_tasks/blob/main/solutions/sem01/lesson05/task1.py).
 
 **Входные данные:**  
 - `text` — строка, состоящая из букв английского алфавита в верхнем и нижнем регистре длиной от 0 до 1000.
@@ -28,7 +28,7 @@
 
 Ваша задача — определить, являются ли два заданных слова анаграммами. Решение должно работать за **O(N + M)** времени и использовать не более **O(1)** дополнительной памяти (где **N** и **M** — длины слов).
 
-Допишите код в файле [task2](https://github.com/EvgrafovMichail/python_mipt_dafe_tasks/blob/main/solutions/lesson05/task2.py).
+Допишите код в файле [task2](https://github.com/EvgrafovMichail/python_mipt_dafe_tasks/blob/main/solutions/sem01/lesson05/task2.py).
 
 **Входные данные:**  
 - `word1` — непустая строка из букв английского алфавита (верхний и нижний регистр), длиной от 1 до 1000;
@@ -53,7 +53,7 @@
 
 Пустая строка **не считается** строкой из пунктуации.
 
-Допишите код в файле [task3](https://github.com/EvgrafovMichail/python_mipt_dafe_tasks/blob/main/solutions/lesson05/task3.py).
+Допишите код в файле [task3](https://github.com/EvgrafovMichail/python_mipt_dafe_tasks/blob/main/solutions/sem01/lesson05/task3.py).
 
 **Входные данные:**  
 - `text` — строка из букв, цифр, пробелов и знаков препинания, длиной от 0 до 1000 символов.
@@ -79,7 +79,7 @@
 
 Ваша задача — реализовать **разархиватор**: по заархивированной строке восстановить исходный текст.
 
-Допишите код в файле [task4](https://github.com/EvgrafovMichail/python_mipt_dafe_tasks/blob/main/solutions/lesson05/task4.py).
+Допишите код в файле [task4](https://github.com/EvgrafovMichail/python_mipt_dafe_tasks/blob/main/solutions/sem01/lesson05/task4.py).
 
 **Входные данные:**  
 - `compress_text` — строка, содержащая токены, разделённые пробелами, длиной не более 1000. Каждый токен состоит:
@@ -116,7 +116,7 @@
 
 *Использование модуля `re` или других инструментов для работы с регулярными выражениями запрещено.*
 
-Допишите код в файле [task5](https://github.com/EvgrafovMichail/python_mipt_dafe_tasks/blob/main/solutions/lesson05/task5.py).
+Допишите код в файле [task5](https://github.com/EvgrafovMichail/python_mipt_dafe_tasks/blob/main/solutions/sem01/lesson05/task5.py).
 
 **Входные данные:** 
 - `reg_expr` - cтрока, состоящая из букв `d`, `w` и `s` и символов (не буквы и не цифры) - регулярное выражение. Длина строки находится в диапазоне от 0 до 10;
@@ -152,7 +152,7 @@
 
 Если изначальный путь поднимается выше корневого каталога, например, `/../` или `/a/../../`, то необходимо вернуть пустую строку.
 
-Допишите код в файле [task6](https://github.com/EvgrafovMichail/python_mipt_dafe_tasks/blob/main/solutions/lesson05/task6.py).
+Допишите код в файле [task6](https://github.com/EvgrafovMichail/python_mipt_dafe_tasks/blob/main/solutions/sem01/lesson05/task6.py).
 
 **Входные данные:** 
 

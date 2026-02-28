@@ -5,7 +5,7 @@ import sys
 from io import StringIO
 
 
-from solutions.lesson11.task1 import Vector2D
+from solutions.sem01.lesson11.task1 import Vector2D
 
 
 def test_read_attributes():
