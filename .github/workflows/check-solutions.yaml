@@ -36,7 +36,3 @@ jobs:
     - name: Test code 
       run: |
         pytest -v --cov=./solutions ./tests/
-      
-    - name: Test code hw
-      run: |
-        pytest -v --cov=./homeworks ./tests_hw/

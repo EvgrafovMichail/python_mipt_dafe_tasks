@@ -8,7 +8,7 @@
 
 Ваша задача заключается в том, чтобы реализовать функционал для получения произвольного числа независимых функций `get_avg()`.
 
-Допишите код в файле [task1](https://github.com/EvgrafovMichail/python_mipt_dafe_tasks/blob/main/solutions/lesson08/task1.py).
+Допишите код в файле [task1](https://github.com/EvgrafovMichail/python_mipt_dafe_tasks/blob/main/solutions/sem01/lesson08/task1.py).
 
 **Входные данные:**
 
@@ -57,7 +57,7 @@ assert math.isclose(get_avg(-2), -1)
 
 Ваша задача - реализовать функционал для сбора статистик в виде параметризованного декоратора.
 
-Допишите код в файле [task2](https://github.com/EvgrafovMichail/python_mipt_dafe_tasks/blob/main/solutions/lesson08/task2.py).
+Допишите код в файле [task2](https://github.com/EvgrafovMichail/python_mipt_dafe_tasks/blob/main/solutions/sem01/lesson08/task2.py).
 
 **Входные данные:**
 
