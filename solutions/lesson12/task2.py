@@ -2,7 +2,6 @@ from typing import Any, Generator, Iterable
 
 
 def circle(iterable: Iterable) -> Generator[Any, None, None]:
-    
     iterator = iter(iterable)
     lst_el = []
     flag = True
@@ -18,17 +17,17 @@ def circle(iterable: Iterable) -> Generator[Any, None, None]:
                 continue
             except StopIteration:
                 flag = False
-                
+
         yield lst_el[index % len(lst_el)]
         index += 1
-            
-#circle_gen = circle('')
 
-#for i in range(5):
+
+# circle_gen = circle('')
+
+# for i in range(5):
 #    print(next(circle_gen))
 # a
 # b
 # c
 # a
-# b        
-        
+# b

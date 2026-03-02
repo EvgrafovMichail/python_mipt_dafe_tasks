@@ -27,7 +27,7 @@ def convert_exceptions_to_api_compitable_ones(
     def wrapper(func: Callable) -> Callable:
         def inner(*args, **kwargs):
             try:
-                res =  func(*args, **kwargs)
+                res = func(*args, **kwargs)
                 return res
             except Exception as exp:
                 exp_type = type(exp)
@@ -35,13 +35,16 @@ def convert_exceptions_to_api_compitable_ones(
                     api_exception = exception_to_api_exception[exp_type]
                     raise api_exception from None
                 raise exp
+
         return inner
+
     return wrapper
-                    
-#@convert_exceptions_to_api_compitable_ones(
+
+
+# @convert_exceptions_to_api_compitable_ones(
 #    exception_to_api_exception={ValueError: ValueError("it is worked"), KeyError: KeyError('Fail')}
-#)
-#def raise_key_error() -> None:
+# )
+# def raise_key_error() -> None:
 #    raise KeyError("missed")
 
-#raise_key_error()
+# raise_key_error()

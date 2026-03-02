@@ -14,5 +14,6 @@ def chunked(iterable: Iterable, size: int) -> Generator[tuple[Any], None, None]:
             break
         else:
             yield tuple(chunk)
-            
-#print(tuple(chunked([1, 2, 3, 4, 5], 2)))
+
+
+# print(tuple(chunked([1, 2, 3, 4, 5], 2)))
