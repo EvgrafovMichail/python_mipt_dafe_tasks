@@ -6,14 +6,26 @@ class ShapeMismatchError(Exception):
 
 
 def convert_from_sphere(
-    distances: np.ndarray,
-    azimuth: np.ndarray,
-    inclination: np.ndarray,
-) -> tuple[np.ndarray, np.ndarray, np.ndarray]: ...
+    distances: np.ndarray, azimuth: np.ndarray, inclination: np.ndarray
+) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
+    if not (distances.shape == azimuth.shape == inclination.shape):
+        raise ShapeMismatchError
+
+    return (
+        distances * np.sin(inclination) * np.cos(azimuth),
+        distances * np.sin(inclination) * np.sin(azimuth),
+        distances * np.cos(inclination),
+    )
 
 
 def convert_to_sphere(
     abscissa: np.ndarray,
     ordinates: np.ndarray,
     applicates: np.ndarray,
-) -> tuple[np.ndarray, np.ndarray, np.ndarray]: ...
+) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
+    if not (abscissa.shape == ordinates.shape == applicates.shape):
+        raise ShapeMismatchError()
+
+    r = (abscissa**2 + ordinates**2 + applicates**2) ** 0.5
+    inclination = np.arccos(applicates / r)
+    return r, np.arctan2(ordinates, abscissa), np.nan_to_num(inclination, nan=0)
