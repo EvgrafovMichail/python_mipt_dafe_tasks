@@ -1,4 +1,4 @@
-ALLOWED_TYPES = {
+'''ALLOWED_TYPES = {
     "spotter_word",
     "voice_human",
     "voice_bot",
@@ -26,3 +26,4 @@ def aggregate_segmentation(
 
     # ваш код
     return {}, []
+'''

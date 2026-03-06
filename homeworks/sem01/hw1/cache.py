@@ -1,4 +1,4 @@
-from typing import (
+'''from typing import (
     Callable,
     ParamSpec,
     TypeVar,
@@ -25,3 +25,4 @@ def lru_cache(capacity: int) -> Callable[[Callable[P, R]], Callable[P, R]]:
     """
     # ваш код
     pass
+'''

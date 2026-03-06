@@ -1,4 +1,4 @@
-#import sys
+'''#import sys
 
 
 class FileOut:
@@ -10,3 +10,4 @@ class FileOut:
         ...
 
     # ваш код
+'''

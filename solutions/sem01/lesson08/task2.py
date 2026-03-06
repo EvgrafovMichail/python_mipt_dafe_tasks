@@ -1,4 +1,4 @@
-from typing import Callable, TypeVar
+'''from typing import Callable, TypeVar
 
 T = TypeVar("T")
 
@@ -8,3 +8,4 @@ def collect_statistic(
     
     # ваш код
     pass
+'''
