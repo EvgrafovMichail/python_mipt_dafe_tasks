@@ -2,7 +2,7 @@
 **Условие:**  
 Дан список целых чисел, который может быть не отсортирован. Требуется определить, можно ли расположить элементы этого списка в таком порядке, чтобы они образовывали арифметическую прогрессию. Арифметическая прогрессия — это последовательность чисел, в которой разность между любыми двумя соседними элементами постоянна. Например, последовательности `[1, 3, 5, 7]` и `[10, 5, 0, -5]` являются арифметическими прогрессиями, а `[1, 2, 4]` — нет.
 
-Допишите код в файле [task1](https://github.com/EvgrafovMichail/python_mipt_dafe_tasks/blob/main/solutions/lesson04/task1.py).
+Допишите код в файле [task1](https://github.com/EvgrafovMichail/python_mipt_dafe_tasks/blob/main/solutions/sem01/lesson04/task1.py).
 
 **Входные данные:**  
 - `lst` — список целых чисел:
@@ -28,7 +28,7 @@
 
 Дан список отрезков на числовой прямой. Каждый отрезок задаётся парой целых чисел — его левой и правой границей (включительно). Требуется объединить все пересекающиеся или касающиеся отрезки и вернуть  список непересекающихся отрезков, покрывающих ту же область.
 
-Допишите код в файле [task2](https://github.com/EvgrafovMichail/python_mipt_dafe_tasks/blob/main/solutions/lesson04/task2.py).
+Допишите код в файле [task2](https://github.com/EvgrafovMichail/python_mipt_dafe_tasks/blob/main/solutions/sem01/lesson04/task2.py).
 
 **Входные данные:**  
 - `intervals` — список списков целых чисел:
@@ -57,7 +57,7 @@
 
 Ваша задача — найти этого самопровозглашённого индивидуалиста, используя минимально возможную память и ровно один проход по данным. Решение должно работать за O(N) по времени и O(1) по памяти — потому что даже уникальность не отменяет законы эффективности.
 
-Допишите код в файле [task3](https://github.com/EvgrafovMichail/python_mipt_dafe_tasks/blob/main/solutions/lesson04/task3.py).
+Допишите код в файле [task3](https://github.com/EvgrafovMichail/python_mipt_dafe_tasks/blob/main/solutions/sem01/lesson04/task3.py).
 
 **Входные данные:**  
 - `nums` — список целых чисел: 
@@ -82,7 +82,7 @@
 
 После перестановки вам нужно сообщить, **с какого индекса начинается «нулевая зона»** — это поможет другим модулям знать, где заканчиваются полезные данные.
 
-Допишите код в файле [task4](https://github.com/EvgrafovMichail/python_mipt_dafe_tasks/blob/main/solutions/lesson04/task4.py).
+Допишите код в файле [task4](https://github.com/EvgrafovMichail/python_mipt_dafe_tasks/blob/main/solutions/sem01/lesson04/task4.py).
 
 **Входные данные:**  
 - `nums` — список целых чисел: 
@@ -113,7 +113,7 @@
 
 И чтобы не тратить драгоценное время на перебор всей матрицы, нужно сделать это **максимально эффективно** — за **O(N + M)**, где `N` — число серверов, `M` — число временных интервалов.
 
-Допишите код в файле [task5](https://github.com/EvgrafovMichail/python_mipt_dafe_tasks/blob/main/solutions/lesson04/task5.py).
+Допишите код в файле [task5](https://github.com/EvgrafovMichail/python_mipt_dafe_tasks/blob/main/solutions/sem01/lesson04/task5.py).
 
 **Входные данные:**  
 - `matrix` — список списков целых чисел:
@@ -140,7 +140,7 @@
 
 Ваша задача — определить, **сколько всего независимых циклов** спрятано в этом массиве.
 
-Допишите код в файле [task6](https://github.com/EvgrafovMichail/python_mipt_dafe_tasks/blob/main/solutions/lesson04/task6.py).
+Допишите код в файле [task6](https://github.com/EvgrafovMichail/python_mipt_dafe_tasks/blob/main/solutions/sem01/lesson04/task6.py).
 
 **Входные данные:**  
 - `arr` — список целых чисел: 

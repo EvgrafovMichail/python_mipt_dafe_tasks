@@ -2,9 +2,9 @@ import sys
 
 import pytest
 
-from solutions.lesson12.task1 import chunked
-from solutions.lesson12.task2 import circle
-from solutions.lesson12.task3 import FileOut
+from solutions.sem01.lesson12.task1 import chunked
+from solutions.sem01.lesson12.task2 import circle
+from solutions.sem01.lesson12.task3 import FileOut
 
 
 def finite_generator():
