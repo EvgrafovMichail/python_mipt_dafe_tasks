@@ -6,7 +6,7 @@ class ShapeMismatchError(Exception):
 
 
 def sum_arrays_vectorized(lhs: np.ndarray, rhs: np.ndarray,) -> np.ndarray:
-    if lhs != rhs:
+    if lhs.shape != rhs.shape:
         raise ShapeMismatchError
     return lhs + rhs
 
