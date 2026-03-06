@@ -1,7 +1,7 @@
+from functools import wraps
 from random import uniform
 from time import sleep
 from typing import Callable, ParamSpec, TypeVar
-from functools import wraps
 
 P = ParamSpec("P")
 R = TypeVar("R")

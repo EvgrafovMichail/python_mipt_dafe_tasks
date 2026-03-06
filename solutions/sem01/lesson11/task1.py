@@ -1,5 +1,5 @@
-from math import sqrt
 import math
+from math import sqrt
 
 
 class Vector2D:
