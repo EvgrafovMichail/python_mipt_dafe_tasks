@@ -13,7 +13,7 @@ def convert_from_sphere(
     if not (distances.shape == azimuth.shape == inclination.shape):
         raise ShapeMismatchError
     abscissa = distances * np.sin(inclination) * np.cos(azimuth)
-    ordinates= distances * np.sin(inclination) * np.sin(azimuth)
+    ordinates = distances * np.sin(inclination) * np.sin(azimuth)
     applicates = distances * np.cos(inclination)
     return abscissa, ordinates, applicates
 

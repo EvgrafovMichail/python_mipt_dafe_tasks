@@ -11,15 +11,17 @@ def sum_arrays_vectorized(
 ) -> np.ndarray:
     if lhs.shape != rhs.shape:
         raise ShapeMismatchError
-    return lhs + rhs 
+    return lhs + rhs
+
 
 def compute_poly_vectorized(abscissa: np.ndarray) -> np.ndarray:
     return 3 * (abscissa**2) + 2 * abscissa + 1
+
+
 def get_mutual_l2_distances_vectorized(
     lhs: np.ndarray,
     rhs: np.ndarray,
-) -> np.ndarray: 
+) -> np.ndarray:
     if lhs.shape[1] != rhs.shape[1]:
         raise ShapeMismatchError
-    return np.sqrt(np.sum((lhs[:, np.newaxis, :] - rhs[np.newaxis, 
-    :, :]) ** 2, axis=2))
+    return np.sqrt(np.sum((lhs[:, np.newaxis, :] - rhs[np.newaxis, :, :]) ** 2, axis=2))
