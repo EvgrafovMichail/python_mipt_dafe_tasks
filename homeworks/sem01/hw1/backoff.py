@@ -1,5 +1,3 @@
-from random import uniform
-from time import sleep
 from typing import (
     Callable,
     ParamSpec,
