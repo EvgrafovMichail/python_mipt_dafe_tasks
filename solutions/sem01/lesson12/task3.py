@@ -1,5 +1,3 @@
-
-
 class FileOut:
     def __init__(
         self,
