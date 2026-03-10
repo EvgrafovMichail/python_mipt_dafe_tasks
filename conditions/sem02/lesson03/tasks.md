@@ -21,7 +21,7 @@ def sum_arrays_naive(
     ]
 ```
 
-Допишите код векторизованной функции в файле [task1](../solutions/sem02/lesson03/task1.py).
+Допишите код векторизованной функции в файле [task1](../../../solutions/sem02/lesson03/task1.py).
 
 **Входные данные:**  
 - `lhs` - одномерный массив чисел с плавающей точкой;
@@ -42,7 +42,7 @@ def sum_arrays_naive(
 def compute_poly_naive(abscissa: list[float]) -> list[float]:
     return [3 * (x ** 2) + 2 * x + 1 for x in abscissa]
 ```
-Допишите код векторизованной функции в файле [task1](../solutions/sem02/lesson03/task1.py).
+Допишите код векторизованной функции в файле [task1](../../../solutions/sem02/lesson03/task1.py).
 
 **Входные данные:**  
 - `abscissa` - одномерный массив чисел с плавающей точкой - область определения для вычисления полинома;
@@ -54,7 +54,7 @@ def compute_poly_naive(abscissa: list[float]) -> list[float]:
 
 Векторизуйте код функции `get_mutual_l2_distances_naive`.
 
-Допишите код векторизованной функции в файле [task1](../solutions/sem02/lesson03/task1.py).
+Допишите код векторизованной функции в файле [task1](../../../solutions/sem02/lesson03/task1.py).
 
 **Python функция**:
 ```python
@@ -92,7 +92,7 @@ def get_mutual_l2_distances_naive(
 
 ### Перевод из декартовых координат в сферические
 
-Допишите код функции `convert_from_sphere` в файле [task2](../solutions/sem02/lesson03/task2.py).
+Допишите код функции `convert_from_sphere` в файле [task2](../../../solutions/sem02/lesson03/task2.py).
 
 **Входные данные**:
 - `abscissa` - np.ndarray, абсциссы точек;
@@ -112,7 +112,7 @@ def get_mutual_l2_distances_naive(
 
 ### Перевод из сферических координат в декартовы
 
-Допишите код функции `convert_to_sphere` в файле [task2](../solutions/sem02/lesson03/task2.py).
+Допишите код функции `convert_to_sphere` в файле [task2](../../../solutions/sem02/lesson03/task2.py).
 
 **Входные данные**:
 - `distances` - np.ndarray, массив расстояний;
@@ -129,7 +129,7 @@ def get_mutual_l2_distances_naive(
 
 На вход подается одномерный массив чисел с плавающей точкой - значения некоторой функции на определенном отрезке. Ваша задача - вычислить индексы элементов, соответствующие точкам экстремума данной функции.
 
-Допишите код в файле [task3](../solutions/sem02/lesson03/task3.py).
+Допишите код в файле [task3](../../../solutions/sem02/lesson03/task3.py).
 
 **Входные данные**:
 - `ordinates` - np.ndarray числе с плавающей точкой, значения некоторой функции на определенном отрезке;
