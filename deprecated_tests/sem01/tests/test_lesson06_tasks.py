@@ -110,9 +110,7 @@ def test_is_there_any_good_subarray(nums, k, expected):
         pytest.param("Hello hello", 1, id="case_insensitive"),
         pytest.param("Hello, world!", 2, id="punctuation_around"),
         pytest.param("Hello, hello, world!", 2, id="duplicates_with_punct"),
-        pytest.param(
-            "The quick brown fox jumps over the lazy dog.", 8, id="classic_pangram"
-        ),
+        pytest.param("The quick brown fox jumps over the lazy dog.", 8, id="classic_pangram"),
         pytest.param("!!! ???", 0, id="only_punctuation"),
         pytest.param("word1 word2 word1", 2, id="digits_in_words"),
         pytest.param("Don't stop believing!", 3, id="apostrophe_inside"),
