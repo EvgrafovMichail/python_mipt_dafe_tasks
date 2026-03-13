@@ -10,10 +10,11 @@ def get_dominant_color_info(
 
     values, freq = np.unique(image.reshape(-1), return_counts=True)
 
-    hist = np.zeros(256, dtype=np.float64)
+    hist = np.zeros(256, dtype=np.int32)
     hist[values] = freq
 
-    cumsum = np.concatenate([[0], np.cumsum(hist)])
+    cumsum = np.zeros(257, dtype=np.int32)
+    cumsum[1:] = np.cumsum(hist)
 
     v = np.arange(256)
     left = np.maximum(0, v - threshold + 1)
