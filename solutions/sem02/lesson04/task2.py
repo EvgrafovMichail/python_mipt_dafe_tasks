@@ -8,6 +8,7 @@ def get_dominant_color_info(
     if threshold < 1:
         raise ValueError("threshold must be positive")
 
+    image = np.array(image, dtype=np.int64)
     unique_elems, counts = np.unique(image, return_counts=True)
     substracts = abs(unique_elems[..., np.newaxis] - unique_elems)
     similar = substracts < threshold
@@ -18,3 +19,7 @@ def get_dominant_color_info(
     percentage = similar_cnt[indx_max] / image.size
 
     return np.uint8(color), float(percentage)
+
+
+a = np.array([[100, 100, 100, 102, 104, 106, 108]])
+print()
