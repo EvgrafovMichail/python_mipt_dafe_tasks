@@ -18,7 +18,7 @@ def adaptive_filter(
 
     A = np.diag(diag_A)
     I_k = np.eye(diag_A.size)
-    Vj_H = np.conj(Vj.real - 1j * Vj.imag).T
+    Vj_H = (Vj.real - 1j * Vj.imag).T
     R__1 = np.linalg.inv((I_k + Vj_H @ Vj @ A))
     res = Vs - Vj @ R__1 @ (Vj_H @ Vs)
     return res
