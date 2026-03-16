@@ -20,7 +20,6 @@ def can_satisfy_demand(
     if np.ndim(demand_expected) != 1 or demand_expected.size != N:
         raise ShapeMismatchError
 
-    print(costs * demand_expected)
     need = np.sum(costs * demand_expected, axis=1)
     can = need <= resource_amounts
-    return all(can)
+    return np.all(can)
