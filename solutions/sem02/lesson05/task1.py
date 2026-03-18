@@ -10,7 +10,7 @@ def can_satisfy_demand(
     resource_amounts: np.ndarray,
     demand_expected: np.ndarray,
 ) -> bool:
-    if costs.shape[0] != resource_amounts.shape[0] or costs.shape[1] != demand_expected.shape[0]:
+    if costs.shape[0] != resource_amounts.size or costs.shape[1] != demand_expected.size:
         raise ShapeMismatchError
 
     costs_all_products = costs * demand_expected[np.newaxis, ...]

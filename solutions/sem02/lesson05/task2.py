@@ -9,7 +9,7 @@ def get_projections_components(
     matrix: np.ndarray,
     vector: np.ndarray,
 ) -> tuple[np.ndarray | None, np.ndarray | None]:
-    if matrix.shape[0] != matrix.shape[1] or vector.shape[0] != matrix.shape[1]:
+    if matrix.shape[0] != matrix.shape[1] or vector.size != matrix.shape[1]:
         raise ShapeMismatchError
 
     if np.linalg.det(matrix) == 0:
