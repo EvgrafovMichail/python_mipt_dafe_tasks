@@ -6,7 +6,7 @@ import pytest
 from solutions.sem02.lesson04.task1 import blur_image, pad_image
 from solutions.sem02.lesson04.task2 import get_dominant_color_info
 
-DATA_PATH = os.path.join("tests", "test_data", "lesson04")
+DATA_PATH = os.path.join("test_data", "lesson04")
 
 
 class TestTask1:
@@ -44,7 +44,10 @@ class TestTask1:
             pytest.param(
                 np.array([[1, 2], [3, 4]], dtype=np.uint8),
                 1,
-                np.array([[0, 0, 0, 0], [0, 1, 2, 0], [0, 3, 4, 0], [0, 0, 0, 0]], dtype=np.uint8),
+                np.array(
+                    [[0, 0, 0, 0], [0, 1, 2, 0], [0, 3, 4, 0], [0, 0, 0, 0]],
+                    dtype=np.uint8,
+                ),
                 id="2d_pad_1",
             ),
             pytest.param(
@@ -112,18 +115,56 @@ class TestTask1:
                 2,
                 np.array(
                     [
-                        [[0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0]],
-                        [[0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0]],
-                        [[0, 0, 0], [0, 0, 0], [10, 20, 30], [40, 50, 60], [0, 0, 0], [0, 0, 0]],
-                        [[0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0]],
-                        [[0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0]],
+                        [
+                            [0, 0, 0],
+                            [0, 0, 0],
+                            [0, 0, 0],
+                            [0, 0, 0],
+                            [0, 0, 0],
+                            [0, 0, 0],
+                        ],
+                        [
+                            [0, 0, 0],
+                            [0, 0, 0],
+                            [0, 0, 0],
+                            [0, 0, 0],
+                            [0, 0, 0],
+                            [0, 0, 0],
+                        ],
+                        [
+                            [0, 0, 0],
+                            [0, 0, 0],
+                            [10, 20, 30],
+                            [40, 50, 60],
+                            [0, 0, 0],
+                            [0, 0, 0],
+                        ],
+                        [
+                            [0, 0, 0],
+                            [0, 0, 0],
+                            [0, 0, 0],
+                            [0, 0, 0],
+                            [0, 0, 0],
+                            [0, 0, 0],
+                        ],
+                        [
+                            [0, 0, 0],
+                            [0, 0, 0],
+                            [0, 0, 0],
+                            [0, 0, 0],
+                            [0, 0, 0],
+                            [0, 0, 0],
+                        ],
                     ],
                     dtype=np.uint8,
                 ),
                 id="3d_rgb_pad_2",
             ),
             pytest.param(
-                np.zeros((2, 3), dtype=int), 1, np.zeros((4, 5), dtype=int), id="2d_zeros_pad_1"
+                np.zeros((2, 3), dtype=int),
+                1,
+                np.zeros((4, 5), dtype=int),
+                id="2d_zeros_pad_1",
             ),
             pytest.param(
                 np.arange(4095 * 4095).reshape(4095, 4095) % 256,
@@ -182,7 +223,8 @@ class TestTask1:
                 ),
                 3,
                 np.array(
-                    [[[39, 28, 82], [39, 28, 82]], [[39, 28, 82], [39, 28, 82]]], dtype=np.uint8
+                    [[[39, 28, 82], [39, 28, 82]], [[39, 28, 82], [39, 28, 82]]],
+                    dtype=np.uint8,
                 ),
                 id="3d_blur_3",
             ),
@@ -262,13 +304,25 @@ class TestTask2:
                 id="chain_within_threshold",
             ),
             pytest.param(
-                np.array([[255, 0, 0]], dtype=np.uint8), 20, [0], 2 / 3, id="marginal_values_1"
+                np.array([[255, 0, 0]], dtype=np.uint8),
+                20,
+                [0],
+                2 / 3,
+                id="marginal_values_1",
             ),
             pytest.param(
-                np.array([[0, 255, 0]], dtype=np.uint8), 20, [0], 2 / 3, id="marginal_values_2"
+                np.array([[0, 255, 0]], dtype=np.uint8),
+                20,
+                [0],
+                2 / 3,
+                id="marginal_values_2",
             ),
             pytest.param(
-                np.array([[0, 0, 255]], dtype=np.uint8), 20, [0], 2 / 3, id="marginal_values_3"
+                np.array([[0, 0, 255]], dtype=np.uint8),
+                20,
+                [0],
+                2 / 3,
+                id="marginal_values_3",
             ),
             pytest.param(
                 np.load(os.path.join(DATA_PATH, "test_task2_data1.npy")),
@@ -279,8 +333,12 @@ class TestTask2:
             ),
         ],
     )
-    def test_get_dominant_color_info(self, image, threshold, expected_color, expected_ratio):
-        color, ratio_percent = get_dominant_color_info(image.astype(np.uint8), threshold)
+    def test_get_dominant_color_info(
+        self, image, threshold, expected_color, expected_ratio
+    ):
+        color, ratio_percent = get_dominant_color_info(
+            image.astype(np.uint8), threshold
+        )
 
         assert color in expected_color
         assert (abs(ratio_percent - expected_ratio * 100) < 1e-6) or (
