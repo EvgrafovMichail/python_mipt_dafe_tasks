@@ -18,16 +18,3 @@ def can_satisfy_demand(
     answer = resource_demand_expected <= resource_amounts
 
     return np.all(answer)
-
-
-# costs = np.array([
-#     [10,11,5],
-#     [12,23,7],
-#     [21,6,14],
-#     [7,9,17],
-#     [8,13,4]
-# ])
-# resource_amounts = np.array([500,92,400,25,118])
-# demand_expected = np.array([8,9,6])
-
-# print(can_satisfy_demand(costs,resource_amounts,demand_expected))
