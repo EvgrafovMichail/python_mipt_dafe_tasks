@@ -17,9 +17,9 @@ def adaptive_filter(
         raise ShapeMismatchError
 
     A = np.diag(diag_A)
-    I = np.eye(diag_A.size)
+    E = np.eye(diag_A.size)
     VjH = np.conj(Vj).T
-    R_1 = np.linalg.inv(I + VjH @ Vj @ A)
+    R_1 = np.linalg.inv(E + VjH @ Vj @ A)
     result = Vs - Vj @ R_1 @ (VjH @ Vs)
 
     return result
