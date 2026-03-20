@@ -19,13 +19,9 @@ def adaptive_filter(
 
     VjHT = Vj.conj().T
     VjHT_Vj = VjHT @ Vj
-    I = np.eye(K)
-    predres = I + VjHT_Vj @ A
+    I_ = np.eye(K)
+    predres = I_ + VjHT_Vj @ A
     predres_inv = np.linalg.inv(predres)
     VjHT_Vs = VjHT @ Vs
     y = Vs - Vj @ (predres_inv @ VjHT_Vs)
     return y
-
-
-    
-

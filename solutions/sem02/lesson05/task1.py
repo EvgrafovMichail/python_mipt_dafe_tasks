@@ -13,7 +13,7 @@ def can_satisfy_demand(
     M, N = costs.shape
     if resource_amounts.shape[0] != M or demand_expected.shape[0] != N:
         raise ShapeMismatchError
-    
+
     for i in range(M):
         schet = 0
         for j in range(N):
