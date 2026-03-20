@@ -21,4 +21,3 @@ def get_projections_components(
     projection = scalar_projection[:, np.newaxis] * matrix
 
     return projection, vector - projection
-
