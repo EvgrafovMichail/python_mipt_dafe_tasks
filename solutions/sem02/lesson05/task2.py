@@ -15,13 +15,13 @@ def get_projections_components(
     if m != vector.shape[0]:
         raise ShapeMismatchError
     proections = []
-    ortog_sost = []
+    ort_sost = []
     if np.linalg.det(matrix) == 0:
         return None, None
     else:
-        for i in range(m):
-            module = np.sum((matrix[i]) ** 2)
-            pr_a_basis = (matrix[i] @ vector / module) * matrix[i]
-            proections.append(pr_a_basis)
-            ortog_sost.append(vector - pr_a_basis)
-        return np.array(proections), np.array(ortog_sost)
+        scal_pr = vector @ matrix.T
+        norm = np.linalg.norm(matrix, axis=1) ** 2
+        koeff = scal_pr / norm
+        proections = matrix * koeff[:, np.newaxis]
+        ort_sost = vector - proections
+        return proections, ort_sost
