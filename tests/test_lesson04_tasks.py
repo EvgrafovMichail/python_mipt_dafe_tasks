@@ -6,7 +6,7 @@ import pytest
 from solutions.sem02.lesson04.task1 import blur_image, pad_image
 from solutions.sem02.lesson04.task2 import get_dominant_color_info
 
-DATA_PATH = os.path.join("python_mipt_dafe_tasks", "tests", "test_data", "lesson04")
+DATA_PATH = os.path.join("tests", "test_data", "lesson04")
 
 
 class TestTask1:
