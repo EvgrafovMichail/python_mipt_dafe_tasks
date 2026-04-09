@@ -1,7 +1,10 @@
+import string
+
+
 def is_punctuation(text: str) -> bool:
     if not text:
         return False
-    punctuations = """!"#$%&'()*+,-./:;<=>?@[\]^_{|}~`"""
+    punctuations = string.punctuation
     for symbol in text:
         if symbol not in punctuations:
             return False
