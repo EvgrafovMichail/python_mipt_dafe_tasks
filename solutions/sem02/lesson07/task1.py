@@ -18,6 +18,7 @@ def visualize_diagrams(
     if diagram_type not in ["hist", "violin", "box"]:
         raise ValueError
     plt.style.use("seaborn-v0_8-darkgrid")
+    space = 0.2
     figure = plt.figure(figsize=(10, 10))
     grid = plt.GridSpec(4, 4, wspace=space, hspace=space)
     axis_scatter = figure.add_subplot(grid[:-1, 1:])
@@ -95,5 +96,4 @@ if __name__ == "__main__":
 
     abscissa, ordinates = np.random.multivariate_normal(mean, cov, size=1000).T
 
-    visualize_diagrams(abscissa, ordinates, "violin")
-    plt.show()
+    visualize_diagrams(abscissa, ordinates, "hist")
