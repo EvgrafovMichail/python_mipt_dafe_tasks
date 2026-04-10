@@ -61,8 +61,6 @@ def visualize(count_before: np.ndarray, count_after: np.ndarray) -> None:
 
 
 if __name__ == "__main__":
-    data = read_from_file(
-        "C:\code\python_mipt_dafe_tasks\solutions\sem02\lesson07\data\medic_data.json"
-    )
+    data = read_from_file("data/medic_data.json")
     counts = get_counts_in_groups(*data)
     visualize(*counts)
