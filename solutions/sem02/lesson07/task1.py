@@ -18,7 +18,7 @@ def visualize_diagrams(
 
     allowed_types = ["hist", "violin", "box"]
     if diagram_type not in allowed_types:
-        raise ValueError(f"Неверный diagram_type. Ожидается: {allowed_types}")
+        raise ValueError("Неверный diagram_type")
 
     fig = plt.figure(figsize=(10, 10))
     gs = fig.add_gridspec(2, 2, width_ratios=(1, 4), height_ratios=(4, 1), wspace=0.05, hspace=0.05)
