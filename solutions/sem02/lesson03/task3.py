@@ -17,4 +17,9 @@ def get_extremum_indices(
     minimum_pos = np.where(is_minimum)[0] + 1
     maximum_pos = np.where(is_maximum)[0] + 1
 
+    print(len(np.where(is_minimum)))
+
     return minimum_pos, maximum_pos
+
+
+get_extremum_indices(np.array([0, 0, 1, 0]))
