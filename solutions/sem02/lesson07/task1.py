@@ -13,6 +13,9 @@ def visualize_diagrams(
     ordinates: np.ndarray,
     diagram_type: Any,
 ) -> None:
+    if abscissa.shape != ordinates.shape:
+        raise ShapeMismatchError()
+
     figure = plt.figure(figsize=(8, 8))
     grid = plt.GridSpec(4, 4, wspace=space, hspace=space)
 
