@@ -8,17 +8,11 @@ class ShapeMismatchError(Exception):
     pass
 
 
-def visualize_diagrams(
+def make_figure_axis(
     abscissa: np.ndarray,
     ordinates: np.ndarray,
-    diagram_type: Any,
-) -> None:
-    if abscissa.shape != ordinates.shape:
-        raise ShapeMismatchError
-
-    if diagram_type not in ["hist", "violin", "box"]:
-        raise ValueError
-
+    space: float = 0.2,
+) -> tuple[plt.Figure, plt.Axes, plt.Axes, plt.Axes]:
     figure = plt.figure(figsize=(8, 8))
     grid = plt.GridSpec(4, 4, wspace=space, hspace=space)
 
@@ -32,67 +26,124 @@ def visualize_diagrams(
         sharex=axis_scatter,
     )
 
-    axis_scatter.scatter(abscissa, ordinates, color="mediumseagreen", alpha=0.35)
-    axis_scatter.set_title("Distribution", fontsize=17, fontweight="bold", c="dimgray")
+    axis_scatter.scatter(
+        abscissa,
+        ordinates,
+        color="mediumseagreen",
+        alpha=0.35,
+    )
+    axis_scatter.set_title(
+        "Distribution",
+        fontsize=17,
+        fontweight="bold",
+        c="black",
+    )
+
+    return figure, axis_scatter, axis_hor, axis_vert
+
+
+def create_hist_distribution(
+    axis_hor: plt.Axes,
+    axis_vert: plt.Axes,
+    abscissa: np.ndarray,
+    ordinates: np.ndarray,
+) -> None:
+    hist_params = {
+        "bins": 50,
+        "color": "mediumseagreen",
+        "edgecolor": "darkgreen",
+        "alpha": 0.7,
+        "density": True,
+    }
+
+    axis_hor.hist(abscissa, **hist_params)
+    axis_vert.hist(ordinates, orientation="horizontal", **hist_params)
+
+    axis_hor.invert_yaxis()
+    axis_vert.invert_xaxis()
+
+
+def set_violin(
+    axis: plt.Axes,
+    data: np.ndarray,
+    vertical: bool,
+) -> None:
+    violin_parts = axis.violinplot(data, vert=vertical, showmedians=True)
+
+    for body in violin_parts["bodies"]:
+        body.set_facecolor("mediumseagreen")
+        body.set_edgecolor("aquamarine")
+
+    for part in violin_parts:
+        if part == "bodies":
+            continue
+        violin_parts[part].set_edgecolor("mediumseagreen")
+
+
+def create_violin_distribution(
+    axis_hor: plt.Axes,
+    axis_vert: plt.Axes,
+    abscissa: np.ndarray,
+    ordinates: np.ndarray,
+) -> None:
+    set_violin(axis_hor, ordinates, vertical=False)
+    set_violin(axis_vert, abscissa, vertical=True)
+
+
+def create_box_distribution(
+    axis_hor: plt.Axes,
+    axis_vert: plt.Axes,
+    abscissa: np.ndarray,
+    ordinates: np.ndarray,
+) -> None:
+    box_props = {"facecolor": "mediumseagreen", "alpha": 0.7}
+    box_params = {
+        "patch_artist": True,
+        "boxprops": box_props,
+    }
+
+    axis_vert.boxplot(abscissa, vert=True, **box_params)
+    axis_hor.boxplot(ordinates, vert=False, **box_params)
+
+
+def visualize_diagrams(
+    abscissa: np.ndarray,
+    ordinates: np.ndarray,
+    diagram_type: Any,
+) -> None:
+    if abscissa.shape != ordinates.shape:
+        raise ShapeMismatchError
+
+    valid_types = {"hist", "violin", "box"}
+    if diagram_type not in valid_types:
+        raise ValueError
+
+    space = 0.2
+    fig, ax_scatter, ax_hor, ax_vert = make_figure_axis(
+        abscissa,
+        ordinates,
+        space,
+    )
 
     if diagram_type == "hist":
-        axis_hor.hist(
-            abscissa,
-            bins=50,
-            color="aquamarine",
-            density=True,
-            alpha=0.7,
-        )
-        axis_vert.hist(
-            ordinates,
-            bins=50,
-            color="aquamarine",
-            orientation="horizontal",
-            density=True,
-            alpha=0.7,
-        )
-        axis_hor.invert_yaxis()
-        axis_vert.invert_xaxis()
-
+        create_hist_distribution(ax_hor, ax_vert, abscissa, ordinates)
     elif diagram_type == "violin":
-        violin_parts_vert = axis_vert.violinplot(abscissa, vert=True, showmedians=True)
-        violin_parts_hor = axis_hor.violinplot(ordinates, vert=False, showmedians=True)
-        for body in violin_parts_vert["bodies"]:
-            body.set_facecolor("mediumseagreen")
-            body.set_edgecolor("aquamarine")
-
-        for part in violin_parts_vert:
-            if part == "bodies":
-                continue
-
-            violin_parts_vert[part].set_edgecolor("mediumseagreen")
-
-        for body in violin_parts_hor["bodies"]:
-            body.set_facecolor("mediumseagreen")
-            body.set_edgecolor("aquamarine")
-
-        for part in violin_parts_hor:
-            if part == "bodies":
-                continue
-
-            violin_parts_hor[part].set_edgecolor("mediumseagreen")
-
+        create_violin_distribution(ax_hor, ax_vert, abscissa, ordinates)
     elif diagram_type == "box":
-        axis_vert.boxplot(
-            abscissa,
-            vert=True,
-            patch_artist=True,
-            boxprops=dict(facecolor="mediumseagreen", alpha=0.7),
-        )
-        axis_hor.boxplot(
-            ordinates,
-            vert=False,
-            patch_artist=True,
-            boxprops=dict(facecolor="mediumseagreen", alpha=0.7),
-        )
+        create_box_distribution(ax_hor, ax_vert, abscissa, ordinates)
 
-    axis_vert.set_ylabel("Vertical", fontsize=17, fontweight="bold", c="dimgray")
-    axis_hor.set_xlabel("Horizontal", fontsize=17, fontweight="bold", c="dimgray")
+    ax_vert.set_ylabel(
+        "Vertical",
+        fontsize=17,
+        fontweight="bold",
+        c="dimgray",
+    )
+    ax_hor.set_xlabel(
+        "Horizontal",
+        fontsize=17,
+        fontweight="bold",
+        c="dimgray",
+    )
 
 
 if __name__ == "__main__":

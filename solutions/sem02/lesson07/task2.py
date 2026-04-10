@@ -14,11 +14,21 @@ def read_from_json(file_name: str) -> tuple[list[int], list[int]]:
     return before, after
 
 
-def get_counts_of_groups(before: list[int], after: list[int]) -> tuple[np.ndarray, np.ndarray]:
-    labels_before, counts_before = np.unique(np.array(before), return_counts=True)
-    labels_after, counts_after = np.unique(np.array(after), return_counts=True)
+def get_counts_of_groups(
+    before: list[int],
+    after: list[int],
+) -> tuple[np.ndarray, np.ndarray]:
+    counts_before = np.unique(np.array(before), return_counts=True)[1]
+    counts_after = np.unique(np.array(after), return_counts=True)[1]
 
     return counts_before, counts_after
+
+
+def add_labels(axis: plt.Axes):
+    text_param = {"fontsize": 17, "fontweight": "bold"}
+    axis.set_title("Mitral disease stages", c="black", **text_param)
+    axis.set_xlabel("Groups", c="dimgray", **text_param)
+    axis.set_ylabel("Amount of people", c="dimgray", **text_param)
 
 
 def visualize_diagrams(counts_before: np.ndarray, counts_after: np.ndarray):
@@ -41,16 +51,11 @@ def visualize_diagrams(counts_before: np.ndarray, counts_after: np.ndarray):
         edgecolor="purple",
         width=0.4,
     )
-    axis.set_xticks(
-        np.arange(labels.size),
-        labels=labels,
-        weight="bold",
-    )
+
+    axis.set_xticks(np.arange(labels.size), labels=labels, weight="bold")
     axis.tick_params(axis="x", labelsize=14, labelcolor="dimgray")
 
-    axis.set_title("Mitral disease stages", fontsize=17, fontweight="bold", c="black")
-    axis.set_xlabel("Groups", fontsize=14, fontweight="bold", c="dimgray")
-    axis.set_ylabel("Amount of people", fontsize=14, fontweight="bold", c="dimgray")
+    add_labels(axis)
     axis.legend((bar1, bar2), ["before", "after"])
 
     figure.savefig("Mitral disease stages.png", bbox_inches="tight")
