@@ -1,9 +1,8 @@
-import pytest
-
 import math
 import sys
 from io import StringIO
 
+import pytest
 
 from solutions.sem01.lesson11.task1 import Vector2D
 
