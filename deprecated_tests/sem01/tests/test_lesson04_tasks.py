@@ -1,9 +1,8 @@
-
 import pytest
 
 from solutions.sem01.lesson04.task6 import count_cycles
 
-'''
+"""
 # 1
 @pytest.mark.parametrize("lst, expected", [
     pytest.param([], True, id="empty_list"),
@@ -156,19 +155,22 @@ def test_find_row_with_most_ones_big_data():
         assert find_row_with_most_ones(matrix) == 1
 
 
-'''
+"""
 
 
-@pytest.mark.parametrize("input_arr, expected", [
-    pytest.param([0], 1, id="self_loop"),
-    pytest.param([1, 0], 1, id="two_cycle"),
-    pytest.param([1, 2, 0], 1, id="three_cycle"),
-    pytest.param([0, 1, 2], 3, id="three_self_loops"),
-    pytest.param([1, 0, 3, 2], 2, id="two_2_cycles"),
-    pytest.param([2, 0, 1, 4, 3], 2, id="mixed_cycles"),
-    pytest.param([10, 6, 2, 9, 4, 0, 3, 8, 7, 1, 5], 5, id="mixed_cycles"),
-    pytest.param([], 0, id="empty"),
-])
+@pytest.mark.parametrize(
+    "input_arr, expected",
+    [
+        pytest.param([0], 1, id="self_loop"),
+        pytest.param([1, 0], 1, id="two_cycle"),
+        pytest.param([1, 2, 0], 1, id="three_cycle"),
+        pytest.param([0, 1, 2], 3, id="three_self_loops"),
+        pytest.param([1, 0, 3, 2], 2, id="two_2_cycles"),
+        pytest.param([2, 0, 1, 4, 3], 2, id="mixed_cycles"),
+        pytest.param([10, 6, 2, 9, 4, 0, 3, 8, 7, 1, 5], 5, id="mixed_cycles"),
+        pytest.param([], 0, id="empty"),
+    ],
+)
 def test_count_cycles(input_arr, expected):
     arr = input_arr[:]
     assert count_cycles(arr) == expected

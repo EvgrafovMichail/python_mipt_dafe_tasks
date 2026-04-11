@@ -2,7 +2,7 @@ import pytest
 
 from solutions.sem01.lesson05.task6 import simplify_path
 
-'''
+"""
 @pytest.mark.parametrize("s, expected", [
     pytest.param("", True, id="empty_string"),
     pytest.param("a", True, id="single_char"),
@@ -123,32 +123,34 @@ def test_decompress(compressed, expected):
 ])
 def test_match_pattern(regexp, s, expected):
     assert reg_validator(regexp, s) == expected
-'''
+"""
 
 
-@pytest.mark.parametrize("path, expected", [
-    pytest.param("/home/", "/home", id="trailing_slash"),
-    pytest.param("/../", "", id="go_above_root"),
-    pytest.param("/home//foo/", "/home/foo", id="double_slash"),
-    pytest.param("/home/./foo/", "/home/foo", id="current_dir_dot"),
-    pytest.param("/./././", "/", id="only_dots_and_slashes"),
-    pytest.param("/a/./b/../../c/", "/c", id="complex_up_and_down"),
-    pytest.param("/a/b/c/../../../", "/", id="back_to_root"),
-    pytest.param("/", "/", id="root_only"),
-    pytest.param("/.", "/", id="root_with_dot"),
-    pytest.param("/..", "", id="root_with_double_dot"),
-    pytest.param("/...", "/...", id="triple_dot_as_name"),
-    pytest.param("/..a", "/..a", id="dot_dot_a_as_name"),
-    pytest.param("/a.b/c.d", "/a.b/c.d", id="names_with_dots"),
-    pytest.param("/a//b////c/d//././/..", "/a/b/c", id="messy_path"),
-    pytest.param("/a/./b/./c/./d", "/a/b/c/d", id="dots_everywhere"),
-    pytest.param("/a/./b/../../c/./d/", "/c/d", id="up_down_with_dots"),
-    pytest.param("/../foo", "", id="up_then_valid"),
-    pytest.param("/../../foo", "", id="multiple_up_then_valid"),
-    pytest.param("/../../../", "", id="three_up_from_root"),
-    pytest.param("/home/foo/./../../../", "", id="too_many_up"),
-    pytest.param("/_a.b/c__1/..", "/_a.b",
-                 id="names_with_underscores_and_dots"),
-])
+@pytest.mark.parametrize(
+    "path, expected",
+    [
+        pytest.param("/home/", "/home", id="trailing_slash"),
+        pytest.param("/../", "", id="go_above_root"),
+        pytest.param("/home//foo/", "/home/foo", id="double_slash"),
+        pytest.param("/home/./foo/", "/home/foo", id="current_dir_dot"),
+        pytest.param("/./././", "/", id="only_dots_and_slashes"),
+        pytest.param("/a/./b/../../c/", "/c", id="complex_up_and_down"),
+        pytest.param("/a/b/c/../../../", "/", id="back_to_root"),
+        pytest.param("/", "/", id="root_only"),
+        pytest.param("/.", "/", id="root_with_dot"),
+        pytest.param("/..", "", id="root_with_double_dot"),
+        pytest.param("/...", "/...", id="triple_dot_as_name"),
+        pytest.param("/..a", "/..a", id="dot_dot_a_as_name"),
+        pytest.param("/a.b/c.d", "/a.b/c.d", id="names_with_dots"),
+        pytest.param("/a//b////c/d//././/..", "/a/b/c", id="messy_path"),
+        pytest.param("/a/./b/./c/./d", "/a/b/c/d", id="dots_everywhere"),
+        pytest.param("/a/./b/../../c/./d/", "/c/d", id="up_down_with_dots"),
+        pytest.param("/../foo", "", id="up_then_valid"),
+        pytest.param("/../../foo", "", id="multiple_up_then_valid"),
+        pytest.param("/../../../", "", id="three_up_from_root"),
+        pytest.param("/home/foo/./../../../", "", id="too_many_up"),
+        pytest.param("/_a.b/c__1/..", "/_a.b", id="names_with_underscores_and_dots"),
+    ],
+)
 def test_simplify_path(path, expected):
     assert simplify_path(path) == expected
