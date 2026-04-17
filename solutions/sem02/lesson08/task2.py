@@ -11,7 +11,9 @@ from matplotlib.colors import LinearSegmentedColormap, Normalize
 
 
 def calculate_wave_propagation(
-    maze: np.ndarray, start: tuple[int, int], end: tuple[int, int]
+    maze: np.ndarray,
+    start: tuple[int, int],
+    end: tuple[int, int],
 ) -> tuple[list[np.ndarray], list[tuple[int, int]]]:
     rows, cols = maze.shape
     distances = np.full((rows, cols), -1, dtype=int)
@@ -68,9 +70,9 @@ def update_frame(
     ax_img: mpimg.AxesImage,
     history: list[np.ndarray],
     path: list[tuple[int, int]],
-    maze: np.ndarray,
     start: tuple[int, int],
     end: tuple[int, int],
+    base: np.ndarray,
 ) -> tuple[mpimg.AxesImage]:
     max_dist = np.max(history[-1]) if history else 1
     history_len = len(history)
@@ -87,11 +89,7 @@ def update_frame(
         distances = history[-1]
         current_path = path
 
-    rows, cols = maze.shape
-    img = np.zeros((rows, cols, 3))
-
-    img[maze == 0] = [0.2, 0.2, 0.2]
-    img[maze == 1] = [1.0, 1.0, 1.0]
+    img = base.copy()
 
     mask = distances >= 0
     if np.any(mask):
@@ -112,7 +110,10 @@ def update_frame(
 
 
 def animate_wave_algorithm(
-    maze: np.ndarray, start: tuple[int, int], end: tuple[int, int], save_path: str = ""
+    maze: np.ndarray,
+    start: tuple[int, int],
+    end: tuple[int, int],
+    save_path: str = "",
 ) -> FuncAnimation:
     history, path = calculate_wave_propagation(maze, start, end)
 
@@ -141,11 +142,27 @@ def animate_wave_algorithm(
 
     total_frames = len(history) + (len(path) if path else 0) + 10
 
+    base_img = np.zeros((maze.shape[0], maze.shape[1], 3))
+    base_img[maze == 0] = [0.2, 0.2, 0.2]
+    base_img[maze == 1] = [1.0, 1.0, 1.0]
+
     anim_func = partial(
-        update_frame, ax_img=ax_img, history=history, path=path, maze=maze, start=start, end=end
+        update_frame,
+        ax_img=ax_img,
+        history=history,
+        path=path,
+        start=start,
+        end=end,
+        base=base_img,
     )
 
-    anim = FuncAnimation(fig, anim_func, frames=total_frames, interval=100, blit=True)
+    anim = FuncAnimation(
+        fig,
+        anim_func,
+        frames=total_frames,
+        interval=5,
+        blit=True,
+    )
 
     if save_path:
         anim.save(save_path, writer="pillow", fps=10)
@@ -183,5 +200,10 @@ if __name__ == "__main__":
     end_2 = (101, 43)
     loaded_save_path = "loaded_labyrinth.gif"
 
-    loaded_animation = animate_wave_algorithm(loaded_maze, start_2, end_2, loaded_save_path)
+    loaded_animation = animate_wave_algorithm(
+        loaded_maze,
+        start_2,
+        end_2,
+        loaded_save_path,
+    )
     HTML(loaded_animation.to_jshtml())
