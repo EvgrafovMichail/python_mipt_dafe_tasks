@@ -1,6 +1,5 @@
 import json
 import os
-import sys
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -73,6 +72,8 @@ def create_animation(
         blit=True,
     )
 
+    fig._animation = animation
+
     if save_path:
         animation.save(save_path, writer=PillowWriter(fps=20))
 
@@ -104,5 +105,5 @@ def load_config(config_path):
 
 if __name__ == "__main__":
     cfg = os.path.join(os.path.dirname(os.path.abspath(__file__)), "animation_config.json")
-    create_animation(**load_config(cfg))
+    animation = create_animation(**load_config(cfg))
     plt.show()
