@@ -66,7 +66,7 @@ def box(x_ax, y_ax, x, y):
     )
 
 
-def visualize(x: np.ndarray, y: np.ndarray, mode: Any) -> None:
+def visualize_diagrams(x: np.ndarray, y: np.ndarray, mode: Any) -> None:
     check(x, y, mode)
 
     main, x_ax, y_ax = layout()
@@ -91,4 +91,4 @@ if __name__ == "__main__":
 
     x, y = np.random.multivariate_normal(mean, cov, size=1000).T
 
-    visualize(x, y, "hist")
+    visualize_diagrams(x, y, "hist")

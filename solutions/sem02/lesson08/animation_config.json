@@ -1,0 +1,11 @@
+{
+  "fc": 8,
+  "num_frames": 120,
+  "plot_duration": 3.141592653589793,
+  "time_step": 0.0008,
+  "animation_step": 0.019634954084936208,
+  "save_path": "modulated_signal.gif",
+  "mod_dc": 0.5,
+  "mod_amplitude": 0.5,
+  "mod_omega": 1.5
+}
