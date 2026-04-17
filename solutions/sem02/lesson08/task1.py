@@ -85,7 +85,9 @@ def load_config(config_path):
         d = json.load(f)
     mod = None
     if d.get("mod_omega") is not None:
-        mod = lambda tau, dc=float(d["mod_dc"]), a=float(d["mod_amplitude"]), w=float(d["mod_omega"]): _harmonic_envelope(tau, dc, a, w)
+        mod = lambda tau, dc=float(d["mod_dc"]), a=float(d["mod_amplitude"]), w=float(
+            d["mod_omega"]
+        ): _harmonic_envelope(tau, dc, a, w)
     save_path = d.get("save_path") or ""
     if save_path:
         save_path = os.path.abspath(os.path.join(base_dir, save_path))
