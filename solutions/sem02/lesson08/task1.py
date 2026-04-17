@@ -1,10 +1,10 @@
 from functools import partial
 from typing import Callable, Optional
+
 import matplotlib.pyplot as plt
 import numpy as np
 from IPython.display import HTML
 from matplotlib.animation import FuncAnimation
-
 
 plt.style.use("seaborn-v0_8")
 

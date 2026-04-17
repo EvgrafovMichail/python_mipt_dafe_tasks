@@ -1,8 +1,9 @@
+from typing import Tuple
+
 import matplotlib.pyplot as plt
 import numpy as np
 from IPython.display import HTML
 from matplotlib.animation import FuncAnimation
-from typing import Tuple, Optional
 
 
 def is_cell_not_in_walk_place(visited_cells: np.ndarray, x: int, y: int) -> bool:
