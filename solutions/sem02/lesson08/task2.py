@@ -1,13 +1,11 @@
 from collections import deque
 from functools import partial
-from math import dist
-from matplotlib.colors import ListedColormap
+
 import matplotlib.pyplot as plt
 import numpy as np
-from matplotlib.colors import BoundaryNorm
-
 from IPython.display import HTML
 from matplotlib.animation import FuncAnimation
+from matplotlib.colors import BoundaryNorm, ListedColormap
 
 my_cmap = ListedColormap(["white", "black", "blue", "green"])
 boundaries = [0, 0.5, 1.5, 3, 5]
@@ -22,7 +20,6 @@ class Wave_Animation:
         start: tuple[int, int, int],
         end: tuple[int, int, int],
     ):
-
         self.maze = maze.copy()
         self.fontsize = 50 / max(maze.shape)
         self.way = np.zeros_like(maze, dtype=int)
