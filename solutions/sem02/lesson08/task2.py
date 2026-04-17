@@ -137,7 +137,7 @@ def animate_wave_algorithm(
 
     base_image = axis.imshow(
         maze,
-        cmap=ListedColormap(["black", "white"]),
+        cmap="gray",
         vmin=0,
         vmax=1,
         origin="upper",
