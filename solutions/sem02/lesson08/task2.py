@@ -1,20 +1,12 @@
-from functools import partial
-
 import matplotlib.pyplot as plt
 import numpy as np
-
 from IPython.display import HTML
 from matplotlib.animation import FuncAnimation
 
 
-
-
 def animate_wave_algorithm(
-    maze: np.ndarray, 
-    start: tuple[int, int], 
-    end: tuple[int, int], 
-    save_path: str = ""
-)  -> FuncAnimation:
+    maze: np.ndarray, start: tuple[int, int], end: tuple[int, int], save_path: str = ""
+) -> FuncAnimation:
     rows = maze.shape[0]
     cols = maze.shape[1]
     sr, sc = start
@@ -54,7 +46,6 @@ def animate_wave_algorithm(
         path_mask[r, c] = True
         d = dist[r, c]
         while (r, c) != (sr, sc):
-            found = False
             for dr, dc in possible_move:
                 nr, nc = r + dr, c + dc
                 if 0 <= nr < rows and 0 <= nc < cols:
@@ -62,14 +53,13 @@ def animate_wave_algorithm(
                         r, c = nr, nc
                         d -= 1
                         path_mask[r, c] = True
-                        found = True
                         break
 
     def make_image(frame, show_path=False):
         h, w = frame.shape
         img = np.zeros((h, w, 3), dtype=float)
         img[:, :] = (1.0, 1.0, 1.0)
-        walls = (maze == 0)
+        walls = maze == 0
         img[walls] = (0.0, 0.0, 0.0)
         visited = frame >= 0
         img[visited] = (0.53, 0.81, 0.98)
@@ -130,24 +120,26 @@ def animate_wave_algorithm(
         blit=False,
     )
 
-
     if save_path:
         anim.save(save_path, writer="pillow")
 
     plt.close(fig)
     return anim
 
+
 if __name__ == "__main__":
     # Пример 1
-    maze = np.array([
-        [0, 0, 0, 0, 0, 0, 0],
-        [0, 1, 1, 1, 1, 1, 0],
-        [1, 1, 0, 1, 0, 1, 0],
-        [0, 0, 1, 1, 0, 1, 0],
-        [0, 0, 0, 0, 0, 1, 0],
-        [1, 1, 1, 1, 1, 1, 0],
-        [0, 0, 0, 0, 0, 0, 0],
-    ])
+    maze = np.array(
+        [
+            [0, 0, 0, 0, 0, 0, 0],
+            [0, 1, 1, 1, 1, 1, 0],
+            [1, 1, 0, 1, 0, 1, 0],
+            [0, 0, 1, 1, 0, 1, 0],
+            [0, 0, 0, 0, 0, 1, 0],
+            [1, 1, 1, 1, 1, 1, 0],
+            [0, 0, 0, 0, 0, 0, 0],
+        ]
+    )
 
     start = (2, 0)
     end = (5, 0)
@@ -155,9 +147,9 @@ if __name__ == "__main__":
 
     animation = animate_wave_algorithm(maze, start, end, save_path)
     HTML(animation.to_jshtml())
-    
+
     # Пример 2
-    
+
     maze_path = "./data/maze.npy"
     loaded_maze = np.load(maze_path)
 
@@ -168,5 +160,3 @@ if __name__ == "__main__":
 
     loaded_animation = animate_wave_algorithm(loaded_maze, start, end, loaded_save_path)
     HTML(loaded_animation.to_jshtml())
-    
-    
