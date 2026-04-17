@@ -15,7 +15,7 @@ def get_projections_components(
     if m != vector.shape[0]:
         raise ShapeMismatchError
     proections = []
-    ort_sost = []
+    ortog_sost = []
     if np.linalg.det(matrix) == 0:
         return None, None
     else:
@@ -23,5 +23,6 @@ def get_projections_components(
         norm = np.linalg.norm(matrix, axis=1) ** 2
         koeff = scal_pr / norm
         proections = matrix * koeff[:, np.newaxis]
-        ort_sost = vector - proections
-        return proections, ort_sost
+        ortog_sost = vector - proections
+        return proections, ortog_sost
+
