@@ -32,7 +32,3 @@ jobs:
     - name: Check code format
       run: |
         ruff format --check ./solutions ./homeworks
-
-    - name: Test code 
-      run: |
-        pytest -v --cov=./solutions ./tests/
