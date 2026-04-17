@@ -1,5 +1,5 @@
-import numpy as np
 import matplotlib.pyplot as plt
+import numpy as np
 from IPython.display import HTML
 from matplotlib.animation import FuncAnimation
 
@@ -8,8 +8,8 @@ def create_modulation_animation(
     modulation, fc, num_frames, plot_duration, time_step=0.001, animation_step=0.01, save_path=""
 ) -> FuncAnimation:
     fig, ax = plt.subplots()
-    line, = ax.plot([], [], lw=1, color="#058D29")
-    
+    (line,) = ax.plot([], [], lw=1, color="#058D29")
+
     ax.set_xlim(0, plot_duration)
     ax.set_ylim(-1.5, 1.5)
     ax.set_xlabel("Время (с)")
@@ -20,27 +20,27 @@ def create_modulation_animation(
     def update(frame):
         start_time = frame * animation_step
         end_time = start_time + plot_duration
-        
+
         t = np.arange(start_time, end_time, time_step)
         carrier = np.sin(2 * np.pi * fc * t)
-        
+
         if modulation is not None:
             m_t = modulation(t)
             signal = m_t * carrier
         else:
             signal = carrier
-            
+
         line.set_data(t, signal)
         ax.set_xlim(start_time, end_time)
-        
-        return line,
+
+        return (line,)
 
     anim = FuncAnimation(fig, update, frames=num_frames, interval=50, blit=True)
 
     if save_path:
-        anim.save(save_path, writer='pillow')
-    
-    plt.close(fig) 
+        anim.save(save_path, writer="pillow")
+
+    plt.close(fig)
     return anim
 
 

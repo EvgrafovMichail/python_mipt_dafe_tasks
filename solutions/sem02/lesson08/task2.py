@@ -1,5 +1,5 @@
-import numpy as np
 import matplotlib.pyplot as plt
+import numpy as np
 from IPython.display import HTML
 from matplotlib.animation import FuncAnimation
 
@@ -15,47 +15,52 @@ def animate_wave_algorithm(
     found = False
     frames = []
     frames.append(grid.copy())
-    
+
     while np.any(current == grid):
-        front = (current == grid)
-        
+        front = current == grid
+
         if grid[end] != -1:
             found = True
             break
-        
-        neighbors = np.zeros(shape = front.shape, dtype=front.dtype)
-        neighbors[1:, :] |= front[:-1, :] 
-        neighbors[:-1, :] |= front[1:, :] 
-        neighbors[:, 1:] |= front[:, :-1] 
-        neighbors[:, :-1] |= front[:, 1:] 
-        
+
+        neighbors = np.zeros(shape=front.shape, dtype=front.dtype)
+        neighbors[1:, :] |= front[:-1, :]
+        neighbors[:-1, :] |= front[1:, :]
+        neighbors[:, 1:] |= front[:, :-1]
+        neighbors[:, :-1] |= front[:, 1:]
+
         new_point = neighbors & (maze == 1) & (grid == -1)
-        
+
         grid[new_point] = current + 1
         frames.append(grid.copy())
-        
+
         current += 1
-        
+
     if not found:
         print("Пути не существует")
         return 0
-    
+
     fig, ax = plt.subplots(figsize=(rows, cols))
-    
+
     def prepare_data(data):
         display = data.astype(float)
         display[maze == 0] = -10
         display[(maze == 1) & (data == -1)] = -5
         return display
 
-    im = ax.imshow(prepare_data(frames[0]), cmap='viridis')
-    
-    ax.set_xticks(np.arange(-.5, cols, 1), minor=True)
-    ax.set_yticks(np.arange(-.5, rows, 1), minor=True)
-    ax.grid(which='minor', color="#FFF200FF", linestyle='-', linewidth=0.5)
+    im = ax.imshow(prepare_data(frames[0]), cmap="viridis")
 
-    text_objects = [[ax.text(j, i, "", ha="center", va="center", fontsize=12, fontweight='bold') 
-                     for j in range(cols)] for i in range(rows)]
+    ax.set_xticks(np.arange(-0.5, cols, 1), minor=True)
+    ax.set_yticks(np.arange(-0.5, rows, 1), minor=True)
+    ax.grid(which="minor", color="#FFF200FF", linestyle="-", linewidth=0.5)
+
+    text_objects = [
+        [
+            ax.text(j, i, "", ha="center", va="center", fontsize=12, fontweight="bold")
+            for j in range(cols)
+        ]
+        for i in range(rows)
+    ]
 
     def update(frame_idx):
         data = frames[frame_idx]
@@ -71,15 +76,14 @@ def animate_wave_algorithm(
                     text_objects[i][j].set_text("")
         return [im]
 
-   
     ani = FuncAnimation(fig, update, frames=len(frames), interval=150, blit=False)
 
     if save_path:
-        ani.save(save_path, writer='pillow')
-    
+        ani.save(save_path, writer="pillow")
+
     # plt.show()
     return ani
-   
+
 
 if __name__ == "__main__":
     # Пример 1
