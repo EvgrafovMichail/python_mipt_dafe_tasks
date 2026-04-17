@@ -6,7 +6,11 @@ from typing import Tuple, Optional
 
 
 def is_cell_not_in_walk_place(visited_cells: np.ndarray, x: int, y: int) -> bool:
-    return not (0 <= x < visited_cells.shape[0] and 0 <= y < visited_cells.shape[1]) or visited_cells[x, y] != -1
+    return (
+        not (0 <= x < visited_cells.shape[0] and 0 <= y < visited_cells.shape[1])
+        or visited_cells[x, y] != -1
+    )
+
 
 def mark_cells(visited_cells: np.ndarray, start_x: int, start_y: int) -> None:
     if is_cell_not_in_walk_place(visited_cells, start_x, start_y):
@@ -52,7 +56,7 @@ def image_maze(axis: plt.Axes, maze: np.ndarray) -> None:
 
     way_mask = maze != 0
     way = np.zeros((maze.shape[0], maze.shape[1], 4))
-    way[way_mask] = [0, 0, 0, 1]            # черный цвет
+    way[way_mask] = [0, 0, 0, 1]  # черный цвет
 
     image_edge = [-0.5, x_size - 0.5, y_size - 0.5, -0.5]
     axis.imshow(way, extent=image_edge, origin="upper")
@@ -64,7 +68,7 @@ def animate_wave_algorithm(
     visited_cells = -1 * maze.astype(np.int32)
 
     mark_cells(visited_cells, *start)
-    
+
     if visited_cells[end] == -1:
         print("Пути до выхода не существует")
 
@@ -75,7 +79,7 @@ def animate_wave_algorithm(
     y_points = np.array([])
     wave, *_ = axis.plot(x_points, y_points, "o", ms=marker_size)
     end_point, *_ = axis.plot([], [], "o", ms=marker_size, c="orange")
-    
+
     image_maze(axis, maze)
 
     def update(frame_id: int):
