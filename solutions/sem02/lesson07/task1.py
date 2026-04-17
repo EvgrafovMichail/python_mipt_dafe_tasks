@@ -27,13 +27,12 @@ def visualize_diagrams(
     axis_scatter.scatter(abscissa, ordinates, color="cornflowerblue", alpha=0.5)
 
     match diagram_type:
-
         case "hist":
-            axis_x.hist(abscissa, bins = 112, alpha = 0.5, color = 'b')
-            axis_y.hist(ordinates, orientation="horizontal", bins = 112, alpha = 0.5, color = 'b')
+            axis_x.hist(abscissa, bins=112, alpha=0.5, color="b")
+            axis_y.hist(ordinates, orientation="horizontal", bins=112, alpha=0.5, color="b")
 
         case "box":
-            axis_x.boxplot(abscissa, orientation = "horizontal")
+            axis_x.boxplot(abscissa, orientation="horizontal")
             axis_y.boxplot(ordinates)
 
         case "violin":
