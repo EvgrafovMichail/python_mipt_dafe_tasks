@@ -10,9 +10,9 @@ from matplotlib.patches import Rectangle
 def create_mesh(maze: np.ndarray, axis: plt.Axes):
     hline_count, vline_count = maze.shape
     for i in range(hline_count):
-        axis.axhline(i, color="black")
+        axis.axhline(i, color="black", linewidth=0.5)
     for i in range(vline_count):
-        axis.axvline(i, color="black")
+        axis.axvline(i, color="black", linewidth=0.5)
 
 
 def get_neighbors(maze: np.ndarray, current: tuple[int, int]):
@@ -127,7 +127,7 @@ if __name__ == "__main__":
 
     # Пример 2
 
-    maze_path = "./data/maze.npy"
+    maze_path = "solutions\sem02\lesson08\data\maze.npy"
     loaded_maze = np.load(maze_path)
 
     # можете поменять, если захотите запустить из других точек
