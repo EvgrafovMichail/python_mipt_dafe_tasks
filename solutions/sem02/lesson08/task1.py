@@ -2,7 +2,7 @@ from functools import partial
 from typing import Callable, Optional
 import matplotlib.pyplot as plt
 import numpy as np
-from IPython.display import Image
+from IPython.display import HTML
 from matplotlib.animation import FuncAnimation
 
 
@@ -84,4 +84,4 @@ if __name__ == "__main__":
         animation_step=animation_step,
         save_path=save_path_with_modulation
     )
-Image(save_path_with_modulation)
+    HTML(animation.to_jshtml())
