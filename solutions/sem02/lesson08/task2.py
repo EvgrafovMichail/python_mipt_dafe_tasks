@@ -38,12 +38,7 @@ def animate_wave_algorithm(
         r, c = queue.popleft()
         for dr, dc in dirs:
             nr, nc = r + dr, c + dc
-            if (
-                0 <= nr < rows
-                and 0 <= nc < cols
-                and maze[nr, nc] == 1
-                and dist[nr, nc] == -1
-            ):
+            if 0 <= nr < rows and 0 <= nc < cols and maze[nr, nc] == 1 and dist[nr, nc] == -1:
                 dist[nr, nc] = dist[r, c] + 1
                 queue.append((nr, nc))
 
@@ -74,13 +69,9 @@ def animate_wave_algorithm(
     ax.scatter(start[1], start[0], c="green", s=200, label="Start")
     ax.scatter(end[1], end[0], c="blue", s=200, label="End")
 
-    bound_update = partial(
-        update, waves=waves, path=path, scat=scat, path_line=path_line
-    )
+    bound_update = partial(update, waves=waves, path=path, scat=scat, path_line=path_line)
 
-    animation = FuncAnimation(
-        fig, bound_update, frames=len(waves) + 1, interval=150, blit=True
-    )
+    animation = FuncAnimation(fig, bound_update, frames=len(waves) + 1, interval=150, blit=True)
 
     if save_path:
         animation.save(save_path, writer="pillow")

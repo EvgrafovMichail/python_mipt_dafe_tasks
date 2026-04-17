@@ -12,7 +12,6 @@ def create_modulation_animation(
     animation_step=0.01,
     save_path="",
 ) -> FuncAnimation:
-
     figure, axes = plt.subplots(figsize=(8, 6))
 
     t = np.arange(0, plot_duration, time_step)

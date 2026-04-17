@@ -25,4 +25,3 @@ def get_projections_components(
         proections = matrix * koeff[:, np.newaxis]
         ortog_sost = vector - proections
         return proections, ortog_sost
-
