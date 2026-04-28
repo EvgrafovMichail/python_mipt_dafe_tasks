@@ -1,3 +1,4 @@
+import functools
 from typing import (
     Callable,
     ParamSpec,
@@ -9,19 +10,32 @@ R = TypeVar("R")
 
 
 def lru_cache(capacity: int) -> Callable[[Callable[P, R]], Callable[P, R]]:
-    """
-    Параметризованный декоратор для реализации LRU-кеширования.
+    try:
+        capacity = round(capacity)
+    except Exception:
+        raise TypeError
+    if capacity < 1:
+        raise ValueError
 
-    Args:
-        capacity: целое число, максимальный возможный размер кеша.
+    def decorator(func):
+        cache = dict()
 
-    Returns:
-        Декоратор для непосредственного использования.
+        @functools.wraps(func)
+        def wraps(*args, **kwargs):
+            key = (args, tuple(sorted(kwargs.items()))) if kwargs else args
+            if key in cache:
+                result = cache.pop(key)
+                cache[key] = result
+                return result
 
-    Raises:
-        TypeError, если capacity не может быть округлено и использовано
-            для получения целого числа.
-        ValueError, если после округления capacity - число, меньшее 1.
-    """
-    # ваш код
-    pass
+            if len(cache) >= capacity:
+                first_key = next(iter(cache))
+                cache.pop(first_key)
+
+            result = func(*args, **kwargs)
+            cache[key] = result
+            return result
+
+        return wraps
+
+    return decorator

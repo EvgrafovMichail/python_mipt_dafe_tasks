@@ -9,4 +9,8 @@ def can_satisfy_demand(
     costs: np.ndarray,
     resource_amounts: np.ndarray,
     demand_expected: np.ndarray,
-) -> bool: ...
+) -> bool:
+    if costs.shape[0] != resource_amounts.shape[0] or costs.shape[1] != demand_expected.shape[0]:
+        raise ShapeMismatchError
+    resource_expected = costs @ demand_expected
+    return np.all(resource_expected <= resource_amounts)
