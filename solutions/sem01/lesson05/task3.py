@@ -1,3 +1,11 @@
+import string
+
+
 def is_punctuation(text: str) -> bool:
-    # ваш код
-    return False
+    if not text:
+        return False
+    punctuations = string.punctuation
+    for symbol in text:
+        if symbol not in punctuations:
+            return False
+    return True
