@@ -9,11 +9,28 @@ def convert_from_sphere(
     distances: np.ndarray,
     azimuth: np.ndarray,
     inclination: np.ndarray,
-) -> tuple[np.ndarray, np.ndarray, np.ndarray]: ...
+) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
+    if not (distances.shape == azimuth.shape == inclination.shape):
+        raise ShapeMismatchError
+
+    x = distances * np.sin(inclination) * np.cos(azimuth)
+    y = distances * np.sin(inclination) * np.sin(azimuth)
+    z = distances * np.cos(inclination)
+
+    return x, y, z
 
 
 def convert_to_sphere(
     abscissa: np.ndarray,
     ordinates: np.ndarray,
     applicates: np.ndarray,
-) -> tuple[np.ndarray, np.ndarray, np.ndarray]: ...
+) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
+    if not (abscissa.shape == ordinates.shape == applicates.shape):
+        raise ShapeMismatchError
+
+    rad = np.sqrt(abscissa**2 + ordinates**2 + applicates**2)
+    azim = np.arctan2(ordinates, abscissa)
+    inc = np.arccos(applicates / rad)
+    inc = np.where(rad == 0, 0.0, inc)
+
+    return rad, azim, inc
