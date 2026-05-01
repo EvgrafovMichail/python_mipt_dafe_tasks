@@ -1,0 +1,14 @@
+{
+    "markdown.validate.enabled": false
+}
+{
+    // Использовать ruff как форматер для Python
+    "[python]": {
+        "editor.defaultFormatter": "charliermarsh.ruff",
+        "editor.formatOnSave": true,
+        "editor.codeActionsOnSave": {
+            "source.organizeImports.ruff": true,
+            "source.fixAll.ruff": true
+        }
+    }
+}
