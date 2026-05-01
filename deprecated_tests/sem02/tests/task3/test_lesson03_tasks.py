@@ -111,7 +111,7 @@ class TestTask1:
     )
     def test_get_mutual_l2_distances_validate(self, lhs: list, rhs: list):
         with pytest.raises(Task1ShapeMismatchError):
-            sum_arrays_vectorized(np.array(lhs), np.array(rhs))
+            get_mutual_l2_distances_vectorized(np.array(lhs), np.array(rhs))
 
 
 class TestTask2:
