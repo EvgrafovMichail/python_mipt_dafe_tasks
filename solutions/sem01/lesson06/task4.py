@@ -1,3 +1,5 @@
 def count_unique_words(text: str) -> int:
-    # ваш код
-    return 0
+    text = (text.replace("!", " ").replace("?", " ").replace(",", " ").replace(".", " ")).lower()
+    words = set(text.split())
+
+    return len(words)

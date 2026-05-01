@@ -1,3 +1,2 @@
-def reg_validator(reg_expr: str, text: str) -> bool:  
-    # ваш код
+def reg_validator(reg_expr: str, text: str) -> bool:
     return False

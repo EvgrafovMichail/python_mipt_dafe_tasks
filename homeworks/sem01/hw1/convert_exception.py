@@ -11,18 +11,20 @@ R = TypeVar("R")
 def convert_exceptions_to_api_compitable_ones(
     exception_to_api_exception: dict[type[Exception], type[Exception] | Exception],
 ) -> Callable[[Callable[P, R]], Callable[P, R]]:
-    """
-    Параметризованный декоратор для замены внутренних исключений на API-исключении.
+    def decorator(func: Callable[P, R]) -> Callable[P, R]:
+        def wrapper(*args: P.args, **kwargs: P.kwargs) -> R:
+            try:
+                return func(*args, **kwargs)
+            except Exception as exception:
+                if type(exception) in exception_to_api_exception.keys():
+                    new_exception = exception_to_api_exception[type(exception)]
+                    if isinstance(new_exception, type):
+                        raise new_exception()
+                    else:
+                        raise new_exception
+                else:
+                    raise exception
 
-    Args:
-        exception_to_api_exception: словарь:
-            ключи - внутренние исключения, которые надо заменить,
-            значения - API-исключения, которые надо возбудить
-                вместо внутренних исключений
+        return wrapper
 
-    Returns:
-        Декоратор для непосредственного использования.
-    """
-
-    # ваш код
-    pass
+    return decorator
