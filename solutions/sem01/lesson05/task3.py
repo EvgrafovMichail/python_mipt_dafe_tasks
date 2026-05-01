@@ -1,3 +1,8 @@
 def is_punctuation(text: str) -> bool:
-    # ваш код
-    return False
+    alphabet = "!""#$%&'()*+,-./:;<=>?@[\]^_{|}~`"
+    if text == "":
+        return False
+    for sym in text:
+        if sym not in alphabet:
+            return False
+    return True
