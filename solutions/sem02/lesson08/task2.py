@@ -213,10 +213,11 @@ if __name__ == "__main__":
 
     maze_path = "solutions/sem02/lesson08/data/maze.npy"
     loaded_maze = np.load(maze_path)
-
+    print(loaded_maze[2,2])
+    print(loaded_maze[19,19])
     # можете поменять, если захотите запустить из других точек
-    start = (2, 0)
-    end = (5, 0)
+    start = (2, 2)
+    end = (19, 19)
     loaded_save_path = "loaded_labyrinth.gif"
 
     loaded_animation = animate_wave_algorithm(loaded_maze, start, end, loaded_save_path)
