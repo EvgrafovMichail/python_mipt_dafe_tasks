@@ -4,6 +4,8 @@ venv
 __pycache__
 .pytest_cache
 .ruff_check
+.vscode
+all_conditions/
 
 # Python Files
 *solved.ipynb

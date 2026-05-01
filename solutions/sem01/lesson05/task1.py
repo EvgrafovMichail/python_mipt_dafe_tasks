@@ -1,3 +1,4 @@
-def is_palindrome(text: str) -> bool:
+'''def is_palindrome(text: str) -> bool:
     # ваш код
     return False
+'''

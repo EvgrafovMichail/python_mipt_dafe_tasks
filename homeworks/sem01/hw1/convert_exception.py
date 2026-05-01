@@ -1,4 +1,4 @@
-from typing import (
+'''from typing import (
     Callable,
     ParamSpec,
     TypeVar,
@@ -26,3 +26,4 @@ def convert_exceptions_to_api_compitable_ones(
 
     # ваш код
     pass
+'''

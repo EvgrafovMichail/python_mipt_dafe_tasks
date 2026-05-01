@@ -1,4 +1,4 @@
-class Vector2D:
+'''class Vector2D:
     def conj(self) -> "Vector2D":
         # ваш код
         return Vector2D()
@@ -8,3 +8,4 @@ class Vector2D:
         return 0
 
     # ваш код
+'''

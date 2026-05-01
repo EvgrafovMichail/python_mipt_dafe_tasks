@@ -1,4 +1,4 @@
-from random import uniform
+'''from random import uniform
 from time import sleep
 from typing import (
     Callable,
@@ -36,3 +36,4 @@ def backoff(
 
     # ваш код
     pass
+'''
