@@ -14,8 +14,10 @@ def calculate_signal(
     animation_step: float = 0.01,
 ) -> tuple[np.ndarray, np.ndarray]:
     if modulation is None:
+
         def base_modulation(t: float) -> float:
             return 1.0
+
         modulation = base_modulation
     total_time = num_frames * animation_step + plot_duration
     t = np.arange(0, total_time, time_step)
@@ -85,7 +87,7 @@ def create_modulation_animation(
         s_curr = s[mask]
         line.set_data(t_curr, s_curr)
         axis.set_xlim(t_start, t_end)
-        return line,
+        return (line,)
 
     animation = FuncAnimation(
         figure,
