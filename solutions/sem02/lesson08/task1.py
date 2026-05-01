@@ -66,6 +66,7 @@ def create_modulation_animation(
 
 
 if __name__ == "__main__":
+
     def modulation_function(t):
         return np.cos(t * 6)
 
@@ -83,6 +84,6 @@ if __name__ == "__main__":
         plot_duration=plot_duration,
         time_step=time_step,
         animation_step=animation_step,
-        save_path=save_path_with_modulation
+        save_path=save_path_with_modulation,
     )
     HTML(animation.to_jshtml())
