@@ -1,4 +1,4 @@
-import pytest 
+import pytest
 
 from solutions.sem01.lesson05.task1 import is_palindrome
 from solutions.sem01.lesson05.task2 import are_anagrams
@@ -6,6 +6,7 @@ from solutions.sem01.lesson05.task3 import is_punctuation
 from solutions.sem01.lesson05.task4 import unzip
 from solutions.sem01.lesson05.task5 import reg_validator
 from solutions.sem01.lesson05.task6 import simplify_path
+
 
 @pytest.mark.parametrize("s, expected", [
     pytest.param("", True, id="empty_string"),
