@@ -7,3 +7,6 @@ __pycache__
 
 # Python Files
 *solved.ipynb
+venv/ 
+__pycache__/ 
+.idea/ 

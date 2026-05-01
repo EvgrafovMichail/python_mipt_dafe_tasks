@@ -1,0 +1,31 @@
+[33m808842b[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m HEAD@{0}: pull --rebase (finish): returning to refs/heads/main
+[33m808842b[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m HEAD@{1}: pull --rebase (start): checkout 808842bba8945efb3a55e53d3da98a5cb90398b2
+[33m5a17f88[m HEAD@{2}: commit (merge): lesson8
+[33m188aa10[m HEAD@{3}: commit: Lesson 6 (tochno tochno last popitka)
+[33m2aa27c3[m HEAD@{4}: commit: Lesson 6 (tochno last popitka)
+[33mdd9e84f[m HEAD@{5}: commit: lesson 6 (last popitka)
+[33m72b6404[m HEAD@{6}: commit (merge): lesson 6 (2 popitka)
+[33m134e878[m HEAD@{7}: checkout: moving from 134e878053a5deb51f018953f64cf6ceb2ac551a to main
+[33m134e878[m HEAD@{8}: checkout: moving from 99054ec2c1deb1d955d043d69b704ca36493db18 to 134e878053a5deb51f018953f64cf6ceb2ac551a
+[33m99054ec[m HEAD@{9}: checkout: moving from 087a9bebaf072fb854a0aeb948951a79497cdde5 to 99054ec2c1deb1d955d043d69b704ca36493db18
+[33m087a9be[m HEAD@{10}: checkout: moving from 99054ec2c1deb1d955d043d69b704ca36493db18 to 087a9bebaf072fb854a0aeb948951a79497cdde5
+[33m99054ec[m HEAD@{11}: checkout: moving from 134e878053a5deb51f018953f64cf6ceb2ac551a to 99054ec2c1deb1d955d043d69b704ca36493db18
+[33m134e878[m HEAD@{12}: checkout: moving from 087a9bebaf072fb854a0aeb948951a79497cdde5 to 134e878053a5deb51f018953f64cf6ceb2ac551a
+[33m087a9be[m HEAD@{13}: checkout: moving from main to 087a9bebaf072fb854a0aeb948951a79497cdde5
+[33m134e878[m HEAD@{14}: commit (merge): lesson 6
+[33m99054ec[m HEAD@{15}: commit: lesson 5 homework nnnew
+[33m5ac55e3[m HEAD@{16}: commit: lesson 5 homework new new
+[33m6a0be55[m HEAD@{17}: commit (merge): lesson new 5
+[33m1923ea1[m HEAD@{18}: commit (merge): lesson 5 homework
+[33m6cac897[m HEAD@{19}: reset: moving to HEAD
+[33m6cac897[m HEAD@{20}: commit: resave task4
+[33m69e4753[m HEAD@{21}: pull: Fast-forward
+[33m30bd2e5[m HEAD@{22}: commit: Изделеева Алина Б512-513
+[33me87b335[m HEAD@{23}: pull: Fast-forward
+[33mf165ebe[m HEAD@{24}: commit: Grisha zastavil2
+[33m1bb10d8[m HEAD@{25}: commit: Homework Solution 27.09.2025
+[33ma410850[m HEAD@{26}: checkout: moving from tasks2 to main
+[33m4b1e3af[m[33m ([m[1;31morigin/tasks2[m[33m)[m HEAD@{27}: commit: Add task1 solution
+[33ma410850[m HEAD@{28}: checkout: moving from main to tasks2
+[33ma410850[m HEAD@{29}: commit: Solve first task
+[33m1686daf[m HEAD@{30}: clone: from github.com:Profizmatik/python_mipt_dafe_tasks.git

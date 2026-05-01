@@ -1,27 +1,38 @@
-from typing import (
-    Callable,
-    ParamSpec,
-    TypeVar,
-)
+from typing import Callable, ParamSpec, TypeVar
 
 P = ParamSpec("P")
 R = TypeVar("R")
 
 
 def lru_cache(capacity: int) -> Callable[[Callable[P, R]], Callable[P, R]]:
-    """
-    Параметризованный декоратор для реализации LRU-кеширования.
+    try:
+        cap = round(capacity)
+    except Exception:
+        raise TypeError
+    if cap < 1:
+        raise ValueError
 
-    Args:
-        capacity: целое число, максимальный возможный размер кеша.
+    def decorator(func: Callable[P, R]) -> Callable[P, R]:
+        cache = {}
+        order = []
 
-    Returns:
-        Декоратор для непосредственного использования.
+        def wrapper(*args: P.args, **kwargs: P.kwargs) -> R:
+            key = (args, tuple(sorted(kwargs.items())))
 
-    Raises:
-        TypeError, если capacity не может быть округлено и использовано
-            для получения целого числа.
-        ValueError, если после округления capacity - число, меньшее 1.
-    """
-    # ваш код
-    pass
+            if key in cache:
+                order.remove(key)
+                order.append(key)
+                return cache[key]
+
+            result = func(*args, **kwargs)
+            cache[key] = result
+            order.append(key)
+
+            if len(cache) > cap:
+                del cache[order.pop(0)]
+
+            return result
+
+        return wrapper
+
+    return decorator
