@@ -23,7 +23,7 @@ def _rf_waveform(t_absolute, carrier_hz, envelope):
 
 
 def _prepare_axes(ax, plot_duration, has_envelope):
-    ax.set_xlim(0.0, plot_duration)
+    max.set_xlim(0.0, plot_duration)
     ax.set_ylim(-1.5, 1.5)
     ax.set_xlabel("t (s)")
     ax.set_ylabel("s(t)")
