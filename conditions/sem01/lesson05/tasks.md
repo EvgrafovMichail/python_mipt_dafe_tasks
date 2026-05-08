@@ -5,7 +5,11 @@
 
 Ваша задача — определить, является ли заданная строка палиндромом.
 
+<<<<<<< HEAD:conditions/lesson05/tasks.md
+Допишите код в файле [task1](https://github.com/EvgrafovMichail/python_mipt_dafe_tasks/blob/main/solutions/lesson05/task1.py)
+=======
 Допишите код в файле [task1](https://github.com/EvgrafovMichail/python_mipt_dafe_tasks/blob/main/solutions/sem01/lesson05/task1.py).
+>>>>>>> 7ba22f9a471a0b84a580183fed2466942f0104d2:conditions/sem01/lesson05/tasks.md
 
 **Входные данные:**  
 - `text` — строка, состоящая из букв английского алфавита в верхнем и нижнем регистре длиной от 0 до 1000.
