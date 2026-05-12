@@ -4,6 +4,7 @@ import json
 import matplotlib.pyplot as plt
 import numpy as np
 
+
 def solve():
     plt.style.use("ggplot")
     info = json.load(open("data/medic_data.json", "r", encoding="utf-8"))
@@ -22,5 +23,7 @@ def solve():
     ax.set_xticklabels(levels, fontweight="bold")
     ax.legend()
     plt.show()
+
+
 if __name__ == "__main__":
     solve()
