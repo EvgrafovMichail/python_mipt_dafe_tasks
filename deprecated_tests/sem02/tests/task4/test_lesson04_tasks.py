@@ -333,12 +333,8 @@ class TestTask2:
             ),
         ],
     )
-    def test_get_dominant_color_info(
-        self, image, threshold, expected_color, expected_ratio
-    ):
-        color, ratio_percent = get_dominant_color_info(
-            image.astype(np.uint8), threshold
-        )
+    def test_get_dominant_color_info(self, image, threshold, expected_color, expected_ratio):
+        color, ratio_percent = get_dominant_color_info(image.astype(np.uint8), threshold)
 
         assert color in expected_color
         assert (abs(ratio_percent - expected_ratio * 100) < 1e-6) or (
