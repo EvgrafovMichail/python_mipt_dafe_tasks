@@ -494,3 +494,5 @@ class TestTask3:
 
         with pytest.raises(ValueError):
             get_extremum_indices(np.array([1.0, 2.0]))
+
+
