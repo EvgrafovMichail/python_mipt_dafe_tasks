@@ -42,7 +42,7 @@ def create_modulation_animation(
     abscissa = np.arange(0, plot_duration, time_step)
     ordinates = signal(abscissa, fc, modulation=modulation)
 
-    axis.set_ylim(ordinates.min() * 1, 25, ordinates.max() * 1, 25)
+    axis.set_ylim(ordinates.min() * 1.25, ordinates.max() * 1.25)
     axis.set_xlim(0, plot_duration)
 
     line, *_ = axis.plot(
